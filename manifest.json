@@ -1,0 +1,9 @@
+{
+    "short_name":"STW",
+    "name":"SpinTheWheelr",
+    "description":"Walk and spin",
+    "start_url":"/index.html",
+    "display":"standalone",
+    "background_color":"#0118b1",
+    "orientation":"portrait-primary"
+}
