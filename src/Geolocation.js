@@ -1,77 +1,105 @@
+function Geolocation() {
+    this.position = null;
+    this.karta = null;
+    this.myLocation = null;
+    this.markerArray = [];
+    this.marker = null;
+    this.distanceInMeters = null;
+    this.pointArray = [];
+    var self = this;
 
-function Geolocation () {
-self = this;
-    this.getCurrentLocation= function () {
-        console.log("Geolocation");
-        if (navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(this.ShowPosition);
-            
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+
+    this.getCurrentLocation = function (button) {
+        this.button = button;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.ShowPosition,);
+
         } else {
             alert("Geolocation is not supported by this browser.");
         }
     }
 
     this.ShowPosition = function (position) {
-        console.log("position")
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        console.log(this.lat, this.lng);
-        self.getMap(this.lat, this.lng);
-    } 
-    this.getMap = function (latitude, longitude) {
-        var position = { lat: latitude, lng: longitude }; // Startposition (t.ex. Stockholm)
-        var karta = new google.maps.Map(document.getElementById('karta'), { zoom: 12, center: position });
-        var markör = new google.maps.Marker({ position: position, map: karta })
-}
-}
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var yourPos = new google.maps.LatLng(lat, lng);
+        self.getMap(yourPos);
+    }
 
+    this.getMap = function (yourPos) {
+        this.position = yourPos;
+        this.karta = new google.maps.Map(document.getElementById('karta'), {
+            zoom: 15,
+            center: this.position
+        });
+        this.myLocation = new google.maps.Marker({
+            position: this.position,
+            map: this.karta,
+            title: "Här är jag!"
+        });
+        this.karta.addListener('click', this.addmarker.bind(this));
+    }
 
-   /*     console.log("Geolocation");
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition, this.showError);
+    this.addmarker = function (event) {
+
+        if (this.markerArray.length == 0) {
+            this.marker = new google.maps.Marker({
+                position: event.latLng,
+                map: this.karta
+            })
+            this.markerArray.push(this.marker);
         } else {
-            alert("Geolocation is not supported by this browser.");
+            for (let i = 0; i < this.markerArray.length; i++) {
+                this.markerArray[i].setMap(null);
+
+            }
+            directionsRenderer.setMap(null);
+            this.marker = new google.maps.Marker({
+                position: event.latLng,
+                map: this.karta
+            })
+            this.markerArray.push(this.marker);
         }
-    };
-
-    this.showPosition = function (position) {
-        console.log("Geolocation2")
-
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log(latitude, longitude);
-        self.getMap(latitude, longitude);
-    };
-
-    this.showError = function (error) {
-        console.warn(`ERROR(${error.code}): ${error.message}`);
-    };
-
-    this.getMap = function (latitude, longitude) {
-        var position = { lat: latitude, lng: longitude }; // Startposition (t.ex. Stockholm)
-        var karta = new google.maps.Map(document.getElementById('karta'), { zoom: 12, center: position });
-        var markör = new google.maps.Marker({ position: position, map: karta });*/
-  
+        this.drawRoute(this.position, event.latLng);
+    }
 
 
-   /*     const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-          };
-          
-          function success(pos) {
-            const crd = pos.coords;
-          
-            console.log("Your current position is:");
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
-          }
-          
-          function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-          }
-          
-          navigator.geolocation.getCurrentPosition(success, error, options);
-          */
+    this.drawRoute = function (origin, destination) {
+        var request = {
+            origin: origin,
+            destination: destination,
+            travelMode: google.maps.TravelMode.WALKING
+        };
+
+        directionsService.route(request, function (result, status) {
+            if (status === 'OK') {
+
+                directionsRenderer.setMap(self.karta);
+                directionsRenderer.setDirections(result);
+                this.distanceInMeters = result.routes[0].legs[0].distance.value;
+
+
+                if (this.pointArray.length <= 0) {
+                    this.points = document.createElement("span");
+                    this.points.className = "points";
+                    this.pointArray.push(this.points);
+                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
+                    return this.text;
+                }
+
+                else if (this.pointArray.length >= 1) {
+
+                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
+                }
+
+            } else {
+                window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
+            }
+        }.bind(this));
+        return this.distanceInMeters;
+    }
+
+
+}

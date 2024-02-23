@@ -1,0 +1,269 @@
+body {
+    background-color: lightblue;
+    max-width: 400px;
+}
+
+.newPositionBtn{
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  width: 350px;
+  height: 100px;
+    margin-left: -175px;
+    margin-top: -50px;
+    position: absolute;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#antalMeter{
+    background-color: white;
+    width: fit-content; 
+    height: fit-content;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 20px;    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+
+}
+div.text{
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    width: fit-content; 
+    height: fit-content;
+    margin-top: 120px;
+    text-align: center;
+    margin-left: 40px;
+    border: 1px solid black;
+    font-size: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    background-color: white;
+    width: 200px;
+    height: 80px;
+    margin: 10px;
+    padding:  10px;
+    border: 1px solid black;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.priceBtn {
+    background: url(./img/mapAsset\ 30@2x.png) no-repeat;width: 69px;
+  height: 69px;
+  display: flex;
+  align-items: center; 
+  position: absolute;
+  bottom: 10px;
+  right: 10%; 
+}
+
+.lockerBtn {
+    background: url(./img/mapAsset\ 31@2x.png) no-repeat;    width: 69px;
+    height: 69px;
+    width: 71px;
+    display: flex;
+    align-items: center; 
+    position: absolute;
+    bottom: 10px;
+    left: 10%; 
+}
+
+.mapBtn{
+    background: url(./img/mapAsset\ 27@2x.png) no-repeat;
+    width: 69px;
+    height: 69px;
+    display: flex;
+    align-items: center; 
+    position: absolute;
+    bottom: 10px;
+    left: 42%; 
+
+}
+.paket {
+    background: url(./img/Asset\ 17@2x.png) no-repeat;
+    width: 310px; /* Anpassa bredden efter behov */
+    height: 400px; /* Anpassa höjden efter behov */
+    text-align: center;
+    position: absolute;
+    
+}
+
+.container {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.priceIcon{
+    width: 200px;
+    height: 200px;
+}
+.totalMetersWalked{
+    width: 40%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 60%;
+    background-color: white;
+}
+
+div.paket {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.paketText {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    width: 400px;
+}
+
+img.priceIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.score{
+    width: 40%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    background-color: white;
+}
+
+
+.paket {
+    background: url(./img/Asset\ 17@2x.png) no-repeat;
+    width: 310px; /* Anpassa bredden efter behov */
+    height: 400px; /* Anpassa höjden efter behov */
+    text-align: center;
+    position: absolute;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.priceIcon {
+    width: 200px;
+    height: 200px;
+}
+
+#totalMetersWalked {
+    width: 40%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 60%;
+    background-color: white;
+}
+
+div.paket {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.paketText {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+    width: 400px;
+}
+
+img.priceIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#score {
+    width: 40%;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    background-color: white;
+}
+
+.locker {
+    width: 400px;
+    height: 700px;
+    background-image: url(/img/mapAsset\ 35@2x.png);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+
+}
