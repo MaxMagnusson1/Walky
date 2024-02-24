@@ -59,10 +59,10 @@ function Price() {
 
     this.randomPrice = () => {
 
-        if (this.totalPoints < 1000) {
-            alert("Du har inte tillräckligt med poäng för att hämta ut ett pris");
-            return;
-        } else {
+      //  if (this.totalPoints < 1000) {
+        //    alert("Du har inte tillräckligt med poäng för att hämta ut ett pris");
+         //   return;
+      //  } else {
             this.number = parseInt(this.totalPoints);
             this.number -= 1000;
             var setCookie = new Kakor();
@@ -73,7 +73,7 @@ function Price() {
 
             //gömmer elementen som inte ska synas samt array för alla priser
             this.paket.style.visibility = "hidden";
-            this.priceArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            this.priceArray = [7];
 
             //slumpar fram ett pris som ska användas till switchen
             var priceIndex = Math.floor(Math.random() * this.priceArray.length);
@@ -90,56 +90,60 @@ function Price() {
 
                     break;
                 case 2:
-                    this.priceIcon.src = '../img/Asset 7@2x.png';
+                    this.priceIcon.src = './img/Asset 7@2x.png';
                     this.iconName = "Mohammed";
                     break;
                 case 3:
 
-                    this.priceIcon.src = '../img/Asset 8@2x.png';
+                    this.priceIcon.src = './img/Asset 8@2x.png';
                     this.iconName = "Det lila lasersvärdet";
 
                     break;
                 case 4:
-                    this.priceIcon.src = '../img/Asset 9@2x.png';
+                    this.priceIcon.src = './img/Asset 9@2x.png';
                     this.iconName = "Det röda lasersvärdet";
 
                     break;
                 case 5:
-                    this.priceIcon.src = '../img/Asset 10@2x.png';
+                    this.priceIcon.src = './img/Asset 10@2x.png';
                     this.iconName = "Det blå lasersvärdet";
 
 
                 case 6:
-                    this.priceIcon.src = '../img/Asset 11@2x.png';
+                    this.priceIcon.src = './img/Asset 11@2x.png';
                     this.iconName = "Spike wheel";
 
                     break;
                 case 7:
-                    this.priceIcon.src = '../img/Asset 13@2x.png';
+                    this.priceIcon.src = './img/Asset13@2x.png';
                     this.iconName = "Stjärnan";
 
                     break;
                 case 8:
-                    this.priceIcon.src = '../img/Asset 14@2x.png';
+                    this.priceIcon.src = './img/Asset 14@2x.png';
                     this.iconName = "Den blå kvadraten";
 
                     break;
                 case 9:
-                    this.priceIcon.src = '../img/Asset 15@2x.png';
+                    this.priceIcon.src = './img/Asset 15@2x.png';
                     this.iconName = "Munken";
 
                     break;
                 case 10:
-                    this.priceIcon.src = '../img/Asset 16@2x.png';
+                    this.priceIcon.src = './img/Asset 16@2x.png';
                     this.iconName = "Kompassen";
                     break;
 
             }
+            console.log(this.priceIcon.src);    
+            var setCookie = new Kakor();
+            setCookie.setCookie("iconName", this.priceIcon.src, 365);
+            console.log(this.priceIcon);    
             //lägger till elementet i domen
             document.body.appendChild(this.priceIcon);
             //sätter texten i elementet som skriver ut vilket pris man vunnit
             this.paketText.innerHTML = "Grattis! Du har vunnit " + this.iconName + "!";
-        }
+       // }
     }
 
 
