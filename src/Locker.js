@@ -1,6 +1,7 @@
 function Locker() {
 
-    this.renderLocker = function () {
+    this.renderLocker = function (score) {
+        this.score = score; 
         //skpar div för locker-sidan
         this.locker = document.createElement("div");
 
@@ -10,19 +11,21 @@ function Locker() {
         //lägger till elementen i domen för locker-sidan
         document.body.appendChild(this.locker);
 
-        //kak objekt
-        var setCookie = new Kakor();
-
-        //hämtar ut lagrade ikoner från kakor
-        this.icons = setCookie.getCookie("iconName");
-        console.log(setCookie.getCookie("iconName"));
-
-        this.imgElement = document.createElement("img");
-        this.imgElement.src = this.icons;
-        this.locker.appendChild(this.imgElement);
-
+        var setCookie = new BildKakor();
+        var imageArray = setCookie.getCookie("images");
+        if (imageArray != null) {
+            for (var i = 0; i < imageArray.length; i++) {
+             
+                var img = document.createElement('img');
+                img.src = imageArray[i];
+                this.locker.appendChild(img);
+            
+            }
+        }
+           
+    
         var eventet = new Eventet();
-        eventet.handleEvent(null, null, null, null, null, null, null, this.locker);
+        eventet.handleEvent(null, null, this.score, null, null, null, null, this.locker);
       
     }
 

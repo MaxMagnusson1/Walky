@@ -11,21 +11,23 @@ function Geolocation() {
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
 
-    this.getCurrentLocation = function (button) {
-        this.button = button;
+    this.getCurrentLocation = function () {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.ShowPosition,);
-
+            navigator.geolocation.watchPosition(this.showPosition);
         } else {
             alert("Geolocation is not supported by this browser.");
         }
     }
 
-    this.ShowPosition = function (position) {
+    this.showPosition = function (position) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         var yourPos = new google.maps.LatLng(lat, lng);
-        self.getMap(yourPos);
+        if (self.myLocation) {
+            self.myLocation.setPosition(yourPos);
+        } else {
+            self.getMap(yourPos);
+        }
     }
 
     this.getMap = function (yourPos) {
@@ -100,6 +102,5 @@ function Geolocation() {
         }.bind(this));
         return this.distanceInMeters;
     }
-
 
 }

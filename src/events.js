@@ -90,6 +90,6 @@ function Eventet() {
         });
         
         this.karta.style.visibility = "hidden";
-        this.locker.renderLocker();
+        this.locker.renderLocker(this.score);
     }
 }

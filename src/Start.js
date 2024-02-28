@@ -86,23 +86,6 @@ function Start() {
     }.bind(this), 3000);
 
   }
-
- /* this.price = function (totalMetersWalked, button, score, totalPoints, mapBtn) {
-    this.totalPoints = totalPoints;
-    this.totalMetersWalked = totalMetersWalked;
-    this.button = button;
-    this.score = score;
-    this.mapBtn = mapBtn;
-
-    var price = new Price();
-    price.renderPackage(this.totalMetersWalked, this.button, this.score, this.totalPoints, this.mapBtn);
-  }
-
-  this.locker = function () {
-    var locker = new Locker();
-    locker.renderLocker(this.totalMetersWalked, this.button, this.score, newScore.totalPoints, this.mapBtn, this.score);
-  }
-*/
 }
 
 
