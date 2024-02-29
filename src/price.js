@@ -11,63 +11,57 @@ function Price() {
     this.priceIndex = null;
 
 
-    this.renderPackage = function (totalMetersWalked, button, score, totalPoints) {
+    this.renderPackage = function (navContainer, score) {
 
-        this.totalMetersWalked = totalMetersWalked;
-        this.button = button;
+         console.log(score)
         this.score = score;
+        this.navContainer = navContainer;
 
         //div för pris-sidan    
+        this.scoreContainer = document.createElement("div");
         this.paket = document.createElement("div");
         this.paketText = document.createElement("div");
+        this.priceContainer = document.createElement("div");
         this.priceIcon = document.createElement("img");
 
         //sätta classnamn på element för pris-sidan
-        this.paketText.className = "paketText";
+        this.priceContainer.className = "priceContainer";
+        this.scoreContainer.className = "priceScore";
         this.paket.className = "paket";
         this.priceIcon.className = "priceIcon";
-        this.totalPoints = totalPoints;
+        this.paketText.className = "paketText"; 
+       // this.totalPoints = totalPoints;
 
         //lägger till elementen i domen för pris-sidan
-        document.body.appendChild(this.paket);
-        document.body.appendChild(this.paketText);
+        document.body.appendChild(this.priceContainer);
+        this.priceContainer.appendChild(this.paket);
+        this.priceContainer.appendChild(this.paketText);
+        this.priceContainer.appendChild(this.scoreContainer);
 
-        //sätter rätt egenskaper till rätt värden
-        /*    this.score = score;
-            this.totalPoints = totalPoints;
-            this.paket = paket;
-            this.paketText = paketText;
-            this.priceIcon = priceIcon;
-            this.button = button;
-            this.totalMetersWalked = totalMetersWalked;
-            this.locker = locker;   
-         
-            this.paket.style.visibility = "visible";
-            this.paketText.style.visibility = "visible";*/
-
-        //sätter texten i elementet
-        this.paketText.innerHTML = "Du har valt att hämta ut ett paket, tryck på paketet för att se vad du har vunnit!";
 
         //lägger till eventlyssnare
         this.paket.addEventListener("click", this.randomPrice);
 
+        this.scoreContainer.innerHTML = "Du har " + this.score + " poäng!";
+
         //skapar objekt
-        var eventet = new Eventet();
-        eventet.handleEvent(this.totalMetersWalked, this.button, this.score, this.totalPoints, this.paket, this.paketText, this.priceIcon);
+      /*  var eventet = new Eventet();
+        eventet.handleEvent(this.totalMetersWalked, this.button, this.score, this.totalPoints, this.paket, this.paketText, this.priceIcon);*/
     }
 
 
     this.randomPrice = () => {
-
+        
       /*  if (this.totalPoints < 1000) {
            alert("Du har inte tillräckligt med poäng för att hämta ut ett pris");
             return;
        } else {*/
-            this.number = parseInt(this.totalPoints);
-            this.number -= 1000;
+         
+            this.number = this.score -1000;
             var setCookie = new Kakor();
             setCookie.setCookie("total_points", -1000, 365);
-            this.score.innerHTML = "Du har " + this.number + " poäng!";
+            console.log(this.number); 
+            this.scoreContainer.innerHTML = "Du har " + this.number + " poäng!";
             //   this.totalPoints = this.number;
 
             //gömmer elementen som inte ska synas samt array för alla priser

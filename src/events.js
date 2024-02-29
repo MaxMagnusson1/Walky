@@ -12,7 +12,7 @@ function Eventet() {
         this.locker = locker;
 
         //skapande av navigationsknappar
-        this.lockerBtn = document.createElement("div");
+   /*     this.lockerBtn = document.createElement("div");
         this.priceBtn = document.createElement("div");
         this.mapBtn = document.createElement("div");
 
@@ -25,16 +25,16 @@ function Eventet() {
         document.body.appendChild(this.lockerBtn);
         document.body.appendChild(this.priceBtn);
         document.body.appendChild(this.mapBtn);
-
+*/
         this.start = new Start();
         this.locker = new Locker();
-        this.price = new Price();
+       // this.price = new Price();
 
         this.elementsWithScore = document.querySelectorAll(".totalMetersWalked, .newPositionBtn, .score, .paket, .paketText, .priceIcon, .locker");
         this.elementsWithoutScore = document.querySelectorAll(".totalMetersWalked, .newPositionBtn, .paket, .paketText, .priceIcon, .locker");
 
 
-        this.mapBtn.addEventListener("click", function () {
+      /*  this.mapBtn.addEventListener("click", function () {
             this.map();
         }.bind(this));
 
@@ -45,7 +45,7 @@ function Eventet() {
 
         this.lockerBtn.addEventListener("click", function () {
             this.lockerSide();
-        }.bind(this));
+        }.bind(this));*/
     }
 
     //map
