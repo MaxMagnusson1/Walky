@@ -6,12 +6,15 @@ function Geolocation() {
     this.marker = null;
     this.distanceInMeters = null;
     this.pointArray = [];
+    this.button = null;
     var self = this;
 
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
 
-    this.getCurrentLocation = function () {
+    this.getCurrentLocation = function (button) {
+        this.button = button;
+
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(this.showPosition);
         } else {
@@ -69,6 +72,7 @@ function Geolocation() {
 
 
     this.drawRoute = function (origin, destination) {
+
         var request = {
             origin: origin,
             destination: destination,
