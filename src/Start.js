@@ -54,7 +54,7 @@ function Start() {
 
     this.notisValue = setCookie.getCookie("notis");
 
-    
+
 
     //skapar objekt som behövs 
     this.totalDistance = setCookie.getCookie("total_dist");
@@ -80,16 +80,14 @@ function Start() {
 
     }.bind(this));
 
-
-
-
     //eventhantering för att gå tillbaka till startsidan  
 
     this.mapBtn.addEventListener("click", function () {
-      var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer");
+
       this.totalPoints = setCookie.getCookie("total_points");
       this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
 
+      var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
@@ -97,7 +95,6 @@ function Start() {
       this.startContainer.style.visibility = "visible"
 
     }.bind(this));
-
 
     //eventhantering för att gå tillbaka till lockersidan
 
@@ -111,9 +108,7 @@ function Start() {
       locker.renderLocker();
     }.bind(this));
 
-
-
-    //sätta text på element för startsidan
+    //sätta text på element för startsidany
 
     if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
 
@@ -127,23 +122,23 @@ function Start() {
     this.button.innerHTML = "Tryck på kartan för att hitta en rutt!";
     this.score.innerHTML = "Du har " + newScore.totalPoints + " poäng!"; //sätter poängen på användaren
 
-    // this.paketPoints = newScore.totalPoints;
 
     //händelselyssnare 
     this.button.addEventListener("click", function () {
       this.endDestination(geolocation.distanceInMeters); // Skicka avståndet som parameter
     }.bind(this));
-    // this.price(this.totalMetersWalked, this.button, this.score, newScore.totalPoints, this.mapBtn, locker.locker);
-    if (this.notisValue != "" && this.notisValue != 0){
+
+    if (this.notisValue != "" && this.notisValue != 0) {
       this.newLockerPrice.style.visibility = "visible";
       this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
     }
   }
- 
+
 
 
   //metod för att välja en slutdestination
   this.endDestination = function (distanceInMeters,) {
+
     //sätta text på knappen för att veta hur långt man ska gå.
     this.button.style.cursor = "default";
     this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter";
@@ -155,16 +150,12 @@ function Start() {
       if (distanceInMeters <= 1000) {
         console.log("Du är framme!");
 
-
-
-
         this.button.innerHTML = "Du är framme! Interagera med kartan för att gå igen";//ändrar texten på knappen när användaren är framme
 
         setCookie.setCookie("total_dist", distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas
         this.totalDistance = setCookie.getCookie("total_dist"); //hämtar totala sträckan från kakorna
         this.totalMetersWalked.innerHTML = "Total sträcka gått någonsin: " + this.totalDistance + " meter";//sätter texten på totala sträckan
 
-        //  newScore.uppdatedScore(distanceInMeters);
         setCookie.setCookie("total_points", distanceInMeters, 30);
         this.totalPoints = setCookie.getCookie("total_points");
         notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
