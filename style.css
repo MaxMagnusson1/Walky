@@ -245,6 +245,7 @@ img.priceIcon {
     background-size: contain; /* Säkerställ att hela ikonen visas */
     width: 15vw; /* Anpassa bredden efter 20% av sidans bredd */
     height: 15vw; /* Anpassa höjden efter 20% av sidans bredd */
+    margin-bottom: 10px;
 }
 
 .lockerBtn {
@@ -290,7 +291,7 @@ img.priceIcon {
 .locker {
     position: absolute;
     top: 5vh;
-    bottom: 5vh;
+    bottom: 10vh;
     left: 3vw; /* Utrymme till vänster om bilden */
     right: 3vw; /* Utrymme till höger om bilden */
    
