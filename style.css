@@ -290,10 +290,10 @@ img.priceIcon {
 .locker {
     position: absolute;
     top: 5vh;
-    bottom: 15vh;
+    bottom: 5vh;
     left: 3vw; /* Utrymme till vänster om bilden */
     right: 3vw; /* Utrymme till höger om bilden */
-    height: calc(70% - 6vh);
+   
     width: calc(100% - 6vw); /* Justerad bredd för att inkludera utrymmet till vänster och höger */
     background-repeat: no-repeat;
     background-image: url("/img/mapAsset 35@2x.png");
