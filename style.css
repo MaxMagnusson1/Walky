@@ -1,51 +1,37 @@
 body {
-    background: url(./img/bakgrund.png); 
+    background: url(./img/bakgrund.png);
 }
-.priceScore{
-    width: 200px;
-    height: 50px;
+
+.priceScore {
+    width: 40vw; /* Bredden baserad på 10% av visningsbredden */
+    height: 5vh; /* Höjden baserad på 5% av visningshöjden */
     background-color: white;
     border: 1px solid black;
-    font-size: 20px;
+    font-size: 3vw; /* Textstorleken baserad på 2% av visningsbredden */
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    
+    top: 2vh;
+    right: 4vw;
 }
-.newPositionBtn{
-  top: 50%;
-  left: 50%;
-  background-color: white;
-  width: 350px;
-  height: 100px;
-    margin-left: -175px;
-    margin-top: -50px;
-    position: absolute;
-  text-align: center;
-  border: 1px solid black;
-  font-size: 25px;
-  cursor: pointer;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
+
 
 #karta {
     width: 100vw;
     height: 50vh;
+    margin-left: -7px;
+    margin-top: -7px;
 }
 
-#antalMeter{
+#antalMeter {
     background-color: white;
-    width: fit-content; 
+    width: fit-content;
     height: fit-content;
     padding: 10px;
     border: 1px solid black;
-    font-size: 20px;    
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,23 +40,7 @@ body {
 
 }
 
-.nmrOfpresents{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%; 
-    background-color: white;
-    border: 1px solid black;
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-     margin-left: 40%;
-     margin-bottom: 80%;
-    justify-content: center;   
-    text-align: center;
-    
-}
-
-.newLockerPrice{
+.nmrOfpresents {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -79,18 +49,34 @@ body {
     font-weight: bold;
     font-size: 20px;
     display: flex;
-     margin-left: 40%;
-     margin-bottom: 80%;
-    justify-content: center;   
+    margin-left: 40%;
+    margin-bottom: 80%;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.newLockerPrice {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    margin-left: 40%;
+    margin-bottom: 80%;
+    justify-content: center;
     text-align: center;
 }
 
 
-div.text{
+div.text {
     top: 50%;
     left: 50%;
     background-color: white;
-    width: fit-content; 
+    width: fit-content;
     height: fit-content;
     margin-top: 120px;
     text-align: center;
@@ -109,152 +95,104 @@ div.text{
     width: 200px;
     height: 80px;
     margin: 10px;
-    padding:  10px;
+    padding: 10px;
     border: 1px solid black;
     font-size: 20px;
     cursor: pointer;
     font-weight: 500;
 }
 
-.priceBtn {
-    background: url(./img/mapAsset\ 30@2x.png) no-repeat;width: 69px;
-  height: 69px;
-  display: flex;
-  align-items: center; 
-  position: absolute;
-  bottom: 10px;
-  right: 10%; 
-}
-
-.lockerBtn {
-    background: url(./img/mapAsset\ 31@2x.png) no-repeat;    width: 69px;
-    height: 69px;
-    width: 71px;
-    display: flex;
-    align-items: center; 
-    position: absolute;
-    bottom: 10px;
-    left: 10%; 
-}
-
-.mapBtn{
-    background: url(./img/mapAsset\ 27@2x.png) no-repeat;
-    width: 69px;
-    height: 69px;
-    display: flex;
-    align-items: center; 
-    position: absolute;
-    bottom: 10px;
-    left: 42%; 
-
-}
 
 
-.container {
-    display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  position: relative;
-}
 
-.priceIcon{
-    width: 200px;
-    height: 200px;
-}
-.totalMetersWalked{
-    width: 40%;
-    height: 50px;
-    padding: 10px;
-    border: 1px solid black;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 60%;
-    background-color: white;
-}
+
 
 
 
 div.paketText {
     position: absolute;
-    top: 20%;
+    top: 20vh; /* Avståndet från toppen baserat på 20% av visningshöjden */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%); /* Centrerar elementet horisontellt */
     text-align: center;
-    font-size: 25px;
+    font-size: 3vw; /* Textstorleken baserad på 3% av visningsbredden */
     font-weight: 500;
-    width: 400px;
-    
+    max-width: 90vw; /* Maxbredd på 90% av visningsbredden */
 }
+
 
 img.priceIcon {
     position: absolute;
 
 }
 
-.score{
-    width: 40%;
-    height: 50px;
-    padding: 10px;
-    border: 1px solid black;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    background-color: white;
-}
 
 
-.paket {
-    display: flex;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    position: relative;
-}
 
 .priceIcon {
     width: 200px;
     height: 200px;
 }
 
-#totalMetersWalked {
-    width: 40%;
+.totalMetersWalked {
+    width: 36%;
     height: 50px;
+    top: 70vh;
+    padding: 10px;
+    right: 50%;
     padding: 10px;
     border: 1px solid black;
-    font-size: 20px;
+    font-size: 4vw, 4vh;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border-radius: 10%;
+    background-color: white;
+    margin: 10px;
+
+}
+div.newPositionBtn {
+    top: 53vh;
+    background-color: white;
+    width: 70vw; /* Använd 30% av viewport-bredden som bredd */
+    height: 10vh;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 140%;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.score {
+    width: 36%;
+    margin: 10px;
+    height: 50px;
+    top: 70vh;
+    padding: 10px;
+    left: 50%;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 4vw, 4vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 60%;
+    border-radius: 10%;
     background-color: white;
 }
 
-div.paket {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+
+
 
 div.paketText {
     position: absolute;
@@ -289,15 +227,78 @@ img.priceIcon {
     background-color: white;
 }
 
-.locker {
-    width: 400px;
-    height: 700px;
-    background-image: url(/img/mapAsset\ 35@2x.png);
-    position: absolute;
-    top: 50%;
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 10px;
     left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 20px); /* Ta bort 20px från sidans bredd för att undvika överflödiga mellanrum */
+   
+}
+
+.priceBtn, .lockerBtn, .mapBtn {
+    background-repeat: no-repeat;
+    background-size: contain; /* Säkerställ att hela ikonen visas */
+    width: 15vw; /* Anpassa bredden efter 20% av sidans bredd */
+    height: 15vw; /* Anpassa höjden efter 20% av sidans bredd */
+}
+
+.lockerBtn {
+    background-image: url("./img/mapAsset 31@2x.png");
+}
+
+.mapBtn {
+    background-image: url("./img/mapAsset 27@2x.png");
+}
+
+.priceBtn {
+    background-image: url("./img/mapAsset 30@2x.png");
+}
+
+.paket {
+    position: absolute;
+    background-repeat: no-repeat;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
+    width: calc(150% - 6vw); /* Justerad bredd för att inkludera utrymmet till vänster och höger */
+    
+    height: auto; /* Anpassa höjden automatiskt baserat på bildens proportioner */
+  /* Begränsa höjden till att vara högst 100% av förälderens höjd */
+    object-fit: contain; /* Behåll bildens proportionella aspekt och passa inom div-elementet */
+}
+
+.priceIcon {
+    position: absolute;
+    background-repeat: no-repeat;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(70% - 6vw); /* Justerad bredd för att inkludera utrymmet till vänster och höger */
+    height: calc(70% - 6vh);
+    height: auto; /* Anpassa höjden automatiskt baserat på bildens proportioner */
+    max-width: 100%; /* Begränsa bredden till att vara högst 100% av förälderens bredd */
+    max-height: 100%; /* Begränsa höjden till att vara högst 100% av förälderens höjd */
+    object-fit: contain; /* Behåll bildens proportionella aspekt och passa inom div-elementet */
+}
 
 
-
+.locker {
+    position: absolute;
+    top: 5vh;
+    bottom: 15vh;
+    left: 3vw; /* Utrymme till vänster om bilden */
+    right: 3vw; /* Utrymme till höger om bilden */
+    height: calc(70% - 6vh);
+    width: calc(100% - 6vw); /* Justerad bredd för att inkludera utrymmet till vänster och höger */
+    background-repeat: no-repeat;
+    background-image: url("/img/mapAsset 35@2x.png");
+  
+    background-position: center; /* Centrerar bilden både vertikalt och horisontellt */
+    background-size: contain; /* Säkerställer att hela bilden visas */
+  
 }

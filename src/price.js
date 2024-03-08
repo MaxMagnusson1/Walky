@@ -9,7 +9,7 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1000;
+    this.value = 1;
 
     var setCookie = new Kakor();
 

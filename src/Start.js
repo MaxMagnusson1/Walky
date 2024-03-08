@@ -42,8 +42,9 @@ function Start() {
     document.body.appendChild(this.startContainer);
     document.body.appendChild(this.navContainer);
     this.navContainer.appendChild(this.lockerBtn);
+    this.navContainer.appendChild(this.mapBtn);
     this.navContainer.appendChild(this.priceBtn);
-    this.navContainer.appendChild(this.mapBtn)
+ 
     this.startContainer.appendChild(this.totalMetersWalked);
     this.startContainer.appendChild(this.button);
     this.startContainer.appendChild(this.score);
