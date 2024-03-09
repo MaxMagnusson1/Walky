@@ -35,6 +35,8 @@ function Geolocation() {
 
     this.getMap = function (yourPos) {
         this.position = yourPos;
+        var lat = this.position.lat(); // Hämta latitud från yourPos
+        var lng = this.position.lng(); // Hämta longitud från yourPos
         this.karta = new google.maps.Map(document.getElementById('karta'), {
             zoom: 15,
             center: this.position
@@ -44,11 +46,12 @@ function Geolocation() {
             map: this.karta,
             title: "Här är jag!"
         });
-        this.karta.addListener('click', this.addmarker.bind(this));
+     this.karta.addListener('click', this.addmarker.bind(this));
+       
     }
 
     this.addmarker = function (event) {
-
+ 
         if (this.markerArray.length == 0) {
             this.marker = new google.maps.Marker({
                 position: event.latLng,
@@ -81,30 +84,46 @@ function Geolocation() {
 
         directionsService.route(request, function (result, status) {
             if (status === 'OK') {
-
                 directionsRenderer.setMap(self.karta);
                 directionsRenderer.setDirections(result);
                 this.distanceInMeters = result.routes[0].legs[0].distance.value;
 
+                    console.log(this.distanceInMeters); 
+                  if (this.pointArray.length <= 0) {
+                        this.points = document.createElement("span");
+                        this.points.className = "points";
+                        this.pointArray.push(this.points);
+                        this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
+                        return this.text;
+                    }
+    
+                    else if (this.pointArray.length >= 1) {
+    
+                        this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
+                    }
 
-                if (this.pointArray.length <= 0) {
-                    this.points = document.createElement("span");
-                    this.points.className = "points";
-                    this.pointArray.push(this.points);
-                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
-                    return this.text;
-                }
+            }
 
-                else if (this.pointArray.length >= 1) {
-
-                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
-                }
-
-            } else {
+            else {
                 window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
             }
         }.bind(this));
         return this.distanceInMeters;
     }
+
+    this.clearRoute = function () {
+        console.log("HEJSAN ")
+        // Rensa DirectionsRenderer från kartan
+        directionsRenderer.setMap(null);
+    
+        // Ta bort alla markörer från kartan
+        for (let i = 0; i < this.markerArray.length; i++) {
+            this.markerArray[i].setMap(null);
+        }
+    
+        // Rensa markerArray
+        this.markerArray = [];
+    }
+    
 
 }
