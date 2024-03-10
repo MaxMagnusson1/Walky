@@ -84,7 +84,7 @@ for (let i = 0; i < 5; i++) {
     ]
         });
         this.myLocation = new google.maps.Marker({
-            position: this.currentPos, // this.currentPos, //, yourpos , this.postion
+            position: this.postion, // this.currentPos, //, yourpos , this.postion
             map: this.karta,
             title: "Här är jag!"
         });
