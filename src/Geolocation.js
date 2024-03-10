@@ -7,45 +7,89 @@ function Geolocation() {
     this.distanceInMeters = null;
     this.pointArray = [];
     this.button = null;
+    this.apiAttempt = 0; 
     var self = this;
+
 
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
+   
+    this.getCurrentLocation = function () {//kontrollera knappen, eller vet den redan?
+            this.removeLoader = document.querySelector(".loadingTheMap"); 
+        this.infoDiv = document.createElement("div"); 
+        this.button =document.querySelector(".newPositionBtn")
+        this.errorDiv = document.createElement("div"); 
+        this.errorDiv.className = "errorDiv"; 
+        this.yesBtn = document.createElement("button"); 
+        this.yesBtn.innerHTML = "Försök igen"
+   
 
-    this.getCurrentLocation = function (button) {
-        this.button = button;
+        //klassnamn 
+ 
+        this.yesBtn.classname = "yesBtn";
 
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(this.showPosition);
-        } else {
-            alert("Geolocation is not supported by this browser.");
+        document.body.appendChild(this.infoDiv);
+
+   
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+    if (navigator.geolocation) {
+        console.log("if");
+        this.currentPos = navigator.geolocation.watchPosition(this.showPosition.bind(this));
+        break;
+    }
+     else {
+        this.apiAttempt++; 
+        if (this.apiAttempt === 4) {
+            this.removeLoader.remove(); 
+            document.body.appendChild(this.errorDiv); 
+            this.errorDiv.appendChild(this.yesBtn);     
+            this.yesBtn.addEventListener('click', () => {
+                this.getCurrentLocation(); 
+            });
+
         }
     }
+}}
 
     this.showPosition = function (position) {
+       
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
+        
         var yourPos = new google.maps.LatLng(lat, lng);
         if (self.myLocation) {
             self.myLocation.setPosition(yourPos);
         } else {
             self.getMap(yourPos);
         }
+
+        if (self.startMarker) {
+            self.startMarker.setPosition(yourPos);
+        }
     }
+
 
     this.getMap = function (yourPos) {
         this.position = yourPos;
         var lat = this.position.lat(); // Hämta latitud från yourPos
         var lng = this.position.lng(); // Hämta longitud från yourPos
+
         this.karta = new google.maps.Map(document.getElementById('karta'), {
             zoom: 15,
-            center: this.position
+            center: this.position, 
+            disableDefaultUI: true, // Inaktivera standardkontrollerna (zoomkontroll, karttypkontroll etc.)
+    styles: [
+        { elementType: 'labels', stylers: [{ visibility: 'off' }] } // Inaktivera etiketter (städer, vägar etc.)
+    ]
         });
         this.myLocation = new google.maps.Marker({
-            position: this.position,
+            position: this.currentPos, // this.currentPos, //, yourpos , this.postion
             map: this.karta,
             title: "Här är jag!"
         });
+        this.removeLoader.remove(); 
+
      this.karta.addListener('click', this.addmarker.bind(this));
        
     }

@@ -41,10 +41,9 @@ function Price() {
         //kontroll på paket 
         if (this.totalPoints > this.value) {
             this.paket.src = './img/paket.png';
+            this.paket.id ="shake";
             this.paket.addEventListener("click", this.randomPrice);
             this.priceContainer.appendChild(this.paket);
-
-
 
         } else {
             this.paket.src = "./img/skuggpaket.png";
@@ -69,7 +68,7 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.priceArray = [1,3,4,5,6,7,8,9,10];
 
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);
@@ -132,6 +131,7 @@ function Price() {
                 break;
 
         }
+        confetti();
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;

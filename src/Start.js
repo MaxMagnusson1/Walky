@@ -5,8 +5,9 @@ function Start() {
   var geolocation = new Geolocation();
 
   this.renderMapAndButtons = function () {
-
+    
     //skapande av element för startsidan
+    this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
     this.navContainer = document.createElement("div");
     this.totalMetersWalked = document.createElement("div");
@@ -24,6 +25,7 @@ function Start() {
     //this.lockerContainer = document.body.querySelector(".lockerContainer");
 
     //sätta classnamn på element för startsidan
+    this.loading.className="loadingTheMap"; 
     this.startContainer.className = "startContainer";
     this.navContainer.className = "navContainer";
     this.totalMetersWalked.className = "totalMetersWalked";
@@ -41,8 +43,10 @@ function Start() {
     //this.nmrOfpresents.className = "nmrOfpresents";
 
     //lägga till element i body för startsidan
+    
     document.body.appendChild(this.startContainer);
     document.body.appendChild(this.navContainer);
+    this.startContainer.appendChild(this.loading); 
     this.navContainer.appendChild(this.lockerBtn);
     this.navContainer.appendChild(this.mapBtn);
     this.navContainer.appendChild(this.priceBtn);
@@ -115,12 +119,6 @@ function Start() {
     }.bind(this));
 
 
-    //eventhantering för att välja en rutt 
-
-   /* this.karta.addEventListener('click', function () {
-      geolocation.addmarker(); 
-
-    })*/
     //sätta text på element för startsidany
 
     if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
