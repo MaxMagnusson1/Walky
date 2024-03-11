@@ -62,7 +62,6 @@ body {
     right: 3vw;
     width: calc(100% - 6vw);
     background-repeat: no-repeat;
-    background-image: url("/img/mapAsset 35@2x.png");
     background-position: center;
     background-size: contain;
 }
@@ -91,11 +90,14 @@ body {
 
 
 
-.iconInLocker {
+img.iconInLocker {
     /* Stilar för dina bilder */
+    position: relative;
     height: 12vh;
-    margin-left: 10vw;
+    margin-left: 12vw;
     margin-right: 10vw;
+    z-index: 999;
+    bottom: 42vh;
     /* Justera efter behov */
 }
 

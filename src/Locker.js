@@ -1,11 +1,12 @@
 function Locker() {
-    this.img = null;  
+    
     this.renderLocker = function () {
          
         // Skapar div för locker-sidan
-        
-        this.locker = document.createElement("div");
         this.lockerContainer = document.createElement("div");   
+        this.locker = document.createElement("img");
+
+        this.locker.src = './img/lockerImg.png';
 
         // Sätter classnamn på element för locker-sidan
         this.locker.className = "locker";
@@ -16,6 +17,7 @@ function Locker() {
         this.lockerContainer.appendChild(this.locker);
 
         var setCookieIcon = new Kakor();
+
         this.currentValue = setCookieIcon.getCookie("notis");
         this.newValue = parseInt(this.currentValue); 
         setCookieIcon.setCookie("notis", -this.newValue, 365);
@@ -24,6 +26,7 @@ function Locker() {
         var imageArray = setCookie.getCookie("images");
 
             if (imageArray != null) {
+                console.log("HEJ"); 
                 // Skapar en ny div för varje rad
                 var rowDiv;
                 for (var i = 0; i < imageArray.length; i++) {
@@ -31,7 +34,7 @@ function Locker() {
                     if (i % 2 === 0) {
                         rowDiv = document.createElement("div");
                         rowDiv.className = "row";
-                        this.locker.appendChild(rowDiv);
+                        this.lockerContainer.appendChild(rowDiv);
                     }
                     // Skapar en bild och lägger till den i den nuvarande raden
                     this.img = document.createElement('img');
