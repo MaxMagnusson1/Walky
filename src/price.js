@@ -17,55 +17,66 @@ function Price() {
 
     this.renderPackage = function () {
 
-            this.priceContainer = document.createElement("div");
-            this.priceContainer.className = "priceContainer";
-            document.body.appendChild(this.priceContainer);
-        
-        
-     //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
-     //   console.log(elementsWithClassName.length);
+        this.priceContainer = document.querySelector('.priceContainer');
+        this.priceContainer.style.visibility = "visible";
 
+        this.paket = document.querySelector('.paket');
+        this.scoreContainer = document.querySelector('.priceScore');
+        this.priceIcon = document.querySelector('.priceIcon');
+        this.paketText = document.querySelector('.paketText');
 
-        this.newLockerPrice = document.querySelector(".newLockerPrice"); 
+        this.newLockerPrice = document.querySelector(".newLockerPrice");
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
         this.totalPoints = setCookie.getCookie("total_points");
 
-        //div för pris-sidan    
-        this.scoreContainer = document.createElement("div");
-        this.paket = document.createElement("img");
-        this.paketText = document.createElement("div");
-        this.priceIcon = document.createElement("img");
 
-        //sätta classnamn på element för pris-sidan
-        this.scoreContainer.className = "priceScore";
-        this.paket.className = "paket";
-        this.priceIcon.className = "priceIcon";
-        this.paketText.className = "paketText";
-        // this.totalPoints = totalPoints;
-
-        //lägger till elementen i domen för pris-sidan
-    
-        this.priceContainer.appendChild(this.scoreContainer);
-
-        //kontroll på paket 
         if (this.totalPoints > this.value) {
             this.paket.src = './img/paket.png';
-            this.paket.id ="shake";
+            this.paket.id = "shake";
             this.paket.addEventListener("click", this.randomPrice);
-            this.priceContainer.appendChild(this.paket);
+            // this.priceContainer.appendChild(this.paket);
 
         } else {
             this.paket.src = "./img/skuggpaket.png";
-            this.priceContainer.appendChild(this.paket)
+            //  this.priceContainer.appendChild(this.paket)
 
         }
 
-
         this.scoreContainer.innerHTML = "Du har " + this.totalPoints + " poäng!";
+        //    this.priceContainer = document.createElement("div");
+        //  this.priceContainer.className = "priceContainer";
+        //  document.body.appendChild(this.priceContainer);
+
+
+        //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
+        //   console.log(elementsWithClassName.length);
+
+
+
+        //div för pris-sidan    
+        /*  this.scoreContainer = document.createElement("div");
+          this.paket = document.createElement("img");
+          this.paketText = document.createElement("div");
+          this.priceIcon = document.createElement("img");*/
+
+        //sätta classnamn på element för pris-sidan
+        /*this.scoreContainer.className = "priceScore";
+        this.paket.className = "paket";
+        this.priceIcon.className = "priceIcon";
+        this.paketText.className = "paketText";*/
+        // this.totalPoints = totalPoints;
+
+        //lägger till elementen i domen för pris-sidan
+
+        //this.priceContainer.appendChild(this.scoreContainer);
+
+        //kontroll på paket 
+
     }
 
     this.randomPrice = () => {
-    jsConfetti.addConfetti();
+        console.log(this.priceIcon);
+        jsConfetti.addConfetti();
         this.number = this.totalPoints - this.value;
         // setCookie = new Kakor();
         setCookie.setCookie("total_points", -this.value, 365);
@@ -77,7 +88,7 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1,3,4,5,6,7,8,9,10];
+        this.priceArray = [1, 3, 4, 5, 6, 7, 8, 9, 10];
 
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);
@@ -140,10 +151,11 @@ function Price() {
                 break;
 
         }
-     
+
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;
+
         if (imageArray === null) {
             bildkakor.setCookie("images", this.priceIcon.src, 365);
             setCookie.setCookie("notis", 1, 365);
@@ -163,7 +175,6 @@ function Price() {
             // Om ingen matchning hittas, kör setCookie
             if (!foundMatch) {
                 bildkakor.setCookie("images", this.priceIcon.src, 365);
-
                 setCookie.setCookie("notis", 1, 365);
                 this.newLockerPrice.style.visibility = "visible";
                 this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
@@ -171,22 +182,23 @@ function Price() {
         }
 
         //lägger till elementet i domen
-        this.priceContainer.appendChild(this.priceIcon);
+        //this.priceContainer.appendChild(this.priceIcon);
 
 
         //sätter texten i elementet som skriver ut vilket pris man vunnit
         this.paketText.innerHTML = "Grattis! Du har vunnit " + this.iconName + "!";
-        this.priceContainer.appendChild(this.paketText);
+        //this.priceContainer.appendChild(this.paketText);
+        this.priceIcon.style.visibility = "visible";
+        this.paketText.style.visibility = "visible ";
 
-
-        this.priceIcon.addEventListener("click", function () {
+        this.priceIcon.addEventListener("click", () => {
+            this.paket.style.visibility = "visible";
             this.remove = [this.priceIcon, this.paketText];
-            for (var i = 0; i < this.remove.length; i++) {
-                this.priceContainer.removeChild(this.remove[i]);
-            }
-            this.renderPackage();
-        }.bind(this));
+            this.priceIcon.style.visibility = "hidden";
+            this.paketText.style.visibility = "hidden";
 
+            this.renderPackage();
+        });
     }
 
 

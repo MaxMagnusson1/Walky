@@ -4,9 +4,9 @@ function Start() {
   var notis = new Notis();
   var geolocation = new Geolocation();
 
-  this.renderMapAndButtons = function () {
-    
-    //skapande av element för startsidan
+  this.createAllElements = function(){
+
+    //alla element som ska visas på startsidan 
     this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
     this.navContainer = document.createElement("div");
@@ -20,13 +20,7 @@ function Start() {
     this.nmrOfpresentsDiv = document.createElement("div");
     this.newLockerPrice = document.createElement("div");
 
-    
-
-    //  this.nmrOfpresentsNum = document.createElement("p");
-
-    //this.lockerContainer = document.body.querySelector(".lockerContainer");
-
-    //sätta classnamn på element för startsidan
+    //klassnamn för alla element på startsidan 
     this.loading.className="loadingTheMap"; 
     this.startContainer.className = "startContainer";
     this.navContainer.className = "navContainer";
@@ -39,14 +33,112 @@ function Start() {
     this.nmrOfpresentsDiv.className = "nmrOfpresents";
     this.newLockerPrice.className = "newLockerPrice";
 
+
+    //tillägg till domen för alla element på startsidan 
+    document.body.appendChild(this.startContainer);
+    document.body.appendChild(this.navContainer);
+    this.startContainer.appendChild(this.loading); 
+    this.navContainer.appendChild(this.lockerBtn);
+    this.navContainer.appendChild(this.mapBtn);
+    this.navContainer.appendChild(this.priceBtn);
+    this.startContainer.appendChild(this.totalMetersWalked);
+    this.startContainer.appendChild(this.button);
+    this.startContainer.appendChild(this.score);
+    this.startContainer.appendChild(this.karta);
+    this.priceBtn.appendChild(this.nmrOfpresentsDiv);
+    this.lockerBtn.appendChild(this.newLockerPrice);
     this.newLockerPrice.style.visibility = "hidden";
-    // this.nmrOfpresentsNum.className = "nmrOfpresentsNum";
+
+    //alla element som ska visas på locker-sidan 
+    this.lockerContainer = document.createElement("div");
+    this.locker = document.createElement("img");
+    this.locker.src = './img/lockerImg.png';
+
+    //klassnamn för lockersidan 
+    this.locker.className = "locker";
+    this.lockerContainer.className = "lockerContainer";
+    
+
+    //tillägg till domen på lockersidan
+    document.body.appendChild(this.lockerContainer);
+    this.lockerContainer.appendChild(this.locker);
+
+    //klassnamn för element på prissidan 
+    this.locker.className = "locker";
+    this.lockerContainer.className = "lockerContainer";
+
+    this.lockerContainer.style.visibility ="hidden", 
+
+
+    //alla element för prissidan 
+    this.priceContainer = document.createElement("div");
+    this.scoreContainer = document.createElement("div");
+    this.paket = document.createElement("img");
+    this.paketText = document.createElement("div");
+    this.priceIcon = document.createElement("img");
+
+    //klassnamn för element på prissidan 
+    this.priceContainer.className = "priceContainer";
+    this.scoreContainer.className = "priceScore";
+    this.paket.className = "paket";
+    this.priceIcon.className = "priceIcon";
+    this.paketText.className = "paketText";
+
+    //lägger till elementen i domen 
+    document.body.appendChild(this.priceContainer);
+    this.priceContainer.appendChild(this.scoreContainer);
+    this.priceContainer.appendChild(this.paket);
+    this.priceContainer.appendChild(this.priceIcon);
+    this.priceContainer.appendChild(this.paketText);
+    this.priceContainer.style.visibility ="hidden"; 
+
+    this.renderMapAndButtons(); 
+
+  }
+
+  this.renderMapAndButtons = function () {
+    
+    //skapande av element för startsidan
+   /* this.loading = document.createElement("div"); 
+    this.startContainer = document.createElement("div");
+    this.navContainer = document.createElement("div");
+    this.totalMetersWalked = document.createElement("div");
+    this.button = document.createElement("div");
+    this.score = document.createElement("div");
+    this.lockerBtn = document.createElement("div");
+    this.priceBtn = document.createElement("div");
+    this.mapBtn = document.createElement("div");
+    this.karta = document.getElementById("karta");
+    this.nmrOfpresentsDiv = document.createElement("div");
+    this.newLockerPrice = document.createElement("div");*/
+
+    
+
+    //  this.nmrOfpresentsNum = document.createElement("p");
+
+    //this.lockerContainer = document.body.querySelector(".lockerContainer");
+
+    //sätta classnamn på element för startsidan
+    
+    /*this.loading.className="loadingTheMap"; 
+    this.startContainer.className = "startContainer";
+    this.navContainer.className = "navContainer";
+    this.totalMetersWalked.className = "totalMetersWalked";
+    this.button.className = "newPositionBtn";
+    this.score.className = "score";
+    this.priceBtn.className = "priceBtn";
+    this.lockerBtn.className = "lockerBtn";
+    this.mapBtn.className = "mapBtn";
+    this.nmrOfpresentsDiv.className = "nmrOfpresents";
+    this.newLockerPrice.className = "newLockerPrice";
+    this.newLockerPrice.style.visibility = "hidden";
+    // this.nmrOfpresentsNum.className = "nmrOfpresentsNum";*/
 
     //this.nmrOfpresents.className = "nmrOfpresents";
 
     //lägga till element i body för startsidan
     
-    document.body.appendChild(this.startContainer);
+   /* document.body.appendChild(this.startContainer);
     document.body.appendChild(this.navContainer);
     this.startContainer.appendChild(this.loading); 
     this.navContainer.appendChild(this.lockerBtn);
@@ -58,10 +150,9 @@ function Start() {
     this.startContainer.appendChild(this.score);
     this.startContainer.appendChild(this.karta);
     this.priceBtn.appendChild(this.nmrOfpresentsDiv);
-    this.lockerBtn.appendChild(this.newLockerPrice);
+    this.lockerBtn.appendChild(this.newLockerPrice);*/
     
 
-    this.lockerBtnClicked = false;
     this.notisValue = setCookie.getCookie("notis");
 
     //skapar objekt som behövs 
@@ -76,17 +167,27 @@ function Start() {
 
     notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
+    console.log(this.notisValue); 
+    if (this.notisValue !== "" && this.notisValue == 0 && !isNaN(parseFloat(setCookie.getCookie("notis")))) {
+      this.newLockerPrice.style.visibility = "visible";
+      this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
+    } else {
+      this.newLockerPrice.style.visibility = "hidden";
+    }
+
 
     //eventhantering för price sidan 
     this.priceBtn.addEventListener("click", function () {
+      this.paket.style.visibility ="visible"; 
+      this.priceIcon.style.visibility ="hidden"; 
+      this.paketText.style.visibility="hidden"; 
 
       var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
-
-      var price = new Price();
-      price.renderPackage(this.newLockerPrice);
+      var price = new Price;
+      price.renderPackage();
 
     }.bind(this));
 
@@ -97,15 +198,21 @@ function Start() {
       this.totalPoints = setCookie.getCookie("total_points");
 
       this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
+      
+      this.priceContainer.style.visibility ="hidden"; 
+      this.priceIcon.style.visibility ="hidden"; 
+      this.paketText.style.visibility="hidden"; 
+      this.paket.style.visibility="hidden"; 
 
-      var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer");
+      this.lockerContainer.style.visibility="hidden"; 
+      
+      /*var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer");
+
+      console.log(this.priceContainer); 
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
-      }
-      var remove = document.body.querySelector(".lockerContainer");
-      if (remove) {
-        remove.remove();
-      }
+      }*/
+ 
 
       this.startContainer.style.visibility = "visible"
       if (document.body.querySelector(".deniedDiv")){
@@ -117,15 +224,27 @@ function Start() {
 
     //eventhantering för att gå tillbaka till lockersidan
 
-    this.lockerBtn.addEventListener("click", function clickHandler () {
-      var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
-    
+    this.lockerBtn.addEventListener("click", function () {
+      this.lockerContainer.style.visibility = "visible";
+
+      var containers = document.querySelectorAll('.startContainer')
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
-      }
+      }; 
+
+      this.priceContainer.style.visibility ="hidden"; 
+      this.priceIcon.style.visibility ="hidden"; 
+      this.paketText.style.visibility="hidden"; 
+      this.paket.style.visibility="hidden"; 
+
+      /*var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
+      
+      for (var i = 0; i < containers.length; i++) {
+        containers[i].style.visibility = "hidden";
+      }*/
       var locker = new Locker();
       locker.renderLocker();
-      this.lockerBtn.removeEventListener("click", clickHandler);
+     
  
     
     }.bind(this));
@@ -162,14 +281,6 @@ function Start() {
         // Skicka avståndet som parameter
       }.bind(this));
     
- 
-
-    if (this.notisValue !== "" && this.notisValue === 0 && !isNaN(parseFloat(setCookie.getCookie("notis")))) {
-      this.newLockerPrice.style.visibility = "visible";
-      this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
-    } else {
-      this.newLockerPrice.style.visibility = "hidden";
-    }
 
   }
 

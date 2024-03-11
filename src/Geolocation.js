@@ -16,7 +16,6 @@ function Geolocation() {
     var directionsRenderer = new google.maps.DirectionsRenderer();
    
     this.getCurrentLocation = function () {//kontrollera knappen, eller vet den redan?
-        console.log("getCurrentLocation");
         this.removeLoader = document.querySelector(".loadingTheMap"); 
         this.infoDiv = document.createElement("div"); 
         this.button =document.querySelector(".newPositionBtn")
@@ -63,7 +62,6 @@ for (let i = 0; i < 5; i++) {
 
 
     this.showPosition = function (position) {
-       console.log("showPosition");
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         
@@ -163,7 +161,6 @@ for (let i = 0; i < 5; i++) {
     }
 
     this.clearRoute = function () {
-        console.log("HEJSAN ")
         // Rensa DirectionsRenderer från kartan
         directionsRenderer.setMap(null);
     
