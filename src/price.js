@@ -1,3 +1,4 @@
+
 function Price() {
     this.paket = null;
     this.paketText = null;
@@ -9,11 +10,13 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1000;
+    this.value = 1;
 
     var setCookie = new Kakor();
+    const jsConfetti = new JSConfetti()
 
     this.renderPackage = function () {
+
 
         this.newLockerPrice = document.querySelector(".newLockerPrice"); 
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
@@ -56,7 +59,7 @@ function Price() {
     }
 
     this.randomPrice = () => {
-
+    jsConfetti.addConfetti();
         this.number = this.totalPoints - this.value;
         // setCookie = new Kakor();
         setCookie.setCookie("total_points", -this.value, 365);
@@ -131,7 +134,7 @@ function Price() {
                 break;
 
         }
-        confetti();
+     
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;

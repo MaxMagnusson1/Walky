@@ -15,7 +15,8 @@ function Geolocation() {
     var directionsRenderer = new google.maps.DirectionsRenderer();
    
     this.getCurrentLocation = function () {//kontrollera knappen, eller vet den redan?
-            this.removeLoader = document.querySelector(".loadingTheMap"); 
+        console.log("getCurrentLocation");
+        this.removeLoader = document.querySelector(".loadingTheMap"); 
         this.infoDiv = document.createElement("div"); 
         this.button =document.querySelector(".newPositionBtn")
         this.errorDiv = document.createElement("div"); 
@@ -25,7 +26,6 @@ function Geolocation() {
    
 
         //klassnamn 
- 
         this.yesBtn.classname = "yesBtn";
 
         document.body.appendChild(this.infoDiv);
@@ -34,8 +34,8 @@ function Geolocation() {
 for (let i = 0; i < 5; i++) {
     console.log(i);
     if (navigator.geolocation) {
-        console.log("if");
-        this.currentPos = navigator.geolocation.watchPosition(this.showPosition.bind(this));
+      
+        navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
         break;
     }
      else {
@@ -52,8 +52,17 @@ for (let i = 0; i < 5; i++) {
     }
 }}
 
+    this.deniedAccess = function () {
+        this.removeLoader.remove();
+        this.deniedDiv = document.createElement("div");
+        this.deniedDiv.className = "deniedDiv";
+        document.body.appendChild(this.deniedDiv);
+        this.deniedDiv.innerHTML = "Du har inte gett tillgång till din plats, försök igen!";  
+    }
+
+
     this.showPosition = function (position) {
-       
+       console.log("showPosition");
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         
@@ -79,9 +88,7 @@ for (let i = 0; i < 5; i++) {
             zoom: 15,
             center: this.position, 
             disableDefaultUI: true, // Inaktivera standardkontrollerna (zoomkontroll, karttypkontroll etc.)
-    styles: [
-        { elementType: 'labels', stylers: [{ visibility: 'off' }] } // Inaktivera etiketter (städer, vägar etc.)
-    ]
+
         });
         this.myLocation = new google.maps.Marker({
             position: this.postion, // this.currentPos, //, yourpos , this.postion
@@ -132,7 +139,6 @@ for (let i = 0; i < 5; i++) {
                 directionsRenderer.setDirections(result);
                 this.distanceInMeters = result.routes[0].legs[0].distance.value;
 
-                    console.log(this.distanceInMeters); 
                   if (this.pointArray.length <= 0) {
                         this.points = document.createElement("span");
                         this.points.className = "points";
