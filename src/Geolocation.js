@@ -8,6 +8,7 @@ function Geolocation() {
     this.pointArray = [];
     this.button = null;
     this.apiAttempt = 0; 
+    //this.errorContainer 
     var self = this;
 
 
@@ -19,33 +20,25 @@ function Geolocation() {
         this.removeLoader = document.querySelector(".loadingTheMap"); 
         this.infoDiv = document.createElement("div"); 
         this.button =document.querySelector(".newPositionBtn")
-        this.errorDiv = document.createElement("div"); 
-        this.errorDiv.className = "errorDiv"; 
+ 
         this.yesBtn = document.createElement("div"); 
-        this.yesBtn.className = "yesBtn";
-        this.yesBtn.innerHTML = "Din webbläsare är förmodligen utåldrad och stödjer inte tjänsten"; 
-   
-
-        //klassnamn 
-        
-
+       
         document.body.appendChild(this.infoDiv);
 
    
 for (let i = 0; i < 5; i++) {
-    console.log(i);
     if (navigator.geolocation) {
-      
         navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
         break;
     }
      else {
         this.apiAttempt++; 
         if (this.apiAttempt === 4) {
-            
             this.removeLoader.remove(); 
-            document.body.appendChild(this.errorDiv); 
-            this.errorDiv.appendChild(this.yesBtn);     
+            this.errorImg = document.createElement("img"); 
+            this.errorImg.className = "errorDiv"; 
+            document.body.appendChild(this.errorImg); 
+            this.errorImg.src = "./img/felhanteringklar-04.png";
             this.yesBtn.addEventListener('click', () => {
                 this.getCurrentLocation(); 
             });
@@ -56,12 +49,13 @@ for (let i = 0; i < 5; i++) {
 
     this.deniedAccess = function () {
         this.removeLoader.remove();
-        this.deniedDiv = document.createElement("div");
-        this.deniedDiv.className = "deniedDiv";
-        document.body.appendChild(this.deniedDiv);
+        this.deniedImg = document.createElement("img");
+        this.deniedImg.src = "./img/treedone-03.png";
+        this.deniedImg.className = "deniedDiv";
+        document.body.appendChild(this.deniedImg);
         this.errorText = document.createElement("p");
         this.errorText.innerHTML = "Hjälp paketet att hitta genom att aktivera platsinformationen!";
-        this.deniedDiv.appendChild(this.errorText);
+        this.deniedImg.appendChild(this.errorText);
         this.errorText.className = "errorText";
       
         

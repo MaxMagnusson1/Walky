@@ -51,6 +51,7 @@ body {
     transform: translateX(-50%);
     font-family: sans-serif;
     letter-spacing: 0.3vw;
+    z-index: 999;
 }
 
 
@@ -92,6 +93,7 @@ body {
 
 img.iconInLocker {
     /* Stilar för dina bilder */
+    
     position: relative;
     height: 12vh;
     margin-left: 12vw;
@@ -230,9 +232,7 @@ img.priceIcon {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    background-image: url("/img/felhantering-04.png");
-    background-size: cover;
-}
+    }
 
 
 

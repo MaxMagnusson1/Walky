@@ -17,6 +17,14 @@ function Price() {
 
     this.renderPackage = function () {
 
+            this.priceContainer = document.createElement("div");
+            this.priceContainer.className = "priceContainer";
+            document.body.appendChild(this.priceContainer);
+        
+        
+     //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
+     //   console.log(elementsWithClassName.length);
+
 
         this.newLockerPrice = document.querySelector(".newLockerPrice"); 
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
@@ -26,11 +34,9 @@ function Price() {
         this.scoreContainer = document.createElement("div");
         this.paket = document.createElement("img");
         this.paketText = document.createElement("div");
-        this.priceContainer = document.createElement("div");
         this.priceIcon = document.createElement("img");
 
         //sätta classnamn på element för pris-sidan
-        this.priceContainer.className = "priceContainer";
         this.scoreContainer.className = "priceScore";
         this.paket.className = "paket";
         this.priceIcon.className = "priceIcon";
@@ -38,7 +44,7 @@ function Price() {
         // this.totalPoints = totalPoints;
 
         //lägger till elementen i domen för pris-sidan
-        document.body.appendChild(this.priceContainer);
+    
         this.priceContainer.appendChild(this.scoreContainer);
 
         //kontroll på paket 

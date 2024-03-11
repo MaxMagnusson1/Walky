@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var img = new Image();
 
     // Ange källan till din bild
-    img.src = './img/paket.png', './img/skuggpaket.png', './lockerImg.png ';
+    img.src = './img/paket.png', './img/skuggpaket.png', './img/lockerImg.png', './img/treedone-03.png', './img/felhanteringklar-04.png';
 
     // Lägg till en onload-händelse för att kalla på Main.init() när bilden har laddats
     img.onload = function() {

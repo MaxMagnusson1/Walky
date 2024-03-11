@@ -59,11 +59,10 @@ function Start() {
     this.startContainer.appendChild(this.karta);
     this.priceBtn.appendChild(this.nmrOfpresentsDiv);
     this.lockerBtn.appendChild(this.newLockerPrice);
-    //  this.nmrOfpresentsDiv.style.visibility = "hidden";
+    
 
+    this.lockerBtnClicked = false;
     this.notisValue = setCookie.getCookie("notis");
-
-
 
     //skapar objekt som behövs 
     this.totalDistance = setCookie.getCookie("total_dist");
@@ -103,25 +102,32 @@ function Start() {
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
+      var remove = document.body.querySelector(".lockerContainer");
+      if (remove) {
+        remove.remove();
+      }
 
       this.startContainer.style.visibility = "visible"
-      if ( document.body.querySelector(".deniedDiv")){
+      if (document.body.querySelector(".deniedDiv")){
         document.body.querySelector(".deniedDiv").style.visibility = "visible";
 
       }
-
+      
     }.bind(this));
 
     //eventhantering för att gå tillbaka till lockersidan
 
-    this.lockerBtn.addEventListener("click", function () {
+    this.lockerBtn.addEventListener("click", function clickHandler () {
       var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
+    
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
-
       var locker = new Locker();
       locker.renderLocker();
+      this.lockerBtn.removeEventListener("click", clickHandler);
+ 
+    
     }.bind(this));
 
 
