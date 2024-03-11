@@ -20,6 +20,8 @@ function Start() {
     this.nmrOfpresentsDiv = document.createElement("div");
     this.newLockerPrice = document.createElement("div");
 
+    
+
     //  this.nmrOfpresentsNum = document.createElement("p");
 
     //this.lockerContainer = document.body.querySelector(".lockerContainer");
@@ -79,7 +81,7 @@ function Start() {
     //eventhantering för price sidan 
     this.priceBtn.addEventListener("click", function () {
 
-      var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer");
+      var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
@@ -103,13 +105,17 @@ function Start() {
       }
 
       this.startContainer.style.visibility = "visible"
+      if ( document.body.querySelector(".deniedDiv")){
+        document.body.querySelector(".deniedDiv").style.visibility = "visible";
+
+      }
 
     }.bind(this));
 
     //eventhantering för att gå tillbaka till lockersidan
 
     this.lockerBtn.addEventListener("click", function () {
-      var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice ");
+      var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }

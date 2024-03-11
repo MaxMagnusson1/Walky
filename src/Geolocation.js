@@ -21,12 +21,13 @@ function Geolocation() {
         this.button =document.querySelector(".newPositionBtn")
         this.errorDiv = document.createElement("div"); 
         this.errorDiv.className = "errorDiv"; 
-        this.yesBtn = document.createElement("button"); 
-        this.yesBtn.innerHTML = "Försök igen"
+        this.yesBtn = document.createElement("div"); 
+        this.yesBtn.className = "yesBtn";
+        this.yesBtn.innerHTML = "Din webbläsare är förmodligen utåldrad och stödjer inte tjänsten"; 
    
 
         //klassnamn 
-        this.yesBtn.classname = "yesBtn";
+        
 
         document.body.appendChild(this.infoDiv);
 
@@ -41,6 +42,7 @@ for (let i = 0; i < 5; i++) {
      else {
         this.apiAttempt++; 
         if (this.apiAttempt === 4) {
+            
             this.removeLoader.remove(); 
             document.body.appendChild(this.errorDiv); 
             this.errorDiv.appendChild(this.yesBtn);     
@@ -57,7 +59,12 @@ for (let i = 0; i < 5; i++) {
         this.deniedDiv = document.createElement("div");
         this.deniedDiv.className = "deniedDiv";
         document.body.appendChild(this.deniedDiv);
-        this.deniedDiv.innerHTML = "Du har inte gett tillgång till din plats, försök igen!";  
+        this.errorText = document.createElement("p");
+        this.errorText.innerHTML = "Hjälp paketet att hitta genom att aktivera platsinformationen!";
+        this.deniedDiv.appendChild(this.errorText);
+        this.errorText.className = "errorText";
+      
+        
     }
 
 

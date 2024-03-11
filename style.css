@@ -22,19 +22,36 @@ body {
     right: 4vw;
 }
 
-.deniedDiv{
-    background-color: white;
+.deniedDiv {
     width: 100vw;
     height: 50vh;
+    background-repeat: no-repeat;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999; /* Ensure it appears above other elements */
+    z-index: 999; /* Säkerställ att det visas ovanför andra element */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: flex-start; /* Centrerar innehållet vertikalt */
+    align-items: center; /* Centrerar innehållet horisontellt */
+    background-image: url("/img/treedone-03.png");
+    background-size: cover;
 }
+
+.errorText {
+    font-size: 5vw;
+    position: absolute;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 65vw;
+    text-align: center;
+    top: 5vh   ;
+    left: 55%;
+    transform: translateX(-50%);
+    font-family: sans-serif;
+}
+
 
 .locker {
     position: absolute;
@@ -47,7 +64,6 @@ body {
     background-image: url("/img/mapAsset 35@2x.png");
     background-position: center;
     background-size: contain;
-
 }
 
 
@@ -200,10 +216,10 @@ img.priceIcon {
 
 }
 .errorDiv {
-    background-color: white;
     width: 100vw;
     height: 50vh;
     position: absolute;
+    background-repeat: no-repeat;
     top: 0;
     left: 0;
     z-index: 999; /* Ensure it appears above other elements */
@@ -211,24 +227,29 @@ img.priceIcon {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-}
-
-button {
-    background-color: blue;
-    border-radius: 10%;
-    width: 50vw;
-    height: 5vh;
-    font-size: 3vh;
-    margin-bottom: 10px; /* Adjust this value to set the margin at the bottom */
+    background-image: url("/img/felhantering-04.png");
+    background-size: cover;
 }
 
 
-button{
-    background-color: blue;
-    border-radius: 10%;
-    width: 50vw;
+
+
+.yesBtn{
+    width: 80vw;
     height: 5vh;
-    font-size: 3vh;
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    bottom: 2vh;
+    letter-spacing: 0.3vw;
+    
+    
+    
 }
 
 .infoDiv{
