@@ -9,4 +9,6 @@ var Main = {
         }
     
 
-document.addEventListener("DOMContentLoaded", Main.init);
+        window.onload = function() {
+          Main.init();
+      };
