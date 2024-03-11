@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var img = new Image();
 
     // Ange källan till din bild
-    img.src = './img/paket.png';
+    img.src = './img/paket.png', './img/skuggpaket.png', './mapAsset 35@2x.png ';
 
     // Lägg till en onload-händelse för att kalla på Main.init() när bilden har laddats
     img.onload = function() {
