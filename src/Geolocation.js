@@ -19,9 +19,7 @@ function Geolocation() {
         this.removeLoader = document.querySelector(".loadingTheMap"); 
         this.infoDiv = document.createElement("div"); 
         this.button =document.querySelector(".newPositionBtn")
- 
         this.yesBtn = document.createElement("div"); 
-       
         document.body.appendChild(this.infoDiv);
 
    
@@ -71,6 +69,9 @@ for (let i = 0; i < 5; i++) {
 
         if (self.startMarker) {
             self.startMarker.setPosition(yourPos);
+        }
+        if (self.marker) {
+            self.drawRoute(self.position, yourPos);
         }
     }
 

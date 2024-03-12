@@ -261,8 +261,8 @@ img.priceIcon {
 .loadingTheMap {
     position: fixed;
     top: 20vh; 
-    left: 29vw;
-
+    left: 27vw;
+    
     border: 16px solid #f3f3f3; /* Grå rand */
     border-top: 16px solid blue; /* Blå rand */
     border-radius: 50%; /* Gör cirkeln rund */
@@ -281,7 +281,6 @@ img.priceIcon {
     position: fixed;
     top:40vh;
     left: 29vw;
-
     border: 16px solid #f3f3f3; /* Grå rand */
     border-top: 16px solid blue; /* Blå rand */
     border-radius: 50%; /* Gör cirkeln rund */
