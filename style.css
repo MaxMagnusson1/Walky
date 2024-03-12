@@ -277,7 +277,24 @@ img.priceIcon {
     100% { transform: rotate(360deg); } /* Rotera ett helt varv (360 grader) */
 }
 
+.loadingApp{
+    position: fixed;
+    top:40vh;
+    left: 29vw;
 
+    border: 16px solid #f3f3f3; /* Grå rand */
+    border-top: 16px solid blue; /* Blå rand */
+    border-radius: 50%; /* Gör cirkeln rund */
+    width: 40vw;
+    height: 40vw;
+    animation: spinapp 2s linear infinite; /* Använd CSS-animation för att få ikonen att snurra */
+}
+
+
+@keyframes spinapp {
+    0% { transform: rotate(0deg); } /* Börja från 0 grader rotation */
+    100% { transform: rotate(360deg); } /* Rotera ett helt varv (360 grader) */
+}
 
 .loading {
     position: fixed;
