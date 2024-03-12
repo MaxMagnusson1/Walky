@@ -10,7 +10,7 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1000;
+    this.value = 10
 
     var setCookie = new Kakor();
     const jsConfetti = new JSConfetti()
@@ -80,7 +80,9 @@ function Price() {
 
     this.randomPrice = () => {
         this.paket.removeEventListener("click", this.randomPrice);
-        jsConfetti.addConfetti();
+        jsConfetti.addConfetti({
+            confettiNumber: 100,
+        });
         this.number = this.totalPoints - this.value;
         // setCookie = new Kakor();
         setCookie.setCookie("total_points", -this.value, 365);
