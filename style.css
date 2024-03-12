@@ -3,7 +3,7 @@ body {
     height: 100vh;
     margin: 0; /* Återställ standardmarginalen */
     padding: 0; 
-}
+    background-attachment: fixed;}
 
 .priceScore {
     width: 40vw;
@@ -106,8 +106,6 @@ img.iconInLocker {
 #karta {
     width: 100vw;
     height: 50vh;
-    margin-left: -7px;
-    margin-top: -7px;
 }
 
 #antalMeter {
@@ -455,13 +453,13 @@ img.priceIcon {
     /* Behåll bildens proportionella aspekt och passa inom div-elementet */
 }
 
-.paket {
+img.paket {
     position: absolute;
     background-repeat: no-repeat;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: calc(150% - 6vw);
+    width: calc(100vw - 6vw);
     height: auto;
     object-fit: contain;
 }

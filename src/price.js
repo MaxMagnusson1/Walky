@@ -10,7 +10,7 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1;
+    this.value = 1000;
 
     var setCookie = new Kakor();
     const jsConfetti = new JSConfetti()
@@ -35,13 +35,13 @@ function Price() {
 
 
         if (this.totalPoints > this.value) {
-            this.paket.src = './img/paket.png';
+            this.paket.src = './img/correktpaket-05.png';
             this.paket.id = "shake";
             this.paket.addEventListener("click", this.randomPrice);
             // this.priceContainer.appendChild(this.paket);
 
         } else {
-            this.paket.src = "./img/skuggpaket.png";
+            this.paket.src = "./img/skuggat-06.png";
             //  this.priceContainer.appendChild(this.paket)
 
         }
