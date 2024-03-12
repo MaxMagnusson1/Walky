@@ -16,6 +16,10 @@ function Price() {
     const jsConfetti = new JSConfetti()
 
     this.renderPackage = function () {
+        if (this.priceIcon !== null){
+            this.priceIcon.removeEventListener("click", this.clickHandler);
+
+        }
 
         this.priceContainer = document.querySelector('.priceContainer');
         this.priceContainer.style.visibility = "visible";
@@ -75,7 +79,7 @@ function Price() {
     }
 
     this.randomPrice = () => {
-        console.log(this.priceIcon);
+        this.paket.removeEventListener("click", this.randomPrice);
         jsConfetti.addConfetti();
         this.number = this.totalPoints - this.value;
         // setCookie = new Kakor();
@@ -88,7 +92,7 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.priceArray = [1, 3,4,5,6,7,8,9,10];
 
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);
@@ -174,6 +178,7 @@ function Price() {
 
             // Om ingen matchning hittas, kör setCookie
             if (!foundMatch) {
+                this.notisValue = setCookie.getCookie("notis");
                 bildkakor.setCookie("images", this.priceIcon.src, 365);
                 setCookie.setCookie("notis", 1, 365);
                 this.newLockerPrice.style.visibility = "visible";
@@ -191,16 +196,16 @@ function Price() {
         this.priceIcon.style.visibility = "visible";
         this.paketText.style.visibility = "visible ";
 
-        this.priceIcon.addEventListener("click", () => {
-            this.paket.style.visibility = "visible";
-            this.remove = [this.priceIcon, this.paketText];
-            this.priceIcon.style.visibility = "hidden";
-            this.paketText.style.visibility = "hidden";
-
-            this.renderPackage();
-        });
-    }
+        this.priceIcon.addEventListener("click", this.clickHandler);
 
 
+}
+this.clickHandler = ()=>{
+    this.paket.style.visibility = "visible";
+    this.remove = [this.priceIcon, this.paketText];
+    this.priceIcon.style.visibility = "hidden";
+    this.paketText.style.visibility = "hidden";
+    this.renderPackage();
+}
 }
 

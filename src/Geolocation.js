@@ -38,9 +38,6 @@ for (let i = 0; i < 5; i++) {
             this.errorImg.className = "errorDiv"; 
             document.body.appendChild(this.errorImg); 
             this.errorImg.src = "./img/felhanteringklar-04.png";
-            this.yesBtn.addEventListener('click', () => {
-                this.getCurrentLocation(); 
-            });
 
         }
     }
@@ -49,7 +46,7 @@ for (let i = 0; i < 5; i++) {
     this.deniedAccess = function () {
         this.removeLoader.remove();
         this.deniedImg = document.createElement("img");
-        this.deniedImg.src = "./img/treedone-03.png";
+        this.deniedImg.src = "./img/treemedtext-03.png";
         this.deniedImg.className = "deniedDiv";
         document.body.appendChild(this.deniedImg);
         this.errorText = document.createElement("p");

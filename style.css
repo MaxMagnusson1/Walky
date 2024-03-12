@@ -34,7 +34,6 @@ body {
     flex-direction: column;
     justify-content: flex-start; /* Centrerar innehållet vertikalt */
     align-items: center; /* Centrerar innehållet horisontellt */
-    background-image: url("/img/treedone-03.png");
     background-size: cover;
 }
 

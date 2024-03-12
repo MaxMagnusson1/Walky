@@ -167,8 +167,7 @@ function Start() {
 
     notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
-    console.log(this.notisValue); 
-    if (this.notisValue !== "" && this.notisValue == 0 && !isNaN(parseFloat(setCookie.getCookie("notis")))) {
+    if (this.notisValue !== "" && this.notisValue === 0 && !isNaN(parseFloat(setCookie.getCookie("notis")))) {
       this.newLockerPrice.style.visibility = "visible";
       this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
     } else {
@@ -178,11 +177,12 @@ function Start() {
 
     //eventhantering för price sidan 
     this.priceBtn.addEventListener("click", function () {
+      
       this.paket.style.visibility ="visible"; 
       this.priceIcon.style.visibility ="hidden"; 
       this.paketText.style.visibility="hidden"; 
 
-      var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
+      var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv, .iconInLocker, .row, .errorDiv");
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }
@@ -194,7 +194,6 @@ function Start() {
     //eventhantering för att gå tillbaka till startsidan  
 
     this.mapBtn.addEventListener("click", function () {
-
       this.totalPoints = setCookie.getCookie("total_points");
 
       this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
@@ -203,31 +202,36 @@ function Start() {
       this.priceIcon.style.visibility ="hidden"; 
       this.paketText.style.visibility="hidden"; 
       this.paket.style.visibility="hidden"; 
-
       this.lockerContainer.style.visibility="hidden"; 
       
-      /*var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer");
+      var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer, .iconInLocker, .row");
 
-      console.log(this.priceContainer); 
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
-      }*/
+      }
  
 
       this.startContainer.style.visibility = "visible"
-      if (document.body.querySelector(".deniedDiv")){
-        document.body.querySelector(".deniedDiv").style.visibility = "visible";
-
+      this.errorContainers = document.body.querySelectorAll(".deniedDiv, .errorDiv")
+      if (this.errorContainers){
+        for (var i = 0; i < this.errorContainers.length; i++) {
+          this.errorContainers[i].style.visibility = "visible";
+        }
       }
       
     }.bind(this));
 
     //eventhantering för att gå tillbaka till lockersidan
 
-    this.lockerBtn.addEventListener("click", function () {
+      this.lockerBtn.addEventListener("click", function () {
       this.lockerContainer.style.visibility = "visible";
+      var y = document.body.querySelectorAll(".iconInLocker, .row");
 
-      var containers = document.querySelectorAll('.startContainer')
+      for (var i = 0; i < y.length; i++) {
+        y[i].style.visibility = "visible";
+      }
+
+      var containers = document.querySelectorAll('.startContainer, .deniedDiv, .errorDiv')
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
       }; 
@@ -237,11 +241,11 @@ function Start() {
       this.paketText.style.visibility="hidden"; 
       this.paket.style.visibility="hidden"; 
 
-      /*var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
+     // var containers = document.body.querySelectorAll(".priceContainer, .startContainer, .newLockerPrice, .deniedDiv ");
       
-      for (var i = 0; i < containers.length; i++) {
-        containers[i].style.visibility = "hidden";
-      }*/
+      //for (var i = 0; i < containers.length; i++) {
+     //   containers[i].style.visibility = "hidden";
+     // }
       var locker = new Locker();
       locker.renderLocker();
      
@@ -251,7 +255,7 @@ function Start() {
 
 
     //sätta text på element för startsidany
-
+  
     if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
 
       this.totalMetersWalked.innerHTML = "Du har ännu inte gått något, dags att börja gå!"; //sätter texten på totala sträckan om användaren inte gått innan 
@@ -281,9 +285,47 @@ function Start() {
         // Skicka avståndet som parameter
       }.bind(this));
     
-
+   
   }
 
+
+
+ /*this.lockerHandler = function () {
+    this.lockerContainer.style.visibility = "visible";
+
+    var containers = document.querySelectorAll('.startContainer')
+    for (var i = 0; i < containers.length; i++) {
+        containers[i].style.visibility = "hidden";
+    }; 
+
+    this.priceContainer.style.visibility ="hidden"; 
+    this.priceIcon.style.visibility ="hidden"; 
+    this.paketText.style.visibility="hidden"; 
+    this.paket.style.visibility="hidden"; 
+    this.lockerBtn.removeEventListener("click", this.lockerHandler);
+    var locker = new Locker();
+    locker.renderLocker();
+}.bind(this);
+
+ 
+/*
+this.priceHandler = function () {
+
+  console.log("priceBtn"); 
+  this.paket.style.visibility ="visible"; 
+  this.priceIcon.style.visibility ="hidden"; 
+  this.paketText.style.visibility="hidden"; 
+
+  var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
+  for (var i = 0; i < containers.length; i++) {
+    containers[i].style.visibility = "hidden";
+  }
+
+  this.priceBtn.removeEventListener("click", this.priceHandler);
+
+  var price = new Price;
+  price.renderPackage();
+}.bind(this);*/
 
 
   //metod för att välja en slutdestination
