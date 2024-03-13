@@ -108,8 +108,9 @@ for (let i = 0; i < 5; i++) {
         
         if (this.markerArray.length == 0) {
             this.marker = new google.maps.Marker({
-                position: event.latLng,
+                position: yourPos,
                 map: this.karta
+            
             })
             this.markerArray.push(this.marker);
         } else {
@@ -141,7 +142,7 @@ for (let i = 0; i < 5; i++) {
             
         }
 */      var request = {
-            origin: yourPos,
+            origin: origin,
             destination: destination,
             travelMode: google.maps.TravelMode.WALKING
         };
