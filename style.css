@@ -438,15 +438,21 @@ img.priceIcon {
 }
 
 .lockerBtn {
-    background-image: url("./img/nav-09.png");
+    background-image: url("./img/litenlocker-09.png");
+    margin-left: 2vw;
+    margin-bottom: 1vh;
 }
 
 .mapBtn {
     background-image: url("./img/mapAsset 27@2x.png");
+    margin-left: 2vw;
+    margin-bottom: 1vh;
 }
 
 .priceBtn {
     background-image: url("./img/bigline-07.png");
+    margin-left: 2vw;
+    margin-bottom: 1vh;
 }
 
 
