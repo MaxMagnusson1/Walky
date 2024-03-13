@@ -70,16 +70,13 @@ for (let i = 0; i < 5; i++) {
         
         var yourPos = new google.maps.LatLng(lat, lng);
         
-       /* if (self.myLocation) {
-            console.log("if")
-            //self.myLocation.setPosition(yourPos);
-        }*/ 
-        if (self.karta) {
+       if (!self.myLocation) {
             console.log("ELSE")
             self.getMap(yourPos, this.goingPos);
+            self.myLocation.setPosition(yourPos);
+
         }
-      
-    
+
         if (self.marker) {
             console.log("second if"); 
             self.drawRoute(self.position, yourPos);
