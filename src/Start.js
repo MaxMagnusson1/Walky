@@ -97,7 +97,6 @@ function Start() {
 
   this.renderMapAndButtons = function () {
 
-    console.log("renderMapAndButtons");
     localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
     this.loading = document.createElement("div"); 
