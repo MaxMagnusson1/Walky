@@ -97,7 +97,7 @@ function Start() {
   }
 
   this.renderMapAndButtons = function () {
-    
+    localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
    /* this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
@@ -175,9 +175,17 @@ function Start() {
     }
 
 
+
     //eventhantering för price sidan 
+    
     this.priceBtn.addEventListener("click", function () {
-      
+      if (localStorage.getItem("priceBtn") == "false"){
+
+        localStorage.setItem("priceBtn", true);
+      localStorage.setItem("lockerBtn", false);
+      localStorage.setItem("mapBtn", false);
+
+
       this.paket.style.visibility ="visible"; 
       this.priceIcon.style.visibility ="hidden"; 
       this.paketText.style.visibility="hidden"; 
@@ -187,13 +195,19 @@ function Start() {
         containers[i].style.visibility = "hidden";
       }
       var price = new Price;
-      price.renderPackage();
-
+      price.renderPackage(this.priceBtn);
+      }
     }.bind(this));
-
+  
     //eventhantering för att gå tillbaka till startsidan  
-
+    
     this.mapBtn.addEventListener("click", function () {
+      if (localStorage.getItem("mapBtn") == "false"){
+
+      localStorage.setItem("priceBtn", false);
+      localStorage.setItem("lockerBtn", false);
+      localStorage.setItem("mapBtn", true);
+    
       this.totalPoints = setCookie.getCookie("total_points");
 
       this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
@@ -218,12 +232,19 @@ function Start() {
           this.errorContainers[i].style.visibility = "visible";
         }
       }
+    }
       
     }.bind(this));
 
     //eventhantering för att gå tillbaka till lockersidan
 
       this.lockerBtn.addEventListener("click", function () {
+        if (localStorage.getItem("lockerBtn") == "false"){
+
+        localStorage.setItem("priceBtn", false);
+        localStorage.setItem("lockerBtn", true);
+        localStorage.setItem("mapBtn", false);
+
       this.lockerContainer.style.visibility = "visible";
       var y = document.body.querySelectorAll(".iconInLocker, .row");
 
@@ -249,7 +270,7 @@ function Start() {
       var locker = new Locker();
       locker.renderLocker();
      
- 
+    }
     
     }.bind(this));
 
@@ -339,6 +360,7 @@ this.priceHandler = function () {
       this.button.innerHTML = "Du har " + distanceInMeters + " meter kvar";
 
       if (distanceInMeters <= 1000) {
+        navigator.vibrate(1000); //vibrerar när användaren är framme
         geolocation.clearRoute(); 
         this.button.innerHTML = "Du är framme! Interagera med kartan för att gå igen";//ändrar texten på knappen när användaren är framme
 

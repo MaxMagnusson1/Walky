@@ -10,12 +10,15 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 10
+    this.value = 1000;
 
     var setCookie = new Kakor();
     const jsConfetti = new JSConfetti()
 
     this.renderPackage = function () {
+        console.trace();
+        console.log(this.renderPackage.length)
+        console.log("renderPackage"); 
         if (this.priceIcon !== null){
             this.priceIcon.removeEventListener("click", this.clickHandler);
 
@@ -79,6 +82,7 @@ function Price() {
     }
 
     this.randomPrice = () => {
+        console.log("randomPrice"); 
         this.paket.removeEventListener("click", this.randomPrice);
         jsConfetti.addConfetti({
             confettiNumber: 100,
@@ -94,7 +98,7 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1, 3,4,5,6,7,8,9,10];
+        this.priceArray = [1, 3, 4];
 
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);
@@ -158,6 +162,8 @@ function Price() {
 
         }
 
+        console.log(this.priceIcon.src); 
+
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;
@@ -203,8 +209,11 @@ function Price() {
 
 }
 this.clickHandler = ()=>{
+    console.log("clickHandler"); 
     this.paket.style.visibility = "visible";
-    this.remove = [this.priceIcon, this.paketText];
+    this.priceIcon.style.visibility = "hidden";
+    this.paketText.style.visibility = "hidden";
+    //this.remove = [this.priceIcon, this.paketText];
     this.priceIcon.style.visibility = "hidden";
     this.paketText.style.visibility = "hidden";
     this.renderPackage();

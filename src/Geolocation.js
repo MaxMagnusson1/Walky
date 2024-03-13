@@ -123,9 +123,49 @@ for (let i = 0; i < 5; i++) {
             })
             this.markerArray.push(this.marker);
         }
+        console.log(event.latLng.lat)
+
+    
+        target ={
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng()
+        }
+       
+        navigator.geolocation.watchPosition(success); 
         this.drawRoute(this.position, event.latLng);
     }
 
+
+    function success(pos) {
+        const crd = pos.coords;
+    
+        var aloudDiff = 0.0001;
+        var latDiff = Math.abs(target.latitude - crd.latitude);
+        var lonDiff = Math.abs(target.longitude - crd.longitude);
+    
+        if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
+            alert('Congratulations, you reached the target');
+            navigator.geolocation.clearWatch(id);
+        }
+        var karta = new google.maps.Map(document.getElementById('karta'), {
+            center: { lat: crd.latitude, lng: crd.longitude },
+            zoom: 12
+        });
+    
+        var marker = new google.maps.Marker({
+            position: { lat: crd.latitude, lng: crd.longitude },
+            map: karta,
+            title: 'Hello World!'
+        });
+    
+        var marker2 = new google.maps.Marker({
+            position: { lat: target.latitude, lng: target.longitude },
+            map: karta,
+            title: 'Hello World!'
+        });
+    
+    }
+    
 
     this.drawRoute = function (origin, destination) {
   
