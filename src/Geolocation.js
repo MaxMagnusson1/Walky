@@ -14,6 +14,7 @@ function Geolocation() {
     //this.errorContainer 
     var self = this;
     this.goingPos = null;
+    this.target = null; 
 
 
 
@@ -63,7 +64,34 @@ function Geolocation() {
 
 
     this.showPosition = function (position) {
-      
+      console.log(this.target); 
+        if(this.target != null){
+            console.log(this.target); 
+            console.log("uppdaterar"); 
+
+          //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
+            const crd = position.coords;
+
+  if (this.target.latitude === crd.latitude && this.target.longitude === crd.longitude) {
+    console.log("Congratulations, you reached the target");
+   // navigator.geolocation.clearWatch(id);
+  }
+}
+else {
+    console.log("HEJ");
+    this.goingPos = position.coords;
+    //   this.position = position; 
+    //     console.log(this.position)
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+
+    var yourPos = new google.maps.LatLng(lat, lng);
+
+    console.log("ELSE")
+    self.getMap(yourPos, this.goingPos);
+    self.myLocation.setPosition(yourPos);
+ }
+        
        // if (){
          /*   const crd = this.goingPos;
             const target = {
@@ -80,19 +108,9 @@ function Geolocation() {
                 alert('Congratulations, you reached the target');
     
             }*/
-     //   }
-        console.log("HEJ");
-        this.goingPos = position.coords;
-        //   this.position = position; 
-        //     console.log(this.position)
-        var lat = position.coords.latitude;
-        var lng = position.coords.longitude;
-
-        var yourPos = new google.maps.LatLng(lat, lng);
-
-        console.log("ELSE")
-        self.getMap(yourPos, this.goingPos);
-        self.myLocation.setPosition(yourPos);
+     //   
+   
+     
 
 
 
@@ -104,7 +122,7 @@ function Geolocation() {
 
 
     this.getMap = function (yourPos, goingPos) {
-        console.log("getmap")
+        console.log("getmap"); 
         this.position = yourPos;
         this.goingPos = goingPos;
         var lat = this.position.lat(); // Hämta latitud från yourPos
@@ -133,8 +151,11 @@ function Geolocation() {
     }
 
     this.addmarker = function (event, goingPos) {
+ 
         this.goingPos = goingPos;
         if (this.markerArray.length == 0) {
+            
+        
             this.marker = new google.maps.Marker({
                 position: event.latLng,
                 map: this.karta
@@ -147,19 +168,32 @@ function Geolocation() {
 
             }
             directionsRenderer.setMap(null);
+
+            this.target = {
+               latitude:  event.latLng.lat(), 
+               longitude: event.latLng.lng(),
+            }
+            
+            console.log(this.target, "hej");
             this.marker = new google.maps.Marker({
+        
                 position: event.latLng,
                 map: this.karta
             })
             this.markerArray.push(this.marker);
         }
-        this.controll(event.latLng, this.goingPos);
+        
+      
         this.drawRoute(this.position, event.latLng);
     }
 
 
 
     this.drawRoute = function (origin, destination) {
+        this.orgin = origin; 
+        this.destination = destination; 
+        console.log(destination); 
+        console.log(origin)
         console.log("drawroute");
         var request = {
             origin: origin,
@@ -169,6 +203,7 @@ function Geolocation() {
 
         directionsService.route(request, function (result, status) {
             if (status === 'OK') {
+            
                 directionsRenderer.setMap(self.karta);
                 directionsRenderer.setDirections(result);
                 this.distanceInMeters = result.routes[0].legs[0].distance.value;
@@ -192,12 +227,14 @@ function Geolocation() {
                 window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
             }
         }.bind(this));
-
+      //  this.controll(destination, this.goingPos);
+      //this.controll(); 
         return this.distanceInMeters;
     }
 
 
    /* this.controll = function(event, goingPos){
+        console.log("HEJ")
         console.log(event); 
         console.log(goingPos); 
 
@@ -216,7 +253,34 @@ function Geolocation() {
                 alert('Congratulations, you reached the target');
     
     }
-*/
+    }*/
+
+   /* this.controll = function (){
+        console.log("controll"); 
+        navigator.geolocation.watchPosition(this.success);
+    }
+
+    this.success = function (pos){
+        const crd = pos.coords; 
+        console.log("Success")
+        //const crd = this.goingPos;
+        const target = {
+            latitude: this.destination,
+            longitude: this.destination
+        }
+
+        var aloudDiff = 0.01;
+        var latDiff = Math.abs(target.latitude - crd.latitude);
+        var lonDiff = Math.abs(target.longitude - crd.longitude);
+
+        console.log("innann if sats")
+        if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
+            alert('Congratulations, you reached the target');
+
+}
+    }*/
+
+
 
     this.clearRoute = function () {
         // Rensa DirectionsRenderer från kartan
