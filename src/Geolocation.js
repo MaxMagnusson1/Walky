@@ -72,7 +72,11 @@ function Geolocation() {
           //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-  if (this.target.latitude === crd.latitude && this.target.longitude === crd.longitude) {
+            var aloudDiff = 0.001;
+            var latDiff = Math.abs(this.target.latitude - crd.latitude);
+            var lonDiff = Math.abs(this.target.longitude - crd.longitude);
+
+  if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
     alert("Congratulations, you reached the target");
    // navigator.geolocation.clearWatch(id);
   }
