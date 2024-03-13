@@ -64,25 +64,32 @@ function Geolocation() {
 
 
     this.showPosition = function (position) {
-      console.log(this.target); 
-        if(this.target != null){
-            console.log(this.target); 
+
+        console.log("HEEEEEEEEEEEJ"); 
+       
+    //  console.log(this.target); 
+        if(localStorage.getItem("longitude") != null){
+            var targetlog = localStorage.getItem("longitude"); 
+            var targetLat = localStorage.getItem("latitude"); 
+            console.log(targetLat); 
             console.log("uppdaterar"); 
+
 
           //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-            var aloudDiff = 0.001;
-            var latDiff = Math.abs(this.target.latitude - crd.latitude);
-            var lonDiff = Math.abs(this.target.longitude - crd.longitude);
+            var aloudDiff = 0.01;
+            var latDiff = Math.abs(targetLat - crd.latitude);
+            var lonDiff = Math.abs(targetlog - crd.longitude);
 
   if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
+    localStorage.clear(); 
+
     alert("Congratulations, you reached the target");
    // navigator.geolocation.clearWatch(id);
   }
 }
 else {
-    console.log("HEJ");
     this.goingPos = position.coords;
     //   this.position = position; 
     //     console.log(this.position)
@@ -91,7 +98,7 @@ else {
 
     var yourPos = new google.maps.LatLng(lat, lng);
 
-    console.log("ELSE")
+    
     self.getMap(yourPos, this.goingPos);
     self.myLocation.setPosition(yourPos);
  }
@@ -126,7 +133,7 @@ else {
 
 
     this.getMap = function (yourPos, goingPos) {
-        console.log("getmap"); 
+   
         this.position = yourPos;
         this.goingPos = goingPos;
         var lat = this.position.lat(); // Hämta latitud från yourPos
@@ -177,8 +184,11 @@ else {
                latitude:  event.latLng.lat(), 
                longitude: event.latLng.lng(),
             }
-            
-            console.log(this.target, "hej");
+           localStorage.setItem("latitude", this.target.latitude)
+           localStorage.setItem("longitude", this.target.longitude)
+
+            console.log(this.target.latitude)
+        
             this.marker = new google.maps.Marker({
         
                 position: event.latLng,
@@ -194,11 +204,10 @@ else {
 
 
     this.drawRoute = function (origin, destination) {
+        console.log(this.target)
         this.orgin = origin; 
         this.destination = destination; 
-        console.log(destination); 
-        console.log(origin)
-        console.log("drawroute");
+      
         var request = {
             origin: origin,
             destination: destination,
