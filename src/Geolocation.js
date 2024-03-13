@@ -64,7 +64,6 @@ for (let i = 0; i < 5; i++) {
         var lng = position.coords.longitude;
         
         var yourPos = new google.maps.LatLng(lat, lng);
-        console.log(yourPos);
         if (self.myLocation) {
             self.myLocation.setPosition(yourPos);
         } else {
@@ -107,7 +106,7 @@ for (let i = 0; i < 5; i++) {
         
         if (this.markerArray.length == 0) {
             this.marker = new google.maps.Marker({
-                position: yourPos,
+                position: event.latLng,
                 map: this.karta
             
             })
