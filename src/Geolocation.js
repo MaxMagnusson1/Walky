@@ -1,3 +1,6 @@
+
+
+
 function Geolocation() {
     this.position = null;
     this.karta = null;
@@ -58,6 +61,7 @@ for (let i = 0; i < 5; i++) {
 
 
     this.showPosition = function (position) {
+        console.log("HEJ"); 
         this.goingPos = position.coords;
      //   this.position = position; 
    //     console.log(this.position)
@@ -66,20 +70,25 @@ for (let i = 0; i < 5; i++) {
         
         var yourPos = new google.maps.LatLng(lat, lng);
         
-        if (self.myLocation) {
-            self.myLocation.setPosition(yourPos);
-        } else {
+       /* if (self.myLocation) {
+            console.log("if")
+            //self.myLocation.setPosition(yourPos);
+        }*/ 
+        if (self.karta) {
+            console.log("ELSE")
             self.getMap(yourPos, this.goingPos);
         }
-
+      
+    
         if (self.marker) {
+            console.log("second if"); 
             self.drawRoute(self.position, yourPos);
         }
     }
 
 
     this.getMap = function (yourPos, goingPos) {
-        console.log("HEJ")
+        console.log("getmap")
         this.position = yourPos;
         this.goingPos = goingPos; 
         var lat = this.position.lat(); // Hämta latitud från yourPos
@@ -148,7 +157,7 @@ for (let i = 0; i < 5; i++) {
     
 
     this.drawRoute = function (origin, destination) {
-  
+  console.log("drawroute"); 
         var request = {
             origin: origin,
             destination: destination,
@@ -201,3 +210,4 @@ for (let i = 0; i < 5; i++) {
     
 
 }
+
