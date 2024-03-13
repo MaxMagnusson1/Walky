@@ -36,6 +36,7 @@ for (let i = 0; i < 5; i++) {
             this.errorImg.className = "errorDiv"; 
             document.body.appendChild(this.errorImg); 
             this.errorImg.src = "./img/felhanteringklar-04.png";
+            break; 
 
         }
     }
@@ -57,6 +58,8 @@ for (let i = 0; i < 5; i++) {
 
 
     this.showPosition = function (position) {
+        this.position = position; 
+        console.log(this.position)
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         
@@ -123,9 +126,21 @@ for (let i = 0; i < 5; i++) {
 
 
     this.drawRoute = function (origin, destination) {
+            console.log(this.position)
+        /*navigator.geolocation.watchPosition(uppdatePosition());
+
+        function uppdatePosition(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            var yourPos = new google.maps.LatLng(lat, lng);
+            self.position = yourPos;
+
+            
+        }
+*/
 
         var request = {
-            origin: origin,
+            origin: this.position,
             destination: destination,
             travelMode: google.maps.TravelMode.WALKING
         };
