@@ -25,6 +25,7 @@ function Geolocation() {
 for (let i = 0; i < 5; i++) {
     if (navigator.geolocation) {
         navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
+        console.log("geolocation")
         break;
     }
      else {
@@ -64,15 +65,13 @@ for (let i = 0; i < 5; i++) {
         var lng = position.coords.longitude;
         
         var yourPos = new google.maps.LatLng(lat, lng);
+        
         if (self.myLocation) {
             self.myLocation.setPosition(yourPos);
         } else {
             self.getMap(yourPos, this.goingPos);
         }
 
-        if (self.startMarker) {
-            self.startMarker.setPosition(yourPos);
-        }
         if (self.marker) {
             self.drawRoute(self.position, yourPos);
         }
@@ -80,9 +79,9 @@ for (let i = 0; i < 5; i++) {
 
 
     this.getMap = function (yourPos, goingPos) {
+        console.log("HEJ")
         this.position = yourPos;
         this.goingPos = goingPos; 
-
         var lat = this.position.lat(); // Hämta latitud från yourPos
         var lng = this.position.lng(); // Hämta longitud från yourPos
 
@@ -140,43 +139,12 @@ for (let i = 0; i < 5; i++) {
 
         if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
             alert('Congratulations, you reached the target');
-            navigator.geolocation.clearWatch(id);
+            
         }
  
-      //  navigator.geolocation.watchPosition(success); 
         this.drawRoute(this.position, event.latLng);
     }
 
-
-  /*  function success(pos) {
-        const crd = pos.coords;
-    
-        var aloudDiff = 0.0001;
-        var latDiff = Math.abs(target.latitude - crd.latitude);
-        var lonDiff = Math.abs(target.longitude - crd.longitude);
-    
-        if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
-            alert('Congratulations, you reached the target');
-            navigator.geolocation.clearWatch(id);
-        }
-        var karta = new google.maps.Map(document.getElementById('karta'), {
-            center: { lat: crd.latitude, lng: crd.longitude },
-            zoom: 12
-        });
-    
-        var marker = new google.maps.Marker({
-            position: { lat: crd.latitude, lng: crd.longitude },
-            map: karta,
-            title: 'Hello World!'
-        });
-    
-        var marker2 = new google.maps.Marker({
-            position: { lat: target.latitude, lng: target.longitude },
-            map: karta,
-            title: 'Hello World!'
-        });
-    
-    }*/
     
 
     this.drawRoute = function (origin, destination) {
@@ -208,12 +176,15 @@ for (let i = 0; i < 5; i++) {
 
             }
 
-            else {
+            else { 
                 window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
             }
         }.bind(this));
         return this.distanceInMeters;
     }
+
+
+
 
     this.clearRoute = function () {
         // Rensa DirectionsRenderer från kartan
