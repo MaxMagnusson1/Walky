@@ -4,18 +4,27 @@ function Locker() {
 
         this.newLockerPrice = document.querySelector(".newLockerPrice");
 
-        // Skapar div för locker-sidan
         this.lockerContainer = document.createElement("div");
         this.locker = document.createElement("img");
         this.locker.src = './img/lockerImg.png';
-
-        // Sätter classnamn på element för locker-sidan
+    
+        //klassnamn för lockersidan 
         this.locker.className = "locker";
         this.lockerContainer.className = "lockerContainer";
-
-        // Lägger till elementen i domen för locker-sidan
+        
+    
+        //tillägg till domen på lockersidan
         document.body.appendChild(this.lockerContainer);
         this.lockerContainer.appendChild(this.locker);
+    
+        //klassnamn för element på prissidan 
+  
+
+        // Skapar div för locker-sidan
+      
+        // Sätter classnamn på element för locker-sidan
+
+        // Lägger till elementen i domen för locker-sidan
 
         var setCookieIcon = new Kakor();
 
@@ -23,7 +32,7 @@ function Locker() {
         this.newValue = parseInt(this.currentValue);
         setCookieIcon.setCookie("notis", -this.newValue, 365);
 
-        this.newLockerPrice.style.visibility = "hidden";    
+        //this.newLockerPrice.style.visibility = "hidden";    
 
         var setCookie = new BildKakor();
         var imageArray = setCookie.getCookie("images");

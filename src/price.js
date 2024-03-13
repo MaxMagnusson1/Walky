@@ -16,10 +16,40 @@ function Price() {
     const jsConfetti = new JSConfetti()
 
     this.renderPackage = function () {
-        console.trace();
+
+        //div för pris-sidan    
+        this.priceContainer = document.createElement("div");
+        this.scoreContainer = document.createElement("div");
+        this.paket = document.createElement("img");
+        this.paketText = document.createElement("div");
+        this.priceIcon = document.createElement("img");
+    
+        //klassnamn för element på prissidan 
+        this.priceContainer.className = "priceContainer";
+        this.scoreContainer.className = "priceScore";
+        this.paket.className = "paket";
+        this.priceIcon.className = "priceIcon";
+        this.paketText.className = "paketText";
+    
+        //lägger till elementen i domen 
+        document.body.appendChild(this.priceContainer);
+        this.priceContainer.appendChild(this.scoreContainer);
+        this.priceContainer.appendChild(this.paket);
+        this.priceContainer.appendChild(this.priceIcon);
+        this.priceContainer.appendChild(this.paketText);
+        this.priceContainer.style.visibility ="hidden"; 
+
+       // this.totalPoints = totalPoints;
+
+        //  lägger till elementen i domen för pris-sidan
+
+        this.priceContainer.appendChild(this.scoreContainer);
+
+        //kontroll på paket 
+      //  console.trace();
         console.log(this.renderPackage.length)
-        console.log("renderPackage"); 
-        if (this.priceIcon !== null){
+        console.log("renderPackage");
+        if (this.priceIcon !== null) {
             this.priceIcon.removeEventListener("click", this.clickHandler);
 
         }
@@ -50,9 +80,9 @@ function Price() {
         }
 
         this.scoreContainer.innerHTML = "Du har " + this.totalPoints + " poäng!";
-        //    this.priceContainer = document.createElement("div");
-        //  this.priceContainer.className = "priceContainer";
-        //  document.body.appendChild(this.priceContainer);
+        this.priceContainer = document.createElement("div");
+        this.priceContainer.className = "priceContainer";
+        document.body.appendChild(this.priceContainer);
 
 
         //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
@@ -60,29 +90,12 @@ function Price() {
 
 
 
-        //div för pris-sidan    
-        /*  this.scoreContainer = document.createElement("div");
-          this.paket = document.createElement("img");
-          this.paketText = document.createElement("div");
-          this.priceIcon = document.createElement("img");*/
 
-        //sätta classnamn på element för pris-sidan
-        /*this.scoreContainer.className = "priceScore";
-        this.paket.className = "paket";
-        this.priceIcon.className = "priceIcon";
-        this.paketText.className = "paketText";*/
-        // this.totalPoints = totalPoints;
-
-        //lägger till elementen i domen för pris-sidan
-
-        //this.priceContainer.appendChild(this.scoreContainer);
-
-        //kontroll på paket 
 
     }
 
     this.randomPrice = () => {
-        console.log("randomPrice"); 
+        console.log("randomPrice");
         this.paket.removeEventListener("click", this.randomPrice);
         jsConfetti.addConfetti({
             confettiNumber: 100,
@@ -162,13 +175,14 @@ function Price() {
 
         }
 
-        console.log(this.priceIcon.src); 
+        console.log(this.priceIcon.src);
 
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;
 
         if (imageArray === null) {
+            console.log("imageArray är null");
             bildkakor.setCookie("images", this.priceIcon.src, 365);
             setCookie.setCookie("notis", 1, 365);
             this.newLockerPrice.style.visibility = "visible";
@@ -186,6 +200,7 @@ function Price() {
 
             // Om ingen matchning hittas, kör setCookie
             if (!foundMatch) {
+                console.log("detta är en ny ikon");
                 this.notisValue = setCookie.getCookie("notis");
                 bildkakor.setCookie("images", this.priceIcon.src, 365);
                 setCookie.setCookie("notis", 1, 365);
@@ -207,16 +222,17 @@ function Price() {
         this.priceIcon.addEventListener("click", this.clickHandler);
 
 
-}
-this.clickHandler = ()=>{
-    console.log("clickHandler"); 
-    this.paket.style.visibility = "visible";
-    this.priceIcon.style.visibility = "hidden";
-    this.paketText.style.visibility = "hidden";
-    //this.remove = [this.priceIcon, this.paketText];
-    this.priceIcon.style.visibility = "hidden";
-    this.paketText.style.visibility = "hidden";
-    this.renderPackage();
-}
+
+    }
+    this.clickHandler = () => {
+        console.log("clickHandler");
+        this.paket.style.visibility = "visible";
+        this.priceIcon.style.visibility = "hidden";
+        this.paketText.style.visibility = "hidden";
+        //this.remove = [this.priceIcon, this.paketText];
+        this.priceIcon.style.visibility = "hidden";
+        this.paketText.style.visibility = "hidden";
+        this.renderPackage();
+    }
 }
 

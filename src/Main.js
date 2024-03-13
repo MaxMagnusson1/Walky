@@ -1,7 +1,7 @@
 var Main = {
     init: function () {
         var start = new Start();
-        start.createAllElements();
+        start.renderMapAndButtons();
     }
 };
 
