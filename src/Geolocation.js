@@ -10,6 +10,7 @@ function Geolocation() {
     this.apiAttempt = 0; 
     //this.errorContainer 
     var self = this;
+    var yourPos; 
 
 
     var directionsService = new google.maps.DirectionsService();
@@ -58,12 +59,13 @@ for (let i = 0; i < 5; i++) {
 
 
     this.showPosition = function (position) {
-        this.position = position; 
-        console.log(this.position)
+     //   this.position = position; 
+   //     console.log(this.position)
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         
-        var yourPos = new google.maps.LatLng(lat, lng);
+        yourPos = new google.maps.LatLng(lat, lng);
+        console.log(yourPos);
         if (self.myLocation) {
             self.myLocation.setPosition(yourPos);
         } else {
@@ -81,6 +83,7 @@ for (let i = 0; i < 5; i++) {
 
     this.getMap = function (yourPos) {
         this.position = yourPos;
+
         var lat = this.position.lat(); // Hämta latitud från yourPos
         var lng = this.position.lng(); // Hämta longitud från yourPos
 
@@ -102,7 +105,7 @@ for (let i = 0; i < 5; i++) {
     }
 
     this.addmarker = function (event) {
- 
+        
         if (this.markerArray.length == 0) {
             this.marker = new google.maps.Marker({
                 position: event.latLng,
@@ -126,7 +129,7 @@ for (let i = 0; i < 5; i++) {
 
 
     this.drawRoute = function (origin, destination) {
-            console.log(this.position)
+            console.log(yourPos);
         /*navigator.geolocation.watchPosition(uppdatePosition());
 
         function uppdatePosition(position) {
@@ -137,10 +140,8 @@ for (let i = 0; i < 5; i++) {
 
             
         }
-*/
-
-        var request = {
-            origin: this.position,
+*/      var request = {
+            origin: yourPos,
             destination: destination,
             travelMode: google.maps.TravelMode.WALKING
         };
