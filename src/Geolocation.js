@@ -73,7 +73,7 @@ function Geolocation() {
             const crd = position.coords;
 
   if (this.target.latitude === crd.latitude && this.target.longitude === crd.longitude) {
-    console.log("Congratulations, you reached the target");
+    alert("Congratulations, you reached the target");
    // navigator.geolocation.clearWatch(id);
   }
 }
