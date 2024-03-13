@@ -10,7 +10,6 @@ function Geolocation() {
     this.apiAttempt = 0; 
     //this.errorContainer 
     var self = this;
-    var yourPos; 
 
 
     var directionsService = new google.maps.DirectionsService();
@@ -64,7 +63,7 @@ for (let i = 0; i < 5; i++) {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
         
-        yourPos = new google.maps.LatLng(lat, lng);
+        var yourPos = new google.maps.LatLng(lat, lng);
         console.log(yourPos);
         if (self.myLocation) {
             self.myLocation.setPosition(yourPos);
@@ -130,18 +129,8 @@ for (let i = 0; i < 5; i++) {
 
 
     this.drawRoute = function (origin, destination) {
-            console.log(yourPos);
-        /*navigator.geolocation.watchPosition(uppdatePosition());
-
-        function uppdatePosition(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
-            var yourPos = new google.maps.LatLng(lat, lng);
-            self.position = yourPos;
-
-            
-        }
-*/      var request = {
+  
+        var request = {
             origin: origin,
             destination: destination,
             travelMode: google.maps.TravelMode.WALKING
