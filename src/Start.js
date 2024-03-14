@@ -96,7 +96,7 @@ function Start() {
   }
 
   this.renderMapAndButtons = function () {
-   // localStorage.clear();
+    localStorage.clear();
 
     localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
