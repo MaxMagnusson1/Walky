@@ -96,6 +96,7 @@ function Start() {
   }
 
   this.renderMapAndButtons = function () {
+   // localStorage.clear();
 
     localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
@@ -301,12 +302,12 @@ function Start() {
 
     //händelselyssnare 
 
-      this.button.addEventListener("click", function () {
+      /*this.button.addEventListener("click", function () {
         if (geolocation.distanceInMeters != null){
           this.endDestination(geolocation.distanceInMeters);
         }
         // Skicka avståndet som parameter
-      }.bind(this));
+      }.bind(this));*/
     
    
   }
