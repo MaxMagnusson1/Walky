@@ -73,7 +73,7 @@ function Geolocation() {
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-            var aloudDiff = 0.0001;
+            var aloudDiff = 0.1;
             var latDiff = Math.abs(targetLat - crd.latitude);
             var lonDiff = Math.abs(targetlog - crd.longitude);
 
@@ -155,7 +155,10 @@ function Geolocation() {
             });
         }
 
-        this.removeLoader.remove();
+        if (this.removeLoader){
+                    this.removeLoader.remove();
+
+        }
 
         this.karta.addListener('click', function (event) {
             this.addmarker(event, this.goingPos);
@@ -248,16 +251,22 @@ function Geolocation() {
             }
         }.bind(this));
 
-        this.button.addEventListener("click", function () {
+        this.button.addEventListener("click", this.clickHandler);
 
-            if (this.distanceInMeters != null) {
-                this.endDestination(this.distanceInMeters);
-            }
-        }.bind(this));
+      
+        // Lägger till händelsehanteraren
+       
 
     }
-
+    this.clickHandler = function() {
+        if (this.distanceInMeters != null) {
+            this.endDestination(this.distanceInMeters);
+        }
+    }.bind(this);
     this.endDestination = function (distanceInMeters) {
+        this.button.removeEventListener("click", this.clickHandler);
+
+        console.log("ENDDESInation")
         this.target = {
             latitude: this.latitude,
             longitude: this.longitude,
@@ -269,19 +278,33 @@ function Geolocation() {
         this.button.style.cursor = "default";
         this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter";
 
+
     }
 
     this.reachedDestination = function () {
+
+        localStorage.clear();
         var notis = new Notis();
         var setCookie = new Kakor();
-
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");  
         navigator.vibrate(1000);
-        this.button.innerHTML = "Du har nått din destination!";
-
+        this.button.innerHTML = " Grattis, du har nått din destination!";
+        
+        /*this.button.style.animationName = "jumpAnimation";
+        this.button.style.animationDuration = "2s";
+        this.button.style.animationIterationCount = "infinite";   
+        this.button.style.left = "50%";*/
+     // Hoppar 3 gånger
+        
+        setTimeout(function () {
+           this.button.innerHTML = "Välj en ny destination";
+            // Återställ knappens utseende och stoppa animationen
+        }.bind(this), 10000);
+    
+        
 
         setCookie.setCookie("total_dist", this.distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas
         this.totalDistance = setCookie.getCookie("total_dist"); //hämtar totala sträckan från kakorna
@@ -291,7 +314,8 @@ function Geolocation() {
         this.totalPoints = setCookie.getCookie("total_points");
         notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
-        this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"
+
+        this.score.innerHTML =  "Du har " + this.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
     }
 
 

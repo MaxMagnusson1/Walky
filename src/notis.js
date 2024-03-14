@@ -4,13 +4,11 @@ function Notis() {
    // this.priceBtn = priceBtn;
 
     this.checkNotis = function (nmrOfpresentsDiv, totalPoints) {
-        console.log(nmrOfpresentsDiv, totalPoints)
         this.nmrOfpresentsDiv = nmrOfpresentsDiv;
         this.totalPoints = totalPoints
      
 
         if (this.totalPoints >= 1000) {
-            console.log("HEJ")
             this.nmrOfpresentsDiv.style.visibility = "visible";
             this.notis = Math.floor(this.totalPoints / 1000);
             this.nmrOfpresentsDiv.innerHTML = this.notis;

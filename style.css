@@ -4,16 +4,20 @@ body {
     margin: 0; /* Återställ standardmarginalen */
     padding: 0; 
     background-attachment: fixed;
+    font-family: "komet", sans-serif;
+font-weight: 400;
+font-style: normal;
+
 }
 
-.priceScore {
+.currentPoint{
     width: 40vw;
     /* Bredden baserad på 10% av visningsbredden */
     height: 5vh;
     /* Höjden baserad på 5% av visningshöjden */
     background-color: white;
     border: 1px solid black;
-    font-size: 3vw;
+    font-size: 6vw;
     /* Textstorleken baserad på 2% av visningsbredden */
     display: flex;
     align-items: center;
@@ -21,8 +25,9 @@ body {
     position: absolute;
     top: 2vh;
     right: 4vw;
-}
+    ;
 
+}
 .deniedDiv {
     width: 100vw;
     height: 50vh;
@@ -42,14 +47,13 @@ body {
     font-size: 5vw;
     position: absolute;
     color: black;
-    font-weight: bold;
     margin-bottom: 10px;
     width: 65vw;
     text-align: center;
     top: 5vh   ;
     left: 55%;
     transform: translateX(-50%);
-    font-family: sans-serif;
+   /* font-family: sans-serif;*/
     letter-spacing: 0.3vw;
     z-index: 999;
 }
@@ -132,7 +136,6 @@ img.iconInLocker {
     border-radius: 50%; /* Gör den rund */
     background-color: white;
     border: 1px solid black;
-    font-weight: bold;
     font-size: 4vw;
     display: flex;
     align-items: center;
@@ -154,7 +157,6 @@ img.iconInLocker {
         border-radius: 50%; /* Gör den rund */
         background-color: white;
         border: 1px solid black;
-        font-weight: bold;
         font-size: 4vw;
         display: flex;
         align-items: center;
@@ -180,7 +182,6 @@ div.text {
     border: 1px solid black;
     font-size: 25px;
     cursor: pointer;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,11 +196,13 @@ div.text {
     border: 1px solid black;
     font-size: 20px;
     cursor: pointer;
-    font-weight: 500;
 }
 
 div.paketText {
-    position: absolute;
+   background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+
     top: 20vh;
     /* Avståndet från toppen baserat på 20% av visningshöjden */
     left: 50%;
@@ -208,8 +211,7 @@ div.paketText {
     text-align: center;
     font-size: 3vw;
     /* Textstorleken baserad på 3% av visningsbredden */
-    font-weight: 500;
-    max-width: 90vw;
+    max-width: 80vw;
     /* Maxbredd på 90% av visningsbredden */
 }
 
@@ -243,8 +245,7 @@ img.priceIcon {
     align-items: center;
     justify-content: center;
     position: absolute;
-    font-family: sans-serif;
-    font-weight: bold;
+   /* font-family: sans-serif;*/
     text-align: center;
     bottom: 2vh;
     letter-spacing: 0.3vw;
@@ -309,11 +310,6 @@ img.priceIcon {
 }
 
 
-@keyframes spin {
-    0% { transform: rotate(0deg); } /* Börja från 0 grader rotation */
-    100% { transform: rotate(360deg); } /* Rotera ett helt varv (360 grader) */
-}
-
 
     
 
@@ -321,6 +317,18 @@ img.priceIcon {
     width: 200px;
     height: 200px;
 }
+
+@keyframes jumpAnimation {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    25%, 75% {
+      transform: translateY(-5px);
+    }
+  }
+  
+
+
 
 .totalMetersWalked {
     width: 36%;
@@ -345,6 +353,7 @@ div.newPositionBtn {
     top: 53vh;
     background-color: white;
     width: 70vw;
+box-shadow: black 3px 3px 3px;
     /* Använd 30% av viewport-bredden som bredd */
     height: 10vh;
     padding: 10px;
@@ -353,7 +362,6 @@ div.newPositionBtn {
     border: 1px solid black;
     font-size: 140%;
     cursor: pointer;
-    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -391,7 +399,6 @@ div.paketText {
     transform: translate(-50%, -50%);
     text-align: center;
     font-size: 25px;
-    font-weight: 500;
     width: 400px;
 }
 
@@ -439,6 +446,7 @@ img.priceIcon {
     height: 15vw; /* Anpassa höjden efter 20% av sidans bredd */
 }
 
+
 .lockerBtn {
     background-image: url("./img/litenlocker-09.png");
     margin-left: 2vw;
@@ -477,6 +485,7 @@ img.priceIcon {
     object-fit: contain;
     /* Behåll bildens proportionella aspekt och passa inom div-elementet */
 }
+
 
 img.paket {
     position: absolute;

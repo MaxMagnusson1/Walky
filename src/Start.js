@@ -3,7 +3,7 @@ function Start() {
   var newScore = new Score();
   var notis = new Notis();
   var geolocation = new Geolocation();
-
+  this.startContainer = null; 
   this.createAllElements = function(){
 
     //alla element som ska visas på startsidan 
@@ -96,10 +96,12 @@ function Start() {
   }
 
   this.renderMapAndButtons = function () {
-    localStorage.clear();
 
-    localStorage.setItem("priceBtn", false);
+   // localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
+   
+   localStorage.clear(); 
+      console.log("UEI")
     this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
     this.navContainer = document.createElement("div");
@@ -112,9 +114,9 @@ function Start() {
     this.karta = document.getElementById("karta");
     this.nmrOfpresentsDiv = document.createElement("div");
     this.newLockerPrice = document.createElement("div");
+    //this.coin = document.createElement("img");
 
-    
-
+   //this.coin.src = "./img/coin3-10.png";
       this.nmrOfpresentsNum = document.createElement("p");
 
     this.lockerContainer = document.body.querySelector(".lockerContainer");
@@ -134,6 +136,7 @@ function Start() {
     this.newLockerPrice.className = "newLockerPrice";
     this.newLockerPrice.style.visibility = "hidden";
     this.nmrOfpresentsNum.className = "nmrOfpresentsNum";
+   // this.coin.className = "coin";
 
   //this.nmrOfpresents.className = "nmrOfpresents";
 
@@ -145,13 +148,14 @@ function Start() {
     this.navContainer.appendChild(this.lockerBtn);
     this.navContainer.appendChild(this.mapBtn);
     this.navContainer.appendChild(this.priceBtn);
-
     this.startContainer.appendChild(this.totalMetersWalked);
     this.startContainer.appendChild(this.button);
     this.startContainer.appendChild(this.score);
     this.startContainer.appendChild(this.karta);
     this.priceBtn.appendChild(this.nmrOfpresentsDiv);
     this.lockerBtn.appendChild(this.newLockerPrice);
+//this.score.appendChild(this.coin);
+  
     
 
     this.notisValue = setCookie.getCookie("notis");
@@ -213,8 +217,8 @@ function Start() {
     
       this.totalPoints = setCookie.getCookie("total_points");
 
-      this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
-      
+      this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
+
      /* this.priceContainer.style.visibility ="hidden"; 
       this.priceIcon.style.visibility ="hidden"; 
       this.paketText.style.visibility="hidden"; 
@@ -277,7 +281,7 @@ function Start() {
     
     }.bind(this));
 
-
+    
     //sätta text på element för startsidany
   
     if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
@@ -289,8 +293,8 @@ function Start() {
 
     }
     if (newScore.totalPoints) {
-
-      this.score.innerHTML = "Du har " + newScore.totalPoints + " poäng!"; //sätter poängen på användaren
+      this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
+   //  this.score.appendChild(this.coin);
 
     }
     else {
@@ -376,6 +380,7 @@ this.priceHandler = function () {
         notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
         this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
+
       }
     }.bind(this), 3000);
   }

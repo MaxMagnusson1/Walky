@@ -23,22 +23,30 @@ function Price() {
         this.paket = document.createElement("img");
         this.paketText = document.createElement("div");
         this.priceIcon = document.createElement("img");
+        this.coin = document.createElement("img");  
+        this.currentPoint = document.createElement("div");
+          this.coin.src = "./img/coin2-10.png";
     
         //klassnamn för element på prissidan 
         this.priceContainer.className = "priceContainer";
+        this.currentPoint.className = "currentPoint";
         this.scoreContainer.className = "priceScore";
         this.paket.className = "paket";
         this.priceIcon.className = "priceIcon";
         this.paketText.className = "paketText";
-    
+        this.coin.className = "coinPrice";
+        
         //lägger till elementen i domen 
         document.body.appendChild(this.priceContainer);
         this.priceContainer.appendChild(this.scoreContainer);
         this.priceContainer.appendChild(this.paket);
         this.priceContainer.appendChild(this.priceIcon);
         this.priceContainer.appendChild(this.paketText);
-        this.priceContainer.style.visibility ="hidden"; 
+        this.priceContainer.appendChild(this.currentPoint);
+      
 
+        this.priceContainer.style.visibility ="hidden"; 
+        this.paketText.style.visibility = "hidden";
        // this.totalPoints = totalPoints;
 
         //  lägger till elementen i domen för pris-sidan
@@ -54,14 +62,12 @@ function Price() {
 
         }
 
-        this.priceContainer = document.querySelector('.priceContainer');
+   //     this.priceContainer = document.querySelector('.priceContainer');
         this.priceContainer.style.visibility = "visible";
-
         this.paket = document.querySelector('.paket');
         this.scoreContainer = document.querySelector('.priceScore');
         this.priceIcon = document.querySelector('.priceIcon');
-        this.paketText = document.querySelector('.paketText');
-
+     //   this.paketText = document.querySelector('.paketText');
         this.newLockerPrice = document.querySelector(".newLockerPrice");
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
         this.totalPoints = setCookie.getCookie("total_points");
@@ -79,10 +85,11 @@ function Price() {
 
         }
 
-        this.scoreContainer.innerHTML = "Du har " + this.totalPoints + " poäng!";
+        this.currentPoint.innerHTML =  this.totalPoints;
+        this.currentPoint.appendChild(this.coin);
         this.priceContainer = document.createElement("div");
         this.priceContainer.className = "priceContainer";
-        document.body.appendChild(this.priceContainer);
+        //document.body.appendChild(this.priceContainer);
 
 
         //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
@@ -103,7 +110,9 @@ function Price() {
         this.number = this.totalPoints - this.value;
         // setCookie = new Kakor();
         setCookie.setCookie("total_points", -this.value, 365);
-        this.scoreContainer.innerHTML = "Du har " + this.number + " poäng!";
+        this.currentPoint.innerHTML = this.number;
+        this.currentPoint.appendChild(this.coin);
+
         //   this.totalPoints = this.number;
         this.totalPoints = setCookie.getCookie("total_points");
         var notis = new Notis();
