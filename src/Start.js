@@ -300,7 +300,7 @@ function Start() {
     else {
       this.score.innerHTML = "Du har 0 poäng";
     }
-    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!!";
+    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!";
 
 
 
@@ -367,7 +367,7 @@ this.priceHandler = function () {
       this.button.innerHTML = "Du har " + distanceInMeters + " meter kvar";
 
       if (distanceInMeters <= 1000) {
-        navigator.vibrate(1000); //vibrerar när användaren är framme
+      //  navigator.vibrate(1000); //vibrerar när användaren är framme
         geolocation.clearRoute(); 
         this.button.innerHTML = "Du är framme! Interagera med kartan för att gå igen";//ändrar texten på knappen när användaren är framme
 
