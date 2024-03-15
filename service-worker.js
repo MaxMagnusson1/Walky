@@ -1,5 +1,64 @@
+const offlineCache ="v1";
+const cacheFiles = [
+  
+]
 
-var cacheName = 'cache-v1';
+//calla på eventet 
+self.addEventListener('install', (event)=>{
+  console.log('ServiceWorker:Installed')
+ /* event.waitUntil(
+    caches
+    .open(cacheFiles)
+    .then(cache => {
+      console.log('service worker caching files'); 
+      cache.addAll(cacheFiles); 
+    })
+    .then(()=> self.skipWating())
+  )*/
+
+})
+
+//aktiver aktivera eventet 
+self.addEventListener('activate' ,(event)=>{
+  console.log("serviceworker activadesd ")
+
+  //clean up
+  //loopar igenom alla caches och om cachen som är aktiv just nu inte är den vi använder tar vi bort den. 
+  event.waitUntil(
+    caches.keys().then(offlineCache => {//promise  tar offlinecache 
+    return Promise.all(
+      offlineCache.map(cache => {
+        if (cache !== offlineCache){
+          console.log("service worinng delting old cash");
+          return caches.delete(cache) //delete metod som tar bort cache 
+        }
+      })
+    ) //retunerar 
+  }
+      )
+  )
+})
+
+self.addEventListener('fetch', event => {
+  console.log("service worker fetching"); 
+  event.respondWith(
+    fetch(event.request)
+    .then(res =>{
+      //gör en kopia av svaret från servern, när man går in på en sida så kör det en kopiia och lägger det här
+      const resClone = res.clone(); //metod för att klona 
+      caches
+      .open(offlineCache)
+      .then(cache =>{
+        //lägger till svaret till servern
+        cache.put(event.request, resClone); 
+      
+      }); 
+      
+      return res; 
+    }).catch(err => caches.match(event.request).then(res => res))
+  )
+})
+/*var cacheName = 'cache-v1';
 var filesToCache = [
     '/',
     'index2.html',

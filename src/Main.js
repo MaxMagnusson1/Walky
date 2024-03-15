@@ -19,13 +19,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('../service-worker.js') // Ändra sökvägen till din service worker-fil
+        window.addEventListener('load', () =>{
+            navigator.serviceWorker.register('../service-worker.js')
+            .then(reg => console.log('service-worger registed'))
+            .catch(err => console.log('serive worker err' + err)); 
+
+        })
+      /*  navigator.serviceWorker.register('../service-worker.js') // Ändra sökvägen till din service worker-fil
             .then(function(registration) {
                 console.log('Service worker registered:', registration);
             })
             .catch(function(error) {
                 console.log('Service worker registration failed:', error);
-            });
+            });*/
     }
 
 });
