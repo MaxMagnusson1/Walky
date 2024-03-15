@@ -120,7 +120,7 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1, 3, 4];
+        this.priceArray = [1, 3, 4,5,6,7,8,9,10];
 
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);

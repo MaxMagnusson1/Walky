@@ -40,7 +40,9 @@ self.addEventListener('install', function(event) {
                 '../src/Main.js',
 
                 // Lägg till andra filer som du vill cachelagra här
-            ]);
+            ]).catch(function(error) {
+                console.error('Failed to cache:', error);
+            });
         })
     );
 });
