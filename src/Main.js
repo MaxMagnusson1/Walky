@@ -17,6 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
         Main.init();
     };
 
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../service-worker.js') // Ändra sökvägen till din service worker-fil
+            .then(function(registration) {
+                console.log('Service worker registered:', registration);
+            })
+            .catch(function(error) {
+                console.log('Service worker registration failed:', error);
+            });
+    }
+
 });
 
 // Lyssna efter window.onload-händelsen
