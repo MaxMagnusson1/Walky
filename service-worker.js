@@ -6,8 +6,8 @@ self.addEventListener('install', function(event) {
             return cache.addAll([
                 // Lista över filer som ska cachelagras
                 '/',
-                '../index.html',
-                '../style.css',
+                'index.html',
+                'style.css',
                 '../img/correktpaket-05.png',
                 '../img/litenlocker-09.png', 
                 '../img/mapAsset 27@2x.png',
@@ -27,10 +27,10 @@ self.addEventListener('install', function(event) {
                 '../img/bild7.png',
                 '../img/bild8.png',
                 '../img/bild9.png',
-                '../service-worker.js',
+                'service-worker.js',
                 '../src/Start.js',
                 '../src/Locker.js',
-                '../manifest.json',
+                'manifest.json',
                 '../src/locker.js',
                 '../src/notis.js',
                 '../src/price.js',
@@ -72,7 +72,9 @@ self.addEventListener('fetch', function(event) {
                 return response;
             }
             // Om resursen inte finns i cachen, hämta den från nätverket
-            return fetch(event.request);
-        })
+            return fetch(event.request).catch(function() {
+                // Om nätverksförfrågan misslyckas, returnera ett standardfelmeddelande eller en standardbild
+                return new Response('Du är offline', {status: 503, statusText: 'Du är offline'});
+         }) })
     );
 });
