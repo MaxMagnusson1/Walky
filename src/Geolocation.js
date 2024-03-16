@@ -27,7 +27,7 @@ function Geolocation() {
 
 
         for (let i = 0; i < 5; i++) {
-            if (!navigator.geolocation) {
+            if (navigator.geolocation) {
                navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
                 break;
             }
@@ -63,7 +63,7 @@ function Geolocation() {
 
 
     this.showPosition = function (position) {
-
+       
 
         //  console.log(this.target); 
         if (localStorage.getItem("longitude") != null) {
