@@ -10,7 +10,7 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1000;
+    this.value = 1;
 
     var setCookie = new Kakor();
     const jsConfetti = new JSConfetti()
@@ -55,8 +55,6 @@ function Price() {
 
         //kontroll på paket 
       //  console.trace();
-        console.log(this.renderPackage.length)
-        console.log("renderPackage");
         if (this.priceIcon !== null) {
             this.priceIcon.removeEventListener("click", this.clickHandler);
 
@@ -102,7 +100,6 @@ function Price() {
     }
 
     this.randomPrice = () => {
-        console.log("randomPrice");
         this.paket.removeEventListener("click", this.randomPrice);
         jsConfetti.addConfetti({
             confettiNumber: 100,
@@ -120,8 +117,8 @@ function Price() {
 
         //gömmer elementen som inte ska synas samt array för alla priser
         this.paket.style.visibility = "hidden";
-        this.priceArray = [1, 3, 4,5,6,7,8,9,10];
-
+        this.priceArray = [1,2,3,4,5,6,7,8,9,10];
+        
         //slumpar fram ett pris som ska användas till switchen
         var priceIndex = Math.floor(Math.random() * this.priceArray.length);
         var priceNumber = this.priceArray[priceIndex];
@@ -132,66 +129,64 @@ function Price() {
         switch (priceNumber) {
             case 1:
 
-                this.priceIcon.src = './img/bild0.png';
-                this.iconName = "Howard The Ugly Monster";
+                this.priceIcon.src = './img/BBQ-12.png';
+                this.iconName = "<i>Dags för BBQ</i>";
                 break;
 
             case 2:
-                this.priceIcon.src = './img/bild1.png';
-                this.iconName = "Mohammed";
+                this.priceIcon.src = './img/star-12.png';
+                this.iconName = "<i>Du är en stjärna</i>'";
                 break;
             case 3:
 
-                this.priceIcon.src = './img/bild2.png';
-                this.iconName = "Det lila lsasersvärdet";
+                this.priceIcon.src = './img/lasersabellila-12.png';
+                this.iconName = "<i>Den lila sabeln</i>";
 
                 break;
             case 4:
-                this.priceIcon.src = './img/bild3.png';
-                this.iconName = "Det röda lasersvärdet";
+                this.priceIcon.src = './img/redlasersabel-12.png';
+                this.iconName = "<i>Den mörka sidan</i>";
 
                 break;
             case 5:
-                this.priceIcon.src = './img/bild4.png';
-                this.iconName = "Det blåa lasersvärdet";
+                this.priceIcon.src = './img/lasersabel-12.png';
+                this.iconName = "<i>Den ljusa sidan</i>";
 
                 break;
 
             case 6:
-                this.priceIcon.src = './img/bild5.png';
-                this.iconName = "Spike wheel";
+                this.priceIcon.src = './img/mic-12.png';
+                this.iconName = "<i>Dags för kareoke</i>";
 
                 break;
             case 7:
-                this.priceIcon.src = './img/bild6.png';
-                this.iconName = "Den blåa kvadraten";
+                this.priceIcon.src = './img/disco-12.png';
+                this.iconName = "Diskotek hela natten</i>";
 
                 break;
             case 8:
-                this.priceIcon.src = './img/bild7.png';
-                this.iconName = "Den smaskiga donuten";
+                this.priceIcon.src = './img/munk-12.png';
+                this.iconName = "<i>Dags för ett snack</i>";
 
                 break;
             case 9:
-                this.priceIcon.src = './img/bild8.png';
-                this.iconName = "Kompassen";
+                this.priceIcon.src = './img/kompassen-12.png';
+                this.iconName = "<i>Helt vilse i världen</i>";
 
                 break;
             case 10:
-                this.priceIcon.src = './img/bild9.png';
-                this.iconName = "Stjärnan";
+                this.priceIcon.src = './img/cake-12.png';
+                this.iconName = "<i>Fyller någon år</i>";
                 break;
 
         }
 
-        console.log(this.priceIcon.src);
 
         var bildkakor = new BildKakor();
         var imageArray = bildkakor.getCookie("images");
         var foundMatch = false;
-
+        this.iconName.className ="iconName"
         if (imageArray === null) {
-            console.log("imageArray är null");
             bildkakor.setCookie("images", this.priceIcon.src, 365);
             setCookie.setCookie("notis", 1, 365);
             this.newLockerPrice.style.visibility = "visible";
@@ -209,7 +204,6 @@ function Price() {
 
             // Om ingen matchning hittas, kör setCookie
             if (!foundMatch) {
-                console.log("detta är en ny ikon");
                 this.notisValue = setCookie.getCookie("notis");
                 bildkakor.setCookie("images", this.priceIcon.src, 365);
                 setCookie.setCookie("notis", 1, 365);
@@ -223,7 +217,7 @@ function Price() {
 
 
         //sätter texten i elementet som skriver ut vilket pris man vunnit
-        this.paketText.innerHTML = "Grattis! Du har vunnit " + this.iconName + "!";
+        this.paketText.innerHTML = "Grattis! Du har vunnit: " + this.iconName + "!";
         //this.priceContainer.appendChild(this.paketText);
         this.priceIcon.style.visibility = "visible";
         this.paketText.style.visibility = "visible ";
@@ -234,7 +228,6 @@ function Price() {
 
     }
     this.clickHandler = () => {
-        console.log("clickHandler");
         this.paket.style.visibility = "visible";
         this.priceIcon.style.visibility = "hidden";
         this.paketText.style.visibility = "hidden";

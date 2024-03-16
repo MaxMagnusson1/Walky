@@ -72,36 +72,27 @@ font-style: normal;
 }
 
 
+.lockerContainer{
+    height: 1px;
 
+}
 
-.row:first-child {
+.row{
+ position: relative;
+ height: 15vh;
+ margin-left: 12vw;
+ margin-right: 12vw;
+ bottom: 42vh;
+}
     /* Justerar det första radavståndet */
-    margin-bottom: 3vh; /* Justerbar för avståndet mellan raderna */
-    margin-top: 7vh; 
-    
-}
-
-.row:nth-child(2) {
-    margin-bottom: 3vh; /* Justerbar för avståndet mellan raderna */
-}
-
-.row:nth-child(3) {
-    margin-bottom: 3vh; /* Justerbar för avståndet mellan raderna */
-}
-
-.row:nth-child(4) {
-    margin-bottom: 3vh; /* Justerbar för avståndet mellan raderna */
-}
-
-
+   
 
 img.iconInLocker {
     /* Stilar för dina bilder */
-    
-    position: relative;
     height: 12vh;
-    margin-left: 12vw;
-    margin-right: 10vw;
+    margin-right: 10; 
+    margin-left: 6vw;
+    margin-right: 6vw;
     z-index: 999;
     bottom: 42vh;
     /* Justera efter behov */
@@ -424,7 +415,9 @@ img.priceIcon {
     background-color: white;
 }
 
-
+.iconName {
+    font-style: italic;
+}
 
 .navContainer {
     display: flex;

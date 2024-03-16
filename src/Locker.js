@@ -2,7 +2,7 @@ function Locker() {
     this.lockerContainer = null;
     this.renderLocker = function () {
 
-        this.newLockerPrice = document.querySelector(".newLockerPrice");
+        //this.newLockerPrice = document.querySelector(".newLockerPrice");
 
         this.lockerContainer = document.createElement("div");
         this.locker = document.createElement("img");
