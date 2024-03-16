@@ -27,7 +27,7 @@ function Geolocation() {
 
 
         for (let i = 0; i < 5; i++) {
-            if (navigator.geolocation) {
+            if (!navigator.geolocation) {
                navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
                 break;
             }
@@ -47,9 +47,10 @@ function Geolocation() {
     }
 
     this.deniedAccess = function () {
+        
         this.removeLoader.remove();
         this.deniedImg = document.createElement("img");
-        this.deniedImg.src = "./img/treemedtext-03.png";
+        this.deniedImg.src = "./img/wifi-03.png";
         this.deniedImg.className = "deniedDiv";
         document.body.appendChild(this.deniedImg);
         this.errorText = document.createElement("p");
@@ -266,7 +267,6 @@ function Geolocation() {
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
-        console.log("ENDDESInation")
         this.target = {
             latitude: this.latitude,
             longitude: this.longitude,

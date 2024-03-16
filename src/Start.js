@@ -19,7 +19,6 @@ function Start() {
     //skapande av element för startsidan
    
    localStorage.clear(); 
-      console.log("UEI")
     this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
     this.navContainer = document.createElement("div");
@@ -91,7 +90,6 @@ function Start() {
     notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
     if (this.notisValue !== "" && this.notisValue > 0 ) {
-      console.log("hej")
       this.newLockerPrice.style.visibility = "visible";
       this.newLockerPrice.innerHTML = setCookie.getCookie("notis");
     } else {
