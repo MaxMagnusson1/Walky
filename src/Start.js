@@ -201,7 +201,7 @@ function Start() {
     else {
       this.score.innerHTML = "Du har 0 poäng";
     }
-    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!!";
+    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!";
 
 
 
