@@ -79,7 +79,8 @@ function Price() {
 
         } else {
             this.paket.src = "./img/skuggat-06.png";
-            //  this.priceContainer.appendChild(this.paket)
+            this.paket.removeAttribute("id");
+                        //  this.priceContainer.appendChild(this.paket)
 
         }
 
@@ -221,6 +222,7 @@ function Price() {
         //this.priceContainer.appendChild(this.paketText);
         this.priceIcon.style.visibility = "visible";
         this.paketText.style.visibility = "visible ";
+        this.priceIcon.id = "shake";
 
         this.priceIcon.addEventListener("click", this.clickHandler);
 

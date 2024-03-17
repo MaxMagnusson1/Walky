@@ -1,6 +1,7 @@
 body {
     background: url(./img/bakgrund.png);
     height: 100vh;
+    
     margin: 0; /* Återställ standardmarginalen */
     padding: 0; 
     background-attachment: fixed;
@@ -14,6 +15,7 @@ font-style: normal;
     width: 40vw;
     /* Bredden baserad på 10% av visningsbredden */
     height: 5vh;
+
     /* Höjden baserad på 5% av visningshöjden */
     background-color: white;
     border: 1px solid black;
@@ -25,21 +27,31 @@ font-style: normal;
     position: absolute;
     top: 2vh;
     right: 4vw;
-    ;
+    
 
+}
+
+@media screen and (min-width: 750px) {
+    .currentPoint {
+        width: 20vh;
+        font-size: 30px; /* Ange här din maxhöjd för fontstorleken */
+    }
 }
 .deniedDiv {
     width: 100vw;
     height: 50vh;
     background-repeat: no-repeat;
     position: absolute;
+    max-width: 700px;
     top: 0;
     left: 0;
-    z-index: 999; /* Säkerställ att det visas ovanför andra element */
+    right: 0; /* Centrerar elementet horisontellt när det är mindre än viewportens bredd */
+    margin: auto; /* Centrerar elementet horisontellt när det är mindre än viewportens bredd */
+    z-index: 999;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: flex-start; /* Centrerar innehållet vertikalt */
-    align-items: center; /* Centrerar innehållet horisontellt */
     background-size: cover;
 }
 
@@ -66,9 +78,11 @@ font-style: normal;
     left: 3vw;
     right: 3vw;
     width: calc(100% - 6vw);
+    height: calc(100% - 25vh);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+
 }
 
 
@@ -79,25 +93,49 @@ font-style: normal;
 
 .row{
  position: relative;
- height: 15vh;
- margin-left: 12vw;
- margin-right: 12vw;
+ height: 14.5vh;
+ margin-left: 25%; 
+ margin-right: 25%;
  bottom: 42vh;
+
 }
     /* Justerar det första radavståndet */
    
 
-img.iconInLocker {
-    /* Stilar för dina bilder */
-    height: 12vh;
-    margin-right: 10; 
-    margin-left: 6vw;
-    margin-right: 6vw;
-    z-index: 999;
-    bottom: 42vh;
-    /* Justera efter behov */
-}
+    img.iconInLocker {
+        /* Stilar för dina bilder */
+        position: absolute;
+        height: 12vh;
+        z-index: 999;
+       
+    }
+    
+    img.iconInLocker:first-child {
+        left: -15%; /* Placera första bilden 10% från vänsterkanten */
+    }
+    
+    img.iconInLocker:last-child {
+       right: -15%; /* Placera andra bilden 30% från vänsterkanten */
+    }
+    @media screen and (min-width: 700px) {
+        img.iconInLocker:first-child {
+            left: -5%; /* Placera första bilden 10% från vänsterkanten */
+        }
+    
+        img.iconInLocker:last-child {
+            right: -5%; /* Placera andra bilden 10% från högerkanten */
+        }
+    }
 
+    @media screen and (min-width: 1100px) {
+        img.iconInLocker:first-child {
+            left: 10%; /* Placera första bilden 10% från vänsterkanten */
+        }
+    
+        img.iconInLocker:last-child {
+            right: 10%; /* Placera andra bilden 10% från högerkanten */
+        }
+    }
 
 #karta {
     width: 100vw;
@@ -214,15 +252,19 @@ img.priceIcon {
 .errorDiv {
     width: 100vw;
     height: 50vh;
-    position: absolute;
     background-repeat: no-repeat;
+    position: absolute;
+    max-width: 700px;
     top: 0;
     left: 0;
-    z-index: 999; /* Ensure it appears above other elements */
+    right: 0; /* Centrerar elementet horisontellt när det är mindre än viewportens bredd */
+    margin: auto; /* Centrerar elementet horisontellt när det är mindre än viewportens bredd */
+    z-index: 999;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
+    flex-direction: column;
+    justify-content: flex-start; /* Centrerar innehållet vertikalt */
+    background-size: cover;
     }
 
 
@@ -251,18 +293,33 @@ img.priceIcon {
     height: 100px;
 }
 .loadingTheMap {
-    position: fixed;
-    top: 20vh; 
-    left: 27vw;
-    
+    position: absolute;
+    top: 10vh; 
+    left: 50%; /* Sätt vänsterkanten till 50% av förälderns bredd */
+    transform: translateX(-50%); 
+    margin-left: -20vw;
     border: 16px solid #f3f3f3; /* Grå rand */
     border-top: 16px solid blue; /* Blå rand */
     border-radius: 50%; /* Gör cirkeln rund */
+
     width: 40vw;
     height: 40vw;
+    max-width: 80vw; /* Maximal bredd på 80% av förälderns bredd */
+    max-height: 80vw; 
     animation: spin 2s linear infinite; /* Använd CSS-animation för att få ikonen att snurra */
 }
 
+@media screen and (min-width: 850px) {
+    .loadingTheMap {
+        position: absolute;
+        
+        left: 60%; /* Sätt vänsterkanten till 50% av förälderns bredd */
+        transform: translateX(-50%); 
+        width: 20vw; /* Justera bredden för mindre skärmar */
+        height: 20vw; /* Justera höjden för mindre skärmar */
+      
+    }
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); } /* Börja från 0 grader rotation */
@@ -437,6 +494,7 @@ img.priceIcon {
     background-size: contain;
     width: 15vw; /* Anpassa bredden efter 20% av sidans bredd */
     height: 15vw; /* Anpassa höjden efter 20% av sidans bredd */
+    max-height: 120px;
 }
 
 
@@ -465,15 +523,16 @@ img.priceIcon {
     background-repeat: no-repeat;
     left: 50%;
     top: 50%;
+    
     transform: translate(-50%, -50%);
-    width: calc(70% - 6vw);
+    width: calc(80% - 6vw);
     /* Justerad bredd för att inkludera utrymmet till vänster och höger */
     height: calc(70% - 6vh);
     height: auto;
     /* Anpassa höjden automatiskt baserat på bildens proportioner */
-    max-width: 100%;
+   max-width: 500px;
     /* Begränsa bredden till att vara högst 100% av förälderens bredd */
-    max-height: 100%;
+   
     /* Begränsa höjden till att vara högst 100% av förälderens höjd */
     object-fit: contain;
     /* Behåll bildens proportionella aspekt och passa inom div-elementet */
@@ -487,6 +546,7 @@ img.paket {
     top: 50%;
     transform: translate(-50%, -50%);
     width: calc(100vw - 6vw);
+    max-width: 600px;
     height: auto;
     object-fit: contain;
 }
@@ -501,7 +561,13 @@ img.paket {
 }
 
 
-
+#shake.priceIcon{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    animation: shake 1.5s ease infinite; /* Använd bara skakningsanimationen */
+    animation-delay: 0.5s; /* Lägg till en paus på 3 sekunder mellan varje iteration */
+}
 
 
 #shake.paket {
@@ -509,5 +575,5 @@ img.paket {
     left: 50%;
     top: 50%;
     animation: shake 1.5s ease infinite; /* Använd bara skakningsanimationen */
-    animation-delay: 3s; /* Lägg till en paus på 3 sekunder mellan varje iteration */
+    animation-delay: 2s; /* Lägg till en paus på 3 sekunder mellan varje iteration */
 }

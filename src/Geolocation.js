@@ -15,8 +15,8 @@ function Geolocation() {
     var self = this;
     this.goingPos = null;
     this.target = null;
-
-
+    this.timer = null;
+    var controll = true; 
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -27,8 +27,8 @@ function Geolocation() {
 
 
         for (let i = 0; i < 5; i++) {
-            if (navigator.geolocation) {
-               navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
+            if (!navigator.geolocation) {
+                navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
                 break;
             }
             else {
@@ -47,7 +47,7 @@ function Geolocation() {
     }
 
     this.deniedAccess = function () {
-        
+
         this.removeLoader.remove();
         this.deniedImg = document.createElement("img");
         this.deniedImg.src = "./img/wifi-03.png";
@@ -63,7 +63,6 @@ function Geolocation() {
 
 
     this.showPosition = function (position) {
-       
 
         //  console.log(this.target); 
         if (localStorage.getItem("longitude") != null) {
@@ -72,7 +71,7 @@ function Geolocation() {
 
 
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
-            const crd = position.coords;
+            var crd = position.coords;
 
             var aloudDiff = 0.1;
             var latDiff = Math.abs(targetLat - crd.latitude);
@@ -85,12 +84,12 @@ function Geolocation() {
                 for (let i = 0; i < self.markerArray.length; i++) {
                     self.markerArray[i].setMap(null);
                 }
-        
+
                 // Rensa markerArray
                 self.markerArray = [];
                 localStorage.clear();
-                self.reachedDestination();  
-                
+                self.reachedDestination();
+
             }
         }
         else {
@@ -137,9 +136,9 @@ function Geolocation() {
 
 
     this.getMap = function (yourPos, goingPos) {
-
         this.position = yourPos;
         this.goingPos = goingPos;
+
         var lat = this.position.lat(); // Hämta latitud från yourPos
         var lng = this.position.lng(); // Hämta longitud från yourPos
         if (!this.karta) {
@@ -156,18 +155,49 @@ function Geolocation() {
             });
         }
 
-        if (this.removeLoader){
-                    this.removeLoader.remove();
+
+        if (this.removeLoader) {
+            this.removeLoader.remove();
 
         }
+        console.log('innan 1')
+  
+        console.log(controll);
+        console.log(controll === true); 
 
-        this.karta.addListener('click', function (event) {
-            this.addmarker(event, this.goingPos);
+        if (controll == true){
+            this.karta.addListener('click', function (event) {
+                console.log("HEEEEEEEJ"); 
+                self.addmarker(event, this.goingPos);
+    
+            }.bind(this));
+    
+        }  
+
+        var press;
+        this.karta.addListener('mousedown', function (event) {
+            press = setTimeout(function () {
+                controll = false; 
+                console.log(controll);
+                console.log('mousedown');
+                clearTimeout(press);
+        
+                // Placera lyssnaren för mouseup inuti mousedown om controll är 1
+           
         }.bind(this));
 
+        this.karta.addListener('mouseup', function (event) {
+            clearTimeout(press); // Rensa timeout när musknappen släpps
+            console.log("clear");
+            console.log(controll); 
+        }.bind(this));
+    }.bind(this), 3000);
     }
 
+ 
+
     this.addmarker = function (event, goingPos) {
+        console.log("addmarker"); 
         this.goingPos = goingPos;
         if (this.markerArray.length == 0) {
 
@@ -215,7 +245,7 @@ function Geolocation() {
 
 
     this.drawRoute = function (origin, destination) {
-     
+
         this.orgin = origin;
         this.destination = destination;
 
@@ -254,23 +284,24 @@ function Geolocation() {
 
         this.button.addEventListener("click", this.clickHandler);
 
-      
+
         // Lägger till händelsehanteraren
-       
+
 
     }
-    this.clickHandler = function() {
+    this.clickHandler = function () {
         if (this.distanceInMeters != null) {
             this.endDestination(this.distanceInMeters);
         }
     }.bind(this);
+
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
         this.target = {
             latitude: this.latitude,
             longitude: this.longitude,
-        }; 
+        };
 
         localStorage.setItem("latitude", this.target.latitude)
         localStorage.setItem("longitude", this.target.longitude)
@@ -289,25 +320,25 @@ function Geolocation() {
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
-        this.totalMetersWalked = document.querySelector(".totalMetersWalked");  
+        this.totalMetersWalked = document.querySelector(".totalMetersWalked");
         if ("vibrate" in navigator) {
-            navigator.vibrate(1000); 
+            navigator.vibrate(1000);
         }
-      //  navigator.vibrate(1000);
+        //  navigator.vibrate(1000);
         this.button.innerHTML = " Grattis, du har nått din destination!";
-        
+
         /*this.button.style.animationName = "jumpAnimation";
         this.button.style.animationDuration = "2s";
         this.button.style.animationIterationCount = "infinite";   
         this.button.style.left = "50%";*/
-     // Hoppar 3 gånger
-        
+        // Hoppar 3 gånger
+
         setTimeout(function () {
-           this.button.innerHTML = "Välj en ny destination";
+            this.button.innerHTML = "Välj en ny destination";
             // Återställ knappens utseende och stoppa animationen
         }.bind(this), 10000);
-    
-        
+
+
 
         setCookie.setCookie("total_dist", this.distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas
         this.totalDistance = setCookie.getCookie("total_dist"); //hämtar totala sträckan från kakorna
@@ -318,7 +349,7 @@ function Geolocation() {
         notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
 
 
-        this.score.innerHTML =  "Du har " + this.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
+        this.score.innerHTML = "Du har " + this.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >"; //sätter poängen på användaren
     }
 
 
@@ -372,18 +403,18 @@ function Geolocation() {
 
 
 
-   /* this.clearRoute = function () {
-        // Rensa DirectionsRenderer från kartan
-        directionsRenderer.setMap(null);
-
-        // Ta bort alla markörer från kartan
-        for (let i = 0; i < this.markerArray.length; i++) {
-            this.markerArray[i].setMap(null);
-        }
-
-        // Rensa markerArray
-        this.markerArray = [];
-    }*/
+    /* this.clearRoute = function () {
+         // Rensa DirectionsRenderer från kartan
+         directionsRenderer.setMap(null);
+ 
+         // Ta bort alla markörer från kartan
+         for (let i = 0; i < this.markerArray.length; i++) {
+             this.markerArray[i].setMap(null);
+         }
+ 
+         // Rensa markerArray
+         this.markerArray = [];
+     }*/
 
 }
 
