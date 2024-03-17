@@ -101,13 +101,10 @@ function Start() {
     //eventhantering för price sidan 
     
     this.priceBtn.addEventListener("click", function () {
-      //if (localStorage.getItem("priceBtn") == "false"){
 
 
     this.startContainer.style.visibility = "hidden";
-     /* this.paket.style.visibility ="visible"; 
-      this.priceIcon.style.visibility ="hidden"; 
-      this.paketText.style.visibility="hidden"; */
+   
       var error = document.body.querySelectorAll(".deniedDiv, .errorDiv"); 
       for (var i = 0; i < error.length; i++) {
 
@@ -135,12 +132,6 @@ function Start() {
       this.totalPoints = setCookie.getCookie("total_points");
 
       this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
-
-     /* this.priceContainer.style.visibility ="hidden"; 
-      this.priceIcon.style.visibility ="hidden"; 
-      this.paketText.style.visibility="hidden"; 
-      this.paket.style.visibility="hidden"; 
-      this.lockerContainer.style.visibility="hidden"; */
       
       var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer, .iconInLocker, .row");
 
@@ -149,7 +140,6 @@ function Start() {
       }
  
 
-      //this.startContainer.style.visibility = "visible"
       this.errorContainers = document.body.querySelectorAll(".deniedDiv, .errorDiv")
       if (this.errorContainers){
         for (var i = 0; i < this.errorContainers.length; i++) {
@@ -160,16 +150,13 @@ function Start() {
       
     }.bind(this));
 
-    //eventhantering för att gå tillbaka till lockersidan
 
       this.lockerBtn.addEventListener("click", function () {
-      //  if (localStorage.getItem("lockerBtn") == "false"){
 
         localStorage.setItem("priceBtn", false);
         localStorage.setItem("lockerBtn", true);
         localStorage.setItem("mapBtn", false);
 
-  //    this.lockerContainer.style.visibility = "visible";
     var y = document.body.querySelectorAll(".iconInLocker, .row");
 
       for (var i = 0; i < y.length; i++) {
@@ -181,10 +168,7 @@ function Start() {
         containers[i].style.visibility = "hidden";
       }; 
 
-   /*   this.priceContainer.style.visibility ="hidden"; 
-      this.priceIcon.style.visibility ="hidden"; 
-      this.paketText.style.visibility="hidden"; 
-      this.paket.style.visibility="hidden"; */
+
 
       var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer ");
       

@@ -290,6 +290,9 @@ function Geolocation() {
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");  
+        if (navigator.vibrate) {
+            navigator.vibrate(1000); 
+        }
       //  navigator.vibrate(1000);
         this.button.innerHTML = " Grattis, du har nått din destination!";
         
