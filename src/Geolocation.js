@@ -290,7 +290,7 @@ function Geolocation() {
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");  
-        if (navigator.vibrate) {
+        if ("vibrate" in navigator) {
             navigator.vibrate(1000); 
         }
       //  navigator.vibrate(1000);
