@@ -10,7 +10,17 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1;
+    this.value = 1000;
+    this.currentPoint = null;
+    this.priceContainer = null;
+    this.scoreContainer = null;
+    this.coin = null;
+    this.newLockerPrice = null;
+    this.totalPoints = null;
+    this.number = null;
+    this.nmrOfpresentsDiv = null;
+    this.notisValue = null;
+
 
     var setCookie = new Kakor();
     const jsConfetti = new JSConfetti()
@@ -47,14 +57,12 @@ function Price() {
 
         this.priceContainer.style.visibility ="hidden"; 
         this.paketText.style.visibility = "hidden";
-       // this.totalPoints = totalPoints;
 
         //  lägger till elementen i domen för pris-sidan
 
         this.priceContainer.appendChild(this.scoreContainer);
 
         //kontroll på paket 
-      //  console.trace();
         if (this.priceIcon !== null) {
             this.priceIcon.removeEventListener("click", this.clickHandler);
 
@@ -65,7 +73,6 @@ function Price() {
         this.paket = document.querySelector('.paket');
         this.scoreContainer = document.querySelector('.priceScore');
         this.priceIcon = document.querySelector('.priceIcon');
-     //   this.paketText = document.querySelector('.paketText');
         this.newLockerPrice = document.querySelector(".newLockerPrice");
         this.nmrOfpresentsDiv = document.querySelector(".nmrOfpresents");
         this.totalPoints = setCookie.getCookie("total_points");
@@ -75,12 +82,10 @@ function Price() {
             this.paket.src = './img/correktpaket-05.png';
             this.paket.id = "shake";
             this.paket.addEventListener("click", this.randomPrice);
-            // this.priceContainer.appendChild(this.paket);
 
         } else {
             this.paket.src = "./img/skuggat-06.png";
             this.paket.removeAttribute("id");
-                        //  this.priceContainer.appendChild(this.paket)
 
         }
 
@@ -88,15 +93,6 @@ function Price() {
         this.currentPoint.appendChild(this.coin);
         this.priceContainer = document.createElement("div");
         this.priceContainer.className = "priceContainer";
-        //document.body.appendChild(this.priceContainer);
-
-
-        //   var elementsWithClassName = document.querySelectorAll('body > .priceContainer');
-        //   console.log(elementsWithClassName.length);
-
-
-
-
 
     }
 
@@ -222,7 +218,7 @@ function Price() {
         //this.priceContainer.appendChild(this.paketText);
         this.priceIcon.style.visibility = "visible";
         this.paketText.style.visibility = "visible ";
-        this.priceIcon.id = "shake";
+this.priceIcon.id = "shake";
 
         this.priceIcon.addEventListener("click", this.clickHandler);
 

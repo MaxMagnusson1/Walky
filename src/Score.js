@@ -1,6 +1,9 @@
 function Score(){
-
+    this.distanceInMeters =null; 
+    this.totalPoints = null;
+    
     this.uppdatedScore = function(distanceInMeters){
+
         this.distanceInMeters = distanceInMeters;
         var setCookie = new Kakor();
         setCookie.getCookie("total_points", this.distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas

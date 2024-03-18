@@ -27,7 +27,7 @@ function Geolocation() {
     this.totalDistance = null;
     this.totalMetersWalked = null;
     this.totalPoints = null;
-
+    var controll = true;
 
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
@@ -51,8 +51,12 @@ function Geolocation() {
                     this.errorImg.className = "errorDiv";
                     document.body.appendChild(this.errorImg);
                     this.errorImg.src = "./img/felhanteringklar-04.png";
-                    break;
-
+                    this.button.innerHTML ="Tryck för att ladda om appen!"; 
+                    console.log(this.button.innerHTML); 
+                    this.button.addEventListener("click", function () {
+                    location.reload();
+                    })
+                 
                 }
             }
         }
@@ -65,12 +69,10 @@ function Geolocation() {
         this.deniedImg.className = "deniedDiv";
         document.body.appendChild(this.deniedImg);
         this.button.innerHTML ="Tryck för att ladda om appen!"
-        //this.errorText = document.createElement("p");
-        // this.errorText.innerHTML = "Hjälp paketet att hitta genom att aktivera platsinformationen!";
-        // this.deniedImg.appendChild(this.errorText);
-        // this.errorText.className = "errorText";
-
-
+        this.button.addEventListener("click", function () {
+            location.reload();
+        })
+  
     }
 
 
@@ -86,7 +88,7 @@ function Geolocation() {
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-            var aloudDiff = 0.1;
+            var aloudDiff = 0.001;
             var latDiff = Math.abs(targetLat - crd.latitude);
             var lonDiff = Math.abs(targetlog - crd.longitude);
 
@@ -94,16 +96,16 @@ function Geolocation() {
                 directionsRenderer.setMap(null);
 
                 // Ta bort alla markörer från kartan
-                for (let i = 0; i < self.markerArray.length; i++) {
+               for (let i = 0; i < self.markerArray.length; i++) {
                     self.markerArray[i].setMap(null);
                 }
 
                 // Rensa markerArray
-                self.markerArray = [];
+                self.markerArray = []; }
                 localStorage.clear();
                 self.reachedDestination();
 
-            }
+           
         }
         else {
             this.goingPos = position.coords;
@@ -119,32 +121,7 @@ function Geolocation() {
             self.myLocation.setPosition(yourPos);
         }
 
-        // if (){
-        /*   const crd = this.goingPos;
-           const target = {
-               latitude: event.latLng.lat(),
-               longitude: event.latLng.lng()
-           }
-   
-           var aloudDiff = 0.0001;
-           var latDiff = Math.abs(target.latitude - crd.latitude);
-           var lonDiff = Math.abs(target.longitude - crd.longitude);
-   
-           console.log("innann if sats")
-           if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
-               alert('Congratulations, you reached the target');
-   
-           }*/
-        //   
-
-
-
-
-
-        /* if (self.marker) {
-             console.log("second if"); 
-             //self.drawRoute(self.position, yourPos);
-         }*/
+          
     }
 
 
@@ -171,13 +148,16 @@ function Geolocation() {
         if (this.removeLoader) {
             this.removeLoader.remove();
 
-        }
-
+        }        
+       
         this.karta.addListener('click', function (event) {
-            this.addmarker(event, this.goingPos);
+            if(controll){
+            console.log(controll);
+            console.log("click");
+            this.addmarker(event, this.goingPos);     };
         }.bind(this));
-
     }
+
 
     this.addmarker = function (event, goingPos) {
         this.goingPos = goingPos;
@@ -197,23 +177,10 @@ function Geolocation() {
                 this.markerArray[i].setMap(null);
 
             }
-            directionsRenderer.setMap(null);
-
-            /*  this.target = {
-                 latitude:  event.latLng.lat(), 
-                 longitude: event.latLng.lng(),
-              }*/
+            directionsRenderer.setMap(null);     
             this.latitude = event.latLng.lat()
             this.longitude = event.latLng.lng()
-
-            //  console.log(this.target,"HHEEJ")
-            //     localStorage.setItem("latitude", this.target.latitude)
-            //    localStorage.setItem("longitude", this.target.longitude)
-
-            //   console.log(this.target.latitude)
-
             this.marker = new google.maps.Marker({
-
                 position: event.latLng,
                 map: this.karta
             })
@@ -225,6 +192,25 @@ function Geolocation() {
     }
 
 
+
+    this.remove = function () {
+    console.log("remove"); 
+           // Remove all markers from the map
+           this.button.innerHTML ="Tryck på kartan för att hitta en rutt!"; 
+           this.button.removeEventListener("mousedown", this.handleMouseDown);
+                   for (let i = 0; i < this.markerArray.length; i++) {
+            this.markerArray[i].setMap(null);
+        }
+
+        // Clear the markerArray
+        this.markerArray = [];
+
+        // Clear the directions renderer
+        directionsRenderer.setMap(null);
+        // Rensa markerArray
+        localStorage.clear();
+
+    }
 
     this.drawRoute = function (origin, destination) {
 
@@ -259,9 +245,7 @@ function Geolocation() {
 
             }
 
-            /* else {
-                 window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
-             }*/
+          
         }.bind(this));
 
         this.button.addEventListener("click", this.clickHandler);
@@ -271,14 +255,18 @@ function Geolocation() {
 
 
     }
+
     this.clickHandler = function () {
         if (this.distanceInMeters != null) {
             this.endDestination(this.distanceInMeters);
         }
     }.bind(this);
+
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
+        this.button.addEventListener("mousedown", this.handleMouseDown);
+        this.button.addEventListener
         this.target = {
             latitude: this.latitude,
             longitude: this.longitude,
@@ -287,10 +275,15 @@ function Geolocation() {
         localStorage.setItem("latitude", this.target.latitude)
         localStorage.setItem("longitude", this.target.longitude)
 
-        this.button.style.cursor = "default";
-        this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter";
+     //  this.button.style.cursor = "default"
+     this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter <br>(Håll in för att avbryta)";
+         }
 
-
+     this.handleMouseDown = function() {
+        setTimeout(function () {
+            console.log("mousedown");
+            self.remove();
+        }.bind(this), 3000);
     }
 
     this.reachedDestination = function () {
@@ -302,18 +295,14 @@ function Geolocation() {
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");
-        //  navigator.vibrate(1000);
         this.button.innerHTML = " Grattis, du har nått din destination!";
 
-        /*this.button.style.animationName = "jumpAnimation";
-        this.button.style.animationDuration = "2s";
-        this.button.style.animationIterationCount = "infinite";   
-        this.button.style.left = "50%";*/
-        // Hoppar 3 gånger
+        if (navigator.vibrate) {
+            navigator.vibrate(1000);
+        }; 
 
         setTimeout(function () {
             this.button.innerHTML = "Välj en ny destination";
-            // Återställ knappens utseende och stoppa animationen
         }.bind(this), 10000);
 
 
@@ -332,68 +321,5 @@ function Geolocation() {
 
 
 
-    /* this.controll = function(event, goingPos){
-         console.log("HEJ")
-         console.log(event); 
-         console.log(goingPos); 
- 
-         const crd = this.goingPos;
-             const target = {
-                 latitude: event.latLng.lat(),
-                 longitude: event.latLng.lng()
-             }
-     
-             var aloudDiff = 0.0001;
-             var latDiff = Math.abs(target.latitude - crd.latitude);
-             var lonDiff = Math.abs(target.longitude - crd.longitude);
-     
-             console.log("innann if sats")
-             if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
-                 alert('Congratulations, you reached the target');
-     
-     }
-     }*/
-
-    /* this.controll = function (){
-         console.log("controll"); 
-         navigator.geolocation.watchPosition(this.success);
-     }
- 
-     this.success = function (pos){
-         const crd = pos.coords; 
-         console.log("Success")
-         //const crd = this.goingPos;
-         const target = {
-             latitude: this.destination,
-             longitude: this.destination
-         }
- 
-         var aloudDiff = 0.01;
-         var latDiff = Math.abs(target.latitude - crd.latitude);
-         var lonDiff = Math.abs(target.longitude - crd.longitude);
- 
-         console.log("innann if sats")
-         if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
-             alert('Congratulations, you reached the target');
- 
- }
-     }*/
-
-
-
-    /* this.clearRoute = function () {
-         // Rensa DirectionsRenderer från kartan
-         directionsRenderer.setMap(null);
- 
-         // Ta bort alla markörer från kartan
-         for (let i = 0; i < this.markerArray.length; i++) {
-             this.markerArray[i].setMap(null);
-         }
- 
-         // Rensa markerArray
-         this.markerArray = [];
-     }*/
-
 }
-
 

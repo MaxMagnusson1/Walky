@@ -71,27 +71,7 @@ self.addEventListener('install', function(event) {
           if (response) {
             return response;
           }
-
-
-
-
-
-
-
-
-  
           // Annars hämta från nätverket och lägg till den till cachen¨
-
-
-
-
-
-
-
-
-
-
-
           return fetch(event.request)
             .then(function(response) {
               // Kontrollera om vi fick ett giltigt svar

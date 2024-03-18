@@ -1,4 +1,5 @@
 function Kakor() {
+    
     this.setCookie = function(cookieName, newDistance, exdays) {
         // Hämta den befintliga totala sträckan från cookien
         var existingDistance = parseInt(this.getCookie(cookieName)) || 0;

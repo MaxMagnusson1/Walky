@@ -79,10 +79,16 @@ font-style: normal;
     right: 3vw;
     width: calc(100% - 6vw);
     height: calc(100% - 25vh);
+ 
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
 
+}
+.cancel {
+    font-style: italic;
+    font-size: smaller;
+    /* Andra önskade stilar */
 }
 
 
@@ -101,7 +107,8 @@ font-style: normal;
 }
     /* Justerar det första radavståndet */
    
-
+   
+    
     img.iconInLocker {
         /* Stilar för dina bilder */
         position: absolute;
