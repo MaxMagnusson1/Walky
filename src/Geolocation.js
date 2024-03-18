@@ -88,7 +88,7 @@ function Geolocation() {
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-            var aloudDiff = 0.0001;
+            var aloudDiff = 0.001;
             var latDiff = Math.abs(targetLat - crd.latitude);
             var lonDiff = Math.abs(targetlog - crd.longitude);
 
@@ -265,7 +265,7 @@ function Geolocation() {
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
-        this.button.addEventListener("mousedown", this.handleMouseDown);
+     //   this.button.addEventListener("mousedown", this.handleMouseDown);
         this.button.addEventListener
         this.target = {
             latitude: this.latitude,
@@ -277,15 +277,25 @@ function Geolocation() {
 
      //  this.button.style.cursor = "default"
      this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter <br>(Håll in för att avbryta)";
-         }
+     this.button.addEventListener("mousedown", this.handleMouseDown);
+     this.button.addEventListener("mouseup", this.handleMouseUp);
 
+         }
+         
      this.handleMouseDown = function() {
-        setTimeout(function () {
+       this.timeout= setTimeout(function () {
+            
             console.log("mousedown");
             self.remove();
         }.bind(this), 3000);
+
+
     }
 
+    this.handleMouseUp = function() {
+        console.log("mouseup");
+        clearTimeout(this.timeout);
+    }
     this.reachedDestination = function () {
 
         localStorage.clear();
@@ -295,18 +305,11 @@ function Geolocation() {
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");
-        this.button.innerHTML = " Grattis, du har nått din destination!";
+        this.button.innerHTML = " Grattis, du har nått din destination! Du kan nu välja en ny rutt!";
 
         if (navigator.vibrate) {
             navigator.vibrate(1000);
         }; 
-
-        setTimeout(function () {
-            this.button.innerHTML = "Välj en ny destination";
-        }.bind(this), 10000);
-
-
-
         setCookie.setCookie("total_dist", this.distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas
         this.totalDistance = setCookie.getCookie("total_dist"); //hämtar totala sträckan från kakorna
         this.totalMetersWalked.innerHTML = "Total sträcka gått någonsin: " + this.totalDistance + " meter";//sätter texten på totala sträckan
