@@ -1,6 +1,9 @@
 function Notis() {
    // var setCookie = new Kakor();
     this.notis = null;
+    this.nmrOfpresentsDiv = null;
+    this.totalPoints = null;
+    
    // this.priceBtn = priceBtn;
 
     this.checkNotis = function (nmrOfpresentsDiv, totalPoints) {

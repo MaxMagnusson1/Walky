@@ -15,8 +15,20 @@ function Geolocation() {
     var self = this;
     this.goingPos = null;
     this.target = null;
-    this.timer = null;
-    var controll = true; 
+    this.removeLoader = null;
+    this.deniedImg = null;
+    this.latitude = null;
+    this.longitude = null;
+    this.errorImg = null;
+    this.orgin = null;
+    this.destination = null;
+    this.points = null;
+    this.nmrOfpresentsDiv = null;
+    this.totalDistance = null;
+    this.totalMetersWalked = null;
+    this.totalPoints = null;
+
+
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -27,7 +39,7 @@ function Geolocation() {
 
 
         for (let i = 0; i < 5; i++) {
-            if (!navigator.geolocation) {
+            if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(this.showPosition, this.deniedAccess.bind(this));
                 break;
             }
@@ -47,22 +59,23 @@ function Geolocation() {
     }
 
     this.deniedAccess = function () {
-
         this.removeLoader.remove();
         this.deniedImg = document.createElement("img");
-        this.deniedImg.src = "./img/wifi-03.png";
+        this.deniedImg.src = "./img/treemedtext-03.png";
         this.deniedImg.className = "deniedDiv";
         document.body.appendChild(this.deniedImg);
-        this.errorText = document.createElement("p");
-        this.errorText.innerHTML = "Hjälp paketet att hitta genom att aktivera platsinformationen!";
-        this.deniedImg.appendChild(this.errorText);
-        this.errorText.className = "errorText";
+        this.button.innerHTML ="Tryck för att ladda om appen!"
+        //this.errorText = document.createElement("p");
+        // this.errorText.innerHTML = "Hjälp paketet att hitta genom att aktivera platsinformationen!";
+        // this.deniedImg.appendChild(this.errorText);
+        // this.errorText.className = "errorText";
 
 
     }
 
 
     this.showPosition = function (position) {
+
 
         //  console.log(this.target); 
         if (localStorage.getItem("longitude") != null) {
@@ -71,7 +84,7 @@ function Geolocation() {
 
 
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
-            var crd = position.coords;
+            const crd = position.coords;
 
             var aloudDiff = 0.1;
             var latDiff = Math.abs(targetLat - crd.latitude);
@@ -136,9 +149,9 @@ function Geolocation() {
 
 
     this.getMap = function (yourPos, goingPos) {
+
         this.position = yourPos;
         this.goingPos = goingPos;
-
         var lat = this.position.lat(); // Hämta latitud från yourPos
         var lng = this.position.lng(); // Hämta longitud från yourPos
         if (!this.karta) {
@@ -155,49 +168,18 @@ function Geolocation() {
             });
         }
 
-
         if (this.removeLoader) {
             this.removeLoader.remove();
 
         }
-        console.log('innan 1')
-  
-        console.log(controll);
-        console.log(controll === true); 
 
-        if (controll == true){
-            this.karta.addListener('click', function (event) {
-                console.log("HEEEEEEEJ"); 
-                self.addmarker(event, this.goingPos);
-    
-            }.bind(this));
-    
-        }  
-
-        var press;
-        this.karta.addListener('mousedown', function (event) {
-            press = setTimeout(function () {
-                controll = false; 
-                console.log(controll);
-                console.log('mousedown');
-                clearTimeout(press);
-        
-                // Placera lyssnaren för mouseup inuti mousedown om controll är 1
-           
+        this.karta.addListener('click', function (event) {
+            this.addmarker(event, this.goingPos);
         }.bind(this));
 
-        this.karta.addListener('mouseup', function (event) {
-            clearTimeout(press); // Rensa timeout när musknappen släpps
-            console.log("clear");
-            console.log(controll); 
-        }.bind(this));
-    }.bind(this), 3000);
     }
 
- 
-
     this.addmarker = function (event, goingPos) {
-        console.log("addmarker"); 
         this.goingPos = goingPos;
         if (this.markerArray.length == 0) {
 
@@ -277,9 +259,9 @@ function Geolocation() {
 
             }
 
-            else {
-                window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
-            }
+            /* else {
+                 window.alert('Det gick inte att beräkna rutten på grund av: ' + status);
+             }*/
         }.bind(this));
 
         this.button.addEventListener("click", this.clickHandler);
@@ -294,7 +276,6 @@ function Geolocation() {
             this.endDestination(this.distanceInMeters);
         }
     }.bind(this);
-
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
@@ -321,9 +302,6 @@ function Geolocation() {
         this.score = document.querySelector(".score");
         this.totalPoints = document.querySelector(".totalPoints");
         this.totalMetersWalked = document.querySelector(".totalMetersWalked");
-        if ("vibrate" in navigator) {
-            navigator.vibrate(1000);
-        }
         //  navigator.vibrate(1000);
         this.button.innerHTML = " Grattis, du har nått din destination!";
 

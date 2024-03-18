@@ -3,19 +3,34 @@ function Start() {
   var newScore = new Score();
   var notis = new Notis();
   var geolocation = new Geolocation();
-  this.startContainer = null; 
-  this.loading = null; 
-  this.startContainer = null; 
-  this.createAllElements = function(){
+  this.startContainer = null;
+  this.loading = null;
+  this.navContainer = null;
+  this.totalMetersWalked = null;
+  this.button = null;
+  this.score = null;
+  this.lockerBtn = null;
+  this.priceBtn = null;
+  this.mapBtn = null;
+  this.karta = null;
+  this.nmrOfpresentsDiv = null;
+  this.newLockerPrice = null;
+  this.nmrOfpresentsNum = null;
+  this.totalDistance = null;
+  this.totalPoints = null;
+  this.notisValue = null;
+  this.errorContainers = null;
+  this.lockerContainer = null;
+  
+  this.coin = null;
+  this.number = null;
 
-    
-    this.renderMapAndButtons(); 
 
-  }
+
 
   this.renderMapAndButtons = function () {
 
-   // localStorage.setItem("priceBtn", false);
+    // localStorage.setItem("priceBtn", false);
     //skapande av element för startsidan
    
    localStorage.clear(); 
@@ -31,16 +46,12 @@ function Start() {
     this.karta = document.getElementById("karta");
     this.nmrOfpresentsDiv = document.createElement("div");
     this.newLockerPrice = document.createElement("div");
-    //this.coin = document.createElement("img");
-
-   //this.coin.src = "./img/coin3-10.png";
-      this.nmrOfpresentsNum = document.createElement("p");
-
+    this.nmrOfpresentsNum = document.createElement("p");
     this.lockerContainer = document.body.querySelector(".lockerContainer");
 
     //sätta classnamn på element för startsidan
-    
-    this.loading.className="loadingTheMap"; 
+
+    this.loading.className = "loadingTheMap";
     this.startContainer.className = "startContainer";
     this.navContainer.className = "navContainer";
     this.totalMetersWalked.className = "totalMetersWalked";
@@ -51,17 +62,14 @@ function Start() {
     this.mapBtn.className = "mapBtn";
     this.nmrOfpresentsDiv.className = "nmrOfpresents";
     this.newLockerPrice.className = "newLockerPrice";
-    //this.newLockerPrice.style.visibility = "hidden";
     this.nmrOfpresentsNum.className = "nmrOfpresentsNum";
-   // this.coin.className = "coin";
 
-  //this.nmrOfpresents.className = "nmrOfpresents";
 
     //lägga till element i body för startsidan
-    
-   document.body.appendChild(this.startContainer);
+
+    document.body.appendChild(this.startContainer);
     document.body.appendChild(this.navContainer);
-    this.startContainer.appendChild(this.loading); 
+    this.startContainer.appendChild(this.loading);
     this.navContainer.appendChild(this.lockerBtn);
     this.navContainer.appendChild(this.mapBtn);
     this.navContainer.appendChild(this.priceBtn);
@@ -71,17 +79,17 @@ function Start() {
     this.startContainer.appendChild(this.karta);
     this.priceBtn.appendChild(this.nmrOfpresentsDiv);
     this.lockerBtn.appendChild(this.newLockerPrice);
-//this.score.appendChild(this.coin);
-  
-    
+    //this.score.appendChild(this.coin);
+
+
 
     this.notisValue = setCookie.getCookie("notis");
 
     //skapar objekt som behövs 
     this.totalDistance = setCookie.getCookie("total_dist");
-    
+
     geolocation.getCurrentLocation(this.button);
-  
+
     newScore.uppdatedScore(geolocation.distanceInMeters);
 
     notis = new Notis();
@@ -96,10 +104,8 @@ function Start() {
       this.newLockerPrice.style.visibility = "hidden";
     }
 
-
-
     //eventhantering för price sidan 
-    
+
     this.priceBtn.addEventListener("click", function () {
 
 
@@ -116,19 +122,18 @@ function Start() {
       }
       var price = new Price;
       price.renderPackage(this.priceBtn);
-    //  }
+      //  }
     }.bind(this));
-  
+
     //eventhantering för att gå tillbaka till startsidan  
-    
+
     this.mapBtn.addEventListener("click", function () {
-    //  if (localStorage.getItem("mapBtn") == "false"){
       this.startContainer.style.visibility = "visible";
 
       localStorage.setItem("priceBtn", false);
       localStorage.setItem("lockerBtn", false);
       localStorage.setItem("mapBtn", true);
-    
+
       this.totalPoints = setCookie.getCookie("total_points");
 
       this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
@@ -136,26 +141,26 @@ function Start() {
       var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer, .iconInLocker, .row");
 
       for (var i = 0; i < containers.length; i++) {
-        containers[i].remove(); 
+        containers[i].remove();
       }
- 
+
 
       this.errorContainers = document.body.querySelectorAll(".deniedDiv, .errorDiv")
-      if (this.errorContainers){
+      if (this.errorContainers) {
         for (var i = 0; i < this.errorContainers.length; i++) {
           this.errorContainers[i].style.visibility = "visible";
         }
-    //  }
-    }
-      
+        //  }
+      }
+
     }.bind(this));
 
 
       this.lockerBtn.addEventListener("click", function () {
 
-        localStorage.setItem("priceBtn", false);
-        localStorage.setItem("lockerBtn", true);
-        localStorage.setItem("mapBtn", false);
+      localStorage.setItem("priceBtn", false);
+      localStorage.setItem("lockerBtn", true);
+      localStorage.setItem("mapBtn", false);
 
     var y = document.body.querySelectorAll(".iconInLocker, .row");
 
@@ -166,25 +171,24 @@ function Start() {
       var containers = document.querySelectorAll('.startContainer, .deniedDiv, .errorDiv, .newLockerPrice')
       for (var i = 0; i < containers.length; i++) {
         containers[i].style.visibility = "hidden";
-      }; 
-
+      };
 
 
       var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer ");
-      
+
       for (var i = 0; i < containers.length; i++) {
-       containers[i].remove(); 
+        containers[i].remove();
       }
       var locker = new Locker();
       locker.renderLocker();
-     
-  //  }
-    
+
+      //  }
+
     }.bind(this));
 
-    
+
     //sätta text på element för startsidany
-  
+
     if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
 
       this.totalMetersWalked.innerHTML = "Du har ännu inte gått något, dags att börja gå!"; //sätter texten på totala sträckan om användaren inte gått innan 
@@ -194,8 +198,8 @@ function Start() {
 
     }
     if (newScore.totalPoints) {
-      this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
-   //  this.score.appendChild(this.coin);
+      this.score.innerHTML = "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >"; //sätter poängen på användaren
+      //  this.score.appendChild(this.coin);
 
     }
     else {
@@ -207,54 +211,54 @@ function Start() {
 
     //händelselyssnare 
 
-      /*this.button.addEventListener("click", function () {
-        if (geolocation.distanceInMeters != null){
-          this.endDestination(geolocation.distanceInMeters);
-        }
-        // Skicka avståndet som parameter
-      }.bind(this));*/
-    
-   
+    /*this.button.addEventListener("click", function () {
+      if (geolocation.distanceInMeters != null){
+        this.endDestination(geolocation.distanceInMeters);
+      }
+      // Skicka avståndet som parameter
+    }.bind(this));*/
+
+
   }
 
 
 
- /*this.lockerHandler = function () {
-    this.lockerContainer.style.visibility = "visible";
-
-    var containers = document.querySelectorAll('.startContainer')
-    for (var i = 0; i < containers.length; i++) {
-        containers[i].style.visibility = "hidden";
-    }; 
-
-    this.priceContainer.style.visibility ="hidden"; 
-    this.priceIcon.style.visibility ="hidden"; 
-    this.paketText.style.visibility="hidden"; 
-    this.paket.style.visibility="hidden"; 
-    this.lockerBtn.removeEventListener("click", this.lockerHandler);
-    var locker = new Locker();
-    locker.renderLocker();
-}.bind(this);
-
+  /*this.lockerHandler = function () {
+     this.lockerContainer.style.visibility = "visible";
  
-/*
-this.priceHandler = function () {
-
-  console.log("priceBtn"); 
-  this.paket.style.visibility ="visible"; 
-  this.priceIcon.style.visibility ="hidden"; 
-  this.paketText.style.visibility="hidden"; 
-
-  var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
-  for (var i = 0; i < containers.length; i++) {
-    containers[i].style.visibility = "hidden";
-  }
-
-  this.priceBtn.removeEventListener("click", this.priceHandler);
-
-  var price = new Price;
-  price.renderPackage();
-}.bind(this);*/
+     var containers = document.querySelectorAll('.startContainer')
+     for (var i = 0; i < containers.length; i++) {
+         containers[i].style.visibility = "hidden";
+     }; 
+ 
+     this.priceContainer.style.visibility ="hidden"; 
+     this.priceIcon.style.visibility ="hidden"; 
+     this.paketText.style.visibility="hidden"; 
+     this.paket.style.visibility="hidden"; 
+     this.lockerBtn.removeEventListener("click", this.lockerHandler);
+     var locker = new Locker();
+     locker.renderLocker();
+ }.bind(this);
+ 
+  
+ /*
+ this.priceHandler = function () {
+ 
+   console.log("priceBtn"); 
+   this.paket.style.visibility ="visible"; 
+   this.priceIcon.style.visibility ="hidden"; 
+   this.paketText.style.visibility="hidden"; 
+ 
+   var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
+   for (var i = 0; i < containers.length; i++) {
+     containers[i].style.visibility = "hidden";
+   }
+ 
+   this.priceBtn.removeEventListener("click", this.priceHandler);
+ 
+   var price = new Price;
+   price.renderPackage();
+ }.bind(this);*/
 
 
   //metod för att välja en slutdestination
@@ -268,8 +272,8 @@ this.priceHandler = function () {
       this.button.innerHTML = "Du har " + distanceInMeters + " meter kvar";
 
       if (distanceInMeters <= 1000) {
-      //  navigator.vibrate(1000); //vibrerar när användaren är framme
-        geolocation.clearRoute(); 
+        //  navigator.vibrate(1000); //vibrerar när användaren är framme
+        geolocation.clearRoute();
         this.button.innerHTML = "Du är framme! Interagera med kartan för att gå igen";//ändrar texten på knappen när användaren är framme
 
         setCookie.setCookie("total_dist", distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas

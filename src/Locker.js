@@ -1,5 +1,12 @@
 function Locker() {
     this.lockerContainer = null;
+    this.locker = null;
+    this.currentValue = null;
+    this.newValue = null;
+    this.rowDiv = null;
+    this.img = null;
+
+
     this.renderLocker = function () {
 
         //this.newLockerPrice = document.querySelector(".newLockerPrice");
@@ -39,7 +46,7 @@ function Locker() {
 
         if (imageArray != null ) {
             // Skapar en ny div för varje rad
-            this.rowDiv;
+            //this.rowDiv;
             for (var i = 0; i < imageArray.length; i++) {
                 if (!document.querySelector(`img[src="${imageArray[i]}"]`)) {
                 // Skapar en ny rad efter varje par av bilder
