@@ -88,7 +88,7 @@ function Geolocation() {
             //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
-            var aloudDiff = 0.001;
+            var aloudDiff = 0.0001;
             var latDiff = Math.abs(targetLat - crd.latitude);
             var lonDiff = Math.abs(targetlog - crd.longitude);
 

@@ -92,7 +92,7 @@ function Start() {
 
     newScore.uppdatedScore(geolocation.distanceInMeters);
 
-    notis = new Notis();
+ //a   notis = new Notis();
     this.totalPoints = setCookie.getCookie("total_points");
 
     notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
