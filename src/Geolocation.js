@@ -159,8 +159,7 @@ function Geolocation() {
        
         this.karta.addListener('click', function (event) {
             if(controll){
-            console.log(controll);
-            console.log("click");
+        
             this.addmarker(event, this.goingPos);     };
         }.bind(this));
     }
@@ -171,6 +170,7 @@ function Geolocation() {
      */
 
     this.addmarker = function (event, goingPos) {
+        console.log("addmarker");
         this.goingPos = goingPos;
         if (this.markerArray.length == 0) {
             this.marker = new google.maps.Marker({
@@ -309,7 +309,7 @@ function Geolocation() {
  * 
  */
     this.reachedDestination = function () {
-
+        console.log("Du är framme!");
         localStorage.clear();
         var notis = new Notis();
         var setCookie = new Kakor();
