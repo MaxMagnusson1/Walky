@@ -110,9 +110,9 @@ function Geolocation() {
                     self.markerArray[i].setMap(null);
                 }
 
-                self.markerArray = []; }
+                self.markerArray = []; 
                 localStorage.clear();
-                self.reachedDestination();
+                self.reachedDestination();}
            
         }
         else {
@@ -309,7 +309,6 @@ function Geolocation() {
  * 
  */
     this.reachedDestination = function () {
-        console.log("Du är framme!");
         localStorage.clear();
         var notis = new Notis();
         var setCookie = new Kakor();
