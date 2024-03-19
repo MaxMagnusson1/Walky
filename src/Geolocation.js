@@ -1,5 +1,8 @@
 
-
+/**
+ * Klass för att hålla koll på användarens position och rita ut en rutt på kartan. Inleds med att visa vad som är med i klassen samt 
+    skapar objekt som behövs för att visa informationen på startsidan.
+ */
 
 function Geolocation() {
     this.position = null;
@@ -11,7 +14,6 @@ function Geolocation() {
     this.pointArray = [];
     this.button = null;
     this.apiAttempt = 0;
-    //this.errorContainer 
     var self = this;
     this.goingPos = null;
     this.target = null;
@@ -32,11 +34,16 @@ function Geolocation() {
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
 
-    this.getCurrentLocation = function () {//kontrollera knappen, eller vet den redan?
+
+/**
+ * Metod för att hämta användarens position. Börjar med att hämta ut element från domen som kommer behövas. 
+ * Sedan kollar den om användaren har tillåtit att använda sin position. Om API:et inte fungerar så visas en bild som visar att det är fel på API:et och kknappen
+ får en eventlyssnare kopplad som laddar om sidan. Samma sak händer om användaren nekar tillgång till sin position. 
+ * WatchPosition används för att uppdatera användarens position kontinuerligt och kalla på sucsess funktionen showposition varje gång som användarens pos har uppdaterats.
+ */
+    this.getCurrentLocation = function () {
         this.removeLoader = document.querySelector(".loadingTheMap");
         this.button = document.querySelector(".newPositionBtn")
-
-
 
         for (let i = 0; i < 5; i++) {
             if (navigator.geolocation) {
@@ -51,7 +58,7 @@ function Geolocation() {
                     this.errorImg.className = "errorDiv";
                     document.body.appendChild(this.errorImg);
                     this.errorImg.src = "./img/felhanteringklar-04.png";
-                    this.button.innerHTML ="Tryck för att ladda om appen!"; 
+                    this.button.innerHTML ="Tryck för att testa igen!"
                     console.log(this.button.innerHTML); 
                     this.button.addEventListener("click", function () {
                     location.reload();
@@ -65,27 +72,31 @@ function Geolocation() {
     this.deniedAccess = function () {
         this.removeLoader.remove();
         this.deniedImg = document.createElement("img");
-        this.deniedImg.src = "./img/treemedtext-03.png";
+        this.deniedImg.src = "./img/errorfeedback-03.png";
         this.deniedImg.className = "deniedDiv";
         document.body.appendChild(this.deniedImg);
-        this.button.innerHTML ="Tryck för att ladda om appen!"
+        this.button.innerHTML ="Tryck för att testa igen!"
         this.button.addEventListener("click", function () {
             location.reload();
         })
   
     }
 
+/**
+ *  ShowPosition besår av en if och else sats. If satsen kollar om det finns ett värde lagrat i localstorage, vilket görs när användaren har valt en desination att gå till. 
+ Showpos kommer alltid triggas när användarens plats uppdateras. Ifall ett värde finns i localstorage så jämförs användarens position med den sparade positionen. Det används 
+ även en differnas för att se om användaren är inom en viss radie från sin destination. Om användaren är inom radie så tas rutt och markörer.. Kallar sedan på metoden reachedDestination.. 
+ * ifall användaren hamnar i else satsen betyder det att användaren inte har valt en destination och då kommer användarens position skickat till getmap medtoden .
+ 
+ */
+
 
     this.showPosition = function (position) {
 
-
-        //  console.log(this.target); 
         if (localStorage.getItem("longitude") != null) {
             var targetlog = localStorage.getItem("longitude");
             var targetLat = localStorage.getItem("latitude");
 
-
-            //  (target.latitude === crd.latitude && target.longitude === crd.longitude)
             const crd = position.coords;
 
             var aloudDiff = 0.001;
@@ -95,22 +106,17 @@ function Geolocation() {
             if (latDiff <= aloudDiff && lonDiff <= aloudDiff) {
                 directionsRenderer.setMap(null);
 
-                // Ta bort alla markörer från kartan
                for (let i = 0; i < self.markerArray.length; i++) {
                     self.markerArray[i].setMap(null);
                 }
 
-                // Rensa markerArray
                 self.markerArray = []; }
                 localStorage.clear();
                 self.reachedDestination();
-
            
         }
         else {
             this.goingPos = position.coords;
-            //   this.position = position; 
-            //     console.log(this.position)
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
 
@@ -118,28 +124,29 @@ function Geolocation() {
 
 
             self.getMap(yourPos, this.goingPos);
-            self.myLocation.setPosition(yourPos);
-        }
-
-          
+            self.myLocation.setPosition(yourPos); 
+        } 
     }
 
-
+/**
+ * Metod för att rendera ut kartan och sätta markörer på användarens position. Tar in yourPos och goingPos som parametrar som används. 
+ * Tar även bort laddikonen. och lägger till en eventlyssnare på kartan som kallar på addmarker metoden.
+ */ 
     this.getMap = function (yourPos, goingPos) {
 
         this.position = yourPos;
         this.goingPos = goingPos;
-        var lat = this.position.lat(); // Hämta latitud från yourPos
-        var lng = this.position.lng(); // Hämta longitud från yourPos
+        var lat = this.position.lat(); 
+        var lng = this.position.lng(); 
         if (!this.karta) {
             this.karta = new google.maps.Map(document.getElementById('karta'), {
                 zoom: 15,
                 center: this.position,
-                disableDefaultUI: true, // Inaktivera standardkontrollerna (zoomkontroll, karttypkontroll etc.)
+                disableDefaultUI: true, 
 
             });
             this.myLocation = new google.maps.Marker({
-                position: this.postion, // this.currentPos, //, yourpos , this.postion
+                position: this.postion, 
                 map: this.karta,
                 title: "Här är jag!"
             });
@@ -158,12 +165,14 @@ function Geolocation() {
         }.bind(this));
     }
 
+    /**
+     * Metod för att sätta markörer på kartan. Tar in event och goingPos som parametrar. Kontroller markerArray och om den är tom så sätts en markör på kartan. OM den inte ör tom
+     töms arrayen och sedan sätts en ny markör på kartan. Sedan kallas drawRoute metoden med position och event.latLng som parametrar.
+     */
 
     this.addmarker = function (event, goingPos) {
         this.goingPos = goingPos;
         if (this.markerArray.length == 0) {
-
-
             this.marker = new google.maps.Marker({
                 position: event.latLng,
                 map: this.karta
@@ -187,15 +196,15 @@ function Geolocation() {
             this.markerArray.push(this.marker);
         }
 
-
         this.drawRoute(this.position, event.latLng);
     }
 
 
-
+/**
+ * Metod som används när användaren avbryter sin rutt. Tar då bort markörer och rutter från kartan samt ändrar utseendet på knappen.
+ Tar även bort eventlyssnare från knappen för att man inte ska kunna hålla nere knappen och avbryta sin rutt vid fel tillstånd, tömmer sedan localstorage
+ */ 
     this.remove = function () {
-    console.log("remove"); 
-           // Remove all markers from the map
            this.button.innerHTML ="Tryck på kartan för att hitta en rutt!"; 
            this.button.removeEventListener("mousedown", this.handleMouseDown);
                    for (let i = 0; i < this.markerArray.length; i++) {
@@ -211,6 +220,12 @@ function Geolocation() {
         localStorage.clear();
 
     }
+
+/**
+ * Metod för att rendera ut en rutt, tar orgin vilket är vart användaren är och destinationen som är vart användaren ska som parametrar. Om directionserive sätts till ok
+ kommer rutten att renderas ut och sträckan omvandlas till meter  och knappens tillstånd uppdaters. 
+ * Eventlyssnare kopplas till knappen som kallar på clickHandler metoden.
+ */ 
 
     this.drawRoute = function (origin, destination) {
 
@@ -229,43 +244,32 @@ function Geolocation() {
                 directionsRenderer.setMap(self.karta);
                 directionsRenderer.setDirections(result);
                 this.distanceInMeters = result.routes[0].legs[0].distance.value;
-
-                if (this.pointArray.length <= 0) {
-                    this.points = document.createElement("span");
-                    this.points.className = "points";
-                    this.pointArray.push(this.points);
-                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
-                    return this.text;
-                }
-
-                else if (this.pointArray.length >= 1) {
-
-                    this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
-                }
-
+                this.button.innerHTML = "Denna sträcka motsvarar " + this.distanceInMeters + " meter, tryck för att välja den!";
             }
-
           
         }.bind(this));
 
         this.button.addEventListener("click", this.clickHandler);
 
-
-        // Lägger till händelsehanteraren
-
-
     }
 
+/**
+ * Metod för att hantera klicket och kontroller så att distancein meters inte är null, används istället för anonym funktion för att kunna använda använda removeeventistener
+ */ 
     this.clickHandler = function () {
         if (this.distanceInMeters != null) {
             this.endDestination(this.distanceInMeters);
         }
     }.bind(this);
 
+/**
+ * Metod för när användaren aktiverat en rutt, tar in distanceInMeters som parameter. Tar bort eventlyssnare från knappen och sätter target till användarens position.
+ Lagrar sedan användarnes positon i lokalstorage så att show.postion kan använda det för att jämföra om användaren är framme eller inte. 
+ * Uppdaterar sedan knapparna ochlägger till eventlyssnare på knappen som kallar på handlemousedown och handlemouseup metoden
+ */
     this.endDestination = function (distanceInMeters) {
         this.button.removeEventListener("click", this.clickHandler);
 
-     //   this.button.addEventListener("mousedown", this.handleMouseDown);
         this.button.addEventListener
         this.target = {
             latitude: this.latitude,
@@ -281,21 +285,29 @@ function Geolocation() {
      this.button.addEventListener("mouseup", this.handleMouseUp);
 
          }
-         
+
+/**
+ * Metod för hantera nedtryckning av knappen, ska tryckas ner i 3 sekunder för att kalla på remove metoden som avbruter rutt.
+ */
      this.handleMouseDown = function() {
-       this.timeout= setTimeout(function () {
-            
-            console.log("mousedown");
+       this.timeout= setTimeout(function () {   
             self.remove();
         }.bind(this), 3000);
-
-
     }
 
+/**
+ * Hanterar när man släpper nertryckningen och återställer tiden så man inte kommer in mousedown eventet av misstag. 
+ */
     this.handleMouseUp = function() {
-        console.log("mouseup");
         clearTimeout(this.timeout);
     }
+
+/**
+ * Metod för när användaren är framme. Tömmer lokalstorage och gör instanser av kakor och notis för att nya poäng och kontrollera om notis ska visas samt vibrerar när användaren är framme
+ med vibrate metoden, dock bara om användaren har en telefon som stödjer det.
+ Hämtar ut elementen som ska uppdateras i dommen. 
+ * 
+ */
     this.reachedDestination = function () {
 
         localStorage.clear();

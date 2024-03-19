@@ -1,3 +1,8 @@
+/**
+ * Fil som visar den första vyn av applikationen. Klassen börjar med att visa över vad som ska finnas i klassen samt instansera klasser som kommer behövas globalt 
+ * 
+ */
+
 function Start() {
   var setCookie = new Kakor();
   var newScore = new Score();
@@ -21,18 +26,15 @@ function Start() {
   this.notisValue = null;
   this.errorContainers = null;
   this.lockerContainer = null;
-  
   this.coin = null;
   this.number = null;
 
 
-
-
+/**
+ * Metod som skapar elementen, ger dem klassnamn och lägger till dem i domen. Metoden skapar även objekt som behövs för att visa informationen på startsidan.
+ 
+*/
   this.renderMapAndButtons = function () {
-
-    // localStorage.setItem("priceBtn", false);
-    //skapande av element för startsidan
-   
    localStorage.clear(); 
     this.loading = document.createElement("div"); 
     this.startContainer = document.createElement("div");
@@ -79,20 +81,19 @@ function Start() {
     this.startContainer.appendChild(this.karta);
     this.priceBtn.appendChild(this.nmrOfpresentsDiv);
     this.lockerBtn.appendChild(this.newLockerPrice);
-    //this.score.appendChild(this.coin);
 
-
-
+/**
+ * Hämtar ut värden från kakorna som ska renderas på startsidan. Kallar även på metoder som ska köras när sidan laddas in från andra klasser.
+ * Kör en kontroll för att kolla om några notiser ska visas eller inte. Samt lägger till eventhanterare för att navigera mellan sidorna. Och sätter
+ egenskaper såsom att gömma element och uppdatera text när man navigerar 
+  */
     this.notisValue = setCookie.getCookie("notis");
-
-    //skapar objekt som behövs 
     this.totalDistance = setCookie.getCookie("total_dist");
 
     geolocation.getCurrentLocation(this.button);
 
     newScore.uppdatedScore(geolocation.distanceInMeters);
 
- //a   notis = new Notis();
     this.totalPoints = setCookie.getCookie("total_points");
 
     notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
@@ -125,14 +126,9 @@ function Start() {
       //  }
     }.bind(this));
 
-    //eventhantering för att gå tillbaka till startsidan  
 
     this.mapBtn.addEventListener("click", function () {
       this.startContainer.style.visibility = "visible";
-
-      localStorage.setItem("priceBtn", false);
-      localStorage.setItem("lockerBtn", false);
-      localStorage.setItem("mapBtn", true);
 
       this.totalPoints = setCookie.getCookie("total_points");
 
@@ -158,9 +154,6 @@ function Start() {
 
       this.lockerBtn.addEventListener("click", function () {
 
-      localStorage.setItem("priceBtn", false);
-      localStorage.setItem("lockerBtn", true);
-      localStorage.setItem("mapBtn", false);
 
     var y = document.body.querySelectorAll(".iconInLocker, .row");
 
@@ -182,14 +175,15 @@ function Start() {
       var locker = new Locker();
       locker.renderLocker();
 
-      //  }
 
     }.bind(this));
 
 
-    //sätta text på element för startsidany
+/**
+ * Sätter text för knapparna på startsidan, görs med hjälp av kontroller så korrekt text renderas på knapparna.
+ */
 
-    if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
+if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs första gången man använder applikationen 
 
       this.totalMetersWalked.innerHTML = "Du har ännu inte gått något, dags att börja gå!"; //sätter texten på totala sträckan om användaren inte gått innan 
 
@@ -199,98 +193,19 @@ function Start() {
     }
     if (newScore.totalPoints) {
       this.score.innerHTML = "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >"; //sätter poängen på användaren
-      //  this.score.appendChild(this.coin);
 
     }
     else {
-      this.score.innerHTML = "Du har 0 poäng";
+      this.score.innerHTML = "Du har 0 poäng"; //om användaren inte har några poäng sätts texten till 0 poäng
     }
     this.button.innerHTML = "Tryck på kartan för att hitta en rutt!";
 
-
-
-    //händelselyssnare 
-
-    /*this.button.addEventListener("click", function () {
-      if (geolocation.distanceInMeters != null){
-        this.endDestination(geolocation.distanceInMeters);
-      }
-      // Skicka avståndet som parameter
-    }.bind(this));*/
-
-
   }
 
 
 
-  /*this.lockerHandler = function () {
-     this.lockerContainer.style.visibility = "visible";
  
-     var containers = document.querySelectorAll('.startContainer')
-     for (var i = 0; i < containers.length; i++) {
-         containers[i].style.visibility = "hidden";
-     }; 
- 
-     this.priceContainer.style.visibility ="hidden"; 
-     this.priceIcon.style.visibility ="hidden"; 
-     this.paketText.style.visibility="hidden"; 
-     this.paket.style.visibility="hidden"; 
-     this.lockerBtn.removeEventListener("click", this.lockerHandler);
-     var locker = new Locker();
-     locker.renderLocker();
- }.bind(this);
- 
-  
- /*
- this.priceHandler = function () {
- 
-   console.log("priceBtn"); 
-   this.paket.style.visibility ="visible"; 
-   this.priceIcon.style.visibility ="hidden"; 
-   this.paketText.style.visibility="hidden"; 
- 
-   var containers = document.body.querySelectorAll(".startContainer, .lockerContainer, .priceContainer, .deniedDiv");
-   for (var i = 0; i < containers.length; i++) {
-     containers[i].style.visibility = "hidden";
-   }
- 
-   this.priceBtn.removeEventListener("click", this.priceHandler);
- 
-   var price = new Price;
-   price.renderPackage();
- }.bind(this);*/
-
-
-  //metod för att välja en slutdestination
-  this.endDestination = function (distanceInMeters,) {
-    //sätta text på knappen för att veta hur långt man ska gå.
-    this.button.style.cursor = "default";
-    this.button.innerHTML = "Du ska gå " + distanceInMeters + " meter";
-
-    //sätta en timeout för att ändra texten på knappen. Timeout används för att den ska kolla en gång i minuten om användaren är närmare än 100 meter från den valda desutinationen
-    setTimeout(function () {
-      this.button.innerHTML = "Du har " + distanceInMeters + " meter kvar";
-
-      if (distanceInMeters <= 1000) {
-        //  navigator.vibrate(1000); //vibrerar när användaren är framme
-        geolocation.clearRoute();
-        this.button.innerHTML = "Du är framme! Interagera med kartan för att gå igen";//ändrar texten på knappen när användaren är framme
-
-        setCookie.setCookie("total_dist", distanceInMeters, 30); //skickar in hur långt användaren har gått till kakorna, skickar med namnet, värdet och hur länge det ska sparas
-        this.totalDistance = setCookie.getCookie("total_dist"); //hämtar totala sträckan från kakorna
-        this.totalMetersWalked.innerHTML = "Total sträcka gått någonsin: " + this.totalDistance + " meter";//sätter texten på totala sträckan
-
-        setCookie.setCookie("total_points", distanceInMeters, 30);
-        this.totalPoints = setCookie.getCookie("total_points");
-        notis.checkNotis(this.nmrOfpresentsDiv, this.totalPoints);
-
-        this.score.innerHTML = "Du har " + this.totalPoints + " poäng!"; //sätter poängen på användaren
-
-      }
-    }.bind(this), 3000);
-  }
 }
-
 
 
 
