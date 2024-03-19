@@ -12,7 +12,7 @@ function Price() {
     this.priceArray = null;
     this.priceNumber = null;
     this.priceIndex = null;
-    this.value = 1;
+    this.value = 1000;
     this.currentPoint = null;
     this.priceContainer = null;
     this.scoreContainer = null;
