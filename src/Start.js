@@ -131,9 +131,11 @@ function Start() {
       this.startContainer.style.visibility = "visible";
 
       this.totalPoints = setCookie.getCookie("total_points");
-
-      this.score.innerHTML =  "Du har " + newScore.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
-      
+     
+      if (this.totalPoints == "" || this.totalPoints == null) {
+      this.score.innerHTML =  "Du har " + 0 + " <img src ='./img/coin3-10.png' alt='coin' >" ; //sätter poängen på användaren
+      }
+      else {"Du har " + this.totalPoints + " <img src ='./img/coin3-10.png' alt='coin' >"}
       var containers = document.body.querySelectorAll(".priceContainer, .lockerContainer, .iconInLocker, .row");
 
       for (var i = 0; i < containers.length; i++) {
@@ -196,9 +198,9 @@ if (this.totalDistance == "") { //om det inte finns något värde i kakorna, dvs
 
     }
     else {
-      this.score.innerHTML = "Du har 0 poäng"; //om användaren inte har några poäng sätts texten till 0 poäng
+      this.score.innerHTML =  "Du har " + 0 + " <img src ='./img/coin3-10.png' alt='coin' >"; //om användaren inte har några poäng sätts texten till 0 poäng
     }
-    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!";
+    this.button.innerHTML = "Tryck på kartan för att hitta en rutt!!";
 
   }
 

@@ -59,7 +59,6 @@ function Geolocation() {
                     document.body.appendChild(this.errorImg);
                     this.errorImg.src = "./img/felhanteringklar-04.png";
                     this.button.innerHTML ="Tryck för att testa igen!"
-                    console.log(this.button.innerHTML); 
                     this.button.addEventListener("click", function () {
                     location.reload();
                     })
@@ -99,7 +98,7 @@ function Geolocation() {
 
             const crd = position.coords;
 
-            var aloudDiff = 0.001;
+            var aloudDiff = 0.0001;
             var latDiff = Math.abs(targetLat - crd.latitude);
             var lonDiff = Math.abs(targetlog - crd.longitude);
 
